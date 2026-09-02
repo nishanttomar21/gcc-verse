@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node / Editor
+node_modules/
+.vscode/
+.idea/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Local backup / temp
+*.tmp
+*.bak
