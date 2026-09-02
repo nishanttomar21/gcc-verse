@@ -1327,13 +1327,13 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .shift-text b {{ color: var(--ink-900); }}
 
-/* ── Institutional Capability Distribution Console (Clean, Curved & 3D Tactile) ── */
+/* ── Institutional Capability Distribution Console (Clean, Flat & Curved) ── */
 .cap-editorial-box {{
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 100%);
-  border: 1.5px solid rgba(0,0,0,0.08);
-  border-radius: 28px;
+  background: var(--white);
+  border: 1px solid var(--warm-200);
+  border-radius: 24px;
   padding: clamp(28px, 4vw, 44px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03), 0 16px 36px -8px rgba(0,0,0,0.06), 0 32px 72px -16px rgba(2,43,34,0.08), inset 0 1px 0 rgba(255,255,255,1);
+  box-shadow: 0 10px 30px -8px rgba(0,0,0,0.05);
   position: relative;
   overflow: hidden;
 }}
@@ -1342,7 +1342,7 @@ button {{ cursor: pointer; font: inherit; }}
   top: 0;
   left: 0;
   right: 0;
-  height: 3.5px;
+  height: 3px;
   background: linear-gradient(90deg, #C48B1B 0%, #0A7B5A 35%, #1E5ED8 65%, #D11E52 85%, #702AD9 100%);
 }}
 .cap-header-row {{
@@ -1382,7 +1382,7 @@ button {{ cursor: pointer; font: inherit; }}
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--white);
+  background: var(--warm-50);
   border: 1px solid var(--warm-200);
   padding: 6px 14px;
   border-radius: 100px;
@@ -1390,26 +1390,24 @@ button {{ cursor: pointer; font: inherit; }}
   font-size: 11.5px;
   color: var(--ink-600);
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }}
 .audit-pulse {{
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #059669;
-  box-shadow: 0 0 0 3px rgba(5,150,105,0.25);
+  box-shadow: 0 0 0 3px rgba(5,150,105,0.2);
   animation: pulseBeacon 2s infinite;
 }}
 .audit-sep {{ color: var(--ink-300); }}
 
-/* ── 3D Sculpted Allocation Spectrum & Live HUD ── */
+/* ── Allocation Spectrum & Live HUD ── */
 .cap-hud-panel {{
-  background: #FFFFFF;
-  border: 1.5px solid rgba(0,0,0,0.07);
-  border-radius: 20px;
-  padding: 16px 22px;
-  margin-bottom: 28px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,1);
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 26px;
 }}
 .hud-top-line {{
   display: flex;
@@ -1429,7 +1427,6 @@ button {{ cursor: pointer; font: inherit; }}
   height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
-  box-shadow: 0 0 6px currentColor;
   transition: background .25s ease;
 }}
 .hud-active-name {{
@@ -1460,16 +1457,16 @@ button {{ cursor: pointer; font: inherit; }}
   color: var(--ink-300);
 }}
 
-/* 3D Segmented Spectrum Bar */
+/* Flat Clean Segmented Spectrum Bar */
 .cap-precision-strip {{
   display: flex;
   align-items: center;
-  height: 14px;
-  border-radius: 100px;
-  background: #E6E3DD;
-  padding: 2px;
-  gap: 3px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 1px 0 rgba(255,255,255,0.9);
+  height: 10px;
+  border-radius: 6px;
+  background: var(--warm-200);
+  padding: 0;
+  gap: 2.5px;
+  overflow: hidden;
   position: relative;
 }}
 .strip-segment {{
@@ -1477,33 +1474,27 @@ button {{ cursor: pointer; font: inherit; }}
   width: 0%;
   position: relative;
   cursor: pointer;
-  border-radius: 100px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.08) 40%, rgba(0,0,0,0.16) 100%), var(--seg-color);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.5);
+  border-radius: 3px;
+  background: var(--seg-color);
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.24s ease,
-              opacity 0.24s ease,
-              box-shadow 0.24s ease,
-              transform 0.24s ease;
+              filter 0.2s ease,
+              opacity 0.2s ease;
 }}
 .strip-segment:hover, .strip-segment.active {{
-  transform: translateY(-2.5px) scaleY(1.18);
-  filter: brightness(1.22) saturate(1.2);
-  box-shadow: 0 8px 20px -2px var(--seg-glow), 0 2px 6px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.7);
-  z-index: 5;
+  filter: brightness(1.15);
   opacity: 1 !important;
 }}
 .spectrum-ticks {{
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: 6px;
   font-family: var(--mono);
   font-size: 10px;
   color: var(--ink-400);
   letter-spacing: .04em;
 }}
 
-/* ── Split Architecture: Left 3D Cards & Right Strategic Dossier ── */
+/* ── Split Architecture: Left Cards & Right Strategic Dossier ── */
 .cap-grid-layout {{
   display: grid;
   grid-template-columns: 1fr;
@@ -1512,12 +1503,12 @@ button {{ cursor: pointer; font: inherit; }}
 @media(min-width:960px){{
   .cap-grid-layout {{
     grid-template-columns: 1.25fr 1fr;
-    gap: 30px;
+    gap: 28px;
     align-items: stretch;
   }}
 }}
 
-/* Left Column: Clean, Curved 3D Capability Cards */
+/* Left Column: Clean, Curved Flat Capability Cards */
 .cap-cards-stack {{
   display: flex;
   flex-direction: column;
@@ -1525,22 +1516,22 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .cap-domain-card {{
   background: var(--white);
-  border: 1.5px solid rgba(0,0,0,0.07);
-  border-radius: 18px;
+  border: 1px solid var(--warm-200);
+  border-radius: 16px;
   padding: 16px 20px;
   cursor: pointer;
-  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all .2s ease;
   display: flex;
   flex-direction: column;
   gap: 10px;
   position: relative;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03), 0 6px 16px -4px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
 }}
 .cap-domain-card:hover, .cap-domain-card.active {{
   border-color: var(--row-color);
-  box-shadow: inset 4.5px 0 0 var(--row-color), 0 16px 36px -6px var(--row-glow, rgba(0,0,0,0.12)), 0 4px 10px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1);
-  transform: translateY(-4px);
-  background: #FFFFFF;
+  border-left-width: 4px;
+  background: var(--white);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px -4px rgba(0,0,0,0.06);
 }}
 .card-top-line {{
   display: flex;
@@ -1561,16 +1552,14 @@ button {{ cursor: pointer; font: inherit; }}
   color: var(--ink-500);
   background: var(--warm-50);
   border: 1px solid var(--warm-200);
-  border-radius: 8px;
-  padding: 3px 8px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  border-radius: 6px;
+  padding: 2px 7px;
   transition: all .2s;
 }}
 .cap-domain-card:hover .domain-num, .cap-domain-card.active .domain-num {{
   color: #FFFFFF;
   border-color: var(--row-color);
   background: var(--row-color);
-  box-shadow: 0 2px 6px var(--row-glow);
 }}
 .domain-title {{
   font-family: var(--sans);
@@ -1601,39 +1590,34 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .card-gauge-track {{
   width: 100%;
-  height: 4.5px;
-  background: #ECE9E2;
-  border-radius: 100px;
+  height: 4px;
+  background: var(--warm-100);
+  border-radius: 2px;
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }}
 .card-gauge-fill {{
   height: 100%;
   width: 0%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(0,0,0,0.1) 100%), var(--row-color, var(--gold-500));
-  border-radius: 100px;
-  box-shadow: 0 1px 4px var(--row-glow);
+  background: var(--row-color, var(--gold-500));
+  border-radius: 2px;
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 
-/* ── Right Column: Strategic Intelligence Dossier (3D Floating Glass & Card) ── */
+/* ── Right Column: Strategic Intelligence Dossier (Clean & Flat) ── */
 .cap-dossier-panel {{
-  background: #FFFFFF;
-  border: 1.5px solid rgba(0,0,0,0.07);
-  border-radius: 24px;
-  box-shadow: 0 12px 36px -8px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,1);
+  background: var(--white);
+  border: 1px solid var(--warm-200);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px -4px rgba(0,0,0,0.04);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }}
 .dossier-top-accent {{
-  height: 4px;
-  width: calc(100% - 36px);
-  margin: 12px auto 0;
-  border-radius: 100px;
-  box-shadow: 0 2px 8px currentColor;
-  transition: background .3s ease, box-shadow .3s ease;
+  height: 3px;
+  width: 100%;
+  transition: background .3s ease;
 }}
 .dossier-body {{
   padding: clamp(20px, 2.5vw, 26px);
@@ -1662,12 +1646,11 @@ button {{ cursor: pointer; font: inherit; }}
   height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
-  box-shadow: 0 0 6px currentColor;
   transition: background .25s ease;
 }}
 .dossier-headline {{
   font-family: var(--serif);
-  font-size: 23px;
+  font-size: 22px;
   color: var(--ink-900);
   font-weight: 700;
   line-height: 1.2;
@@ -1680,11 +1663,10 @@ button {{ cursor: pointer; font: inherit; }}
   margin-bottom: 16px;
 }}
 .dossier-stat-box {{
-  background: #FAF9F6;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 16px;
-  padding: 14px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,1);
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  border-radius: 12px;
+  padding: 12px 14px;
 }}
 .stat-box-label {{
   font-family: var(--mono);
@@ -1696,7 +1678,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .stat-box-value {{
   font-family: var(--mono);
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   color: var(--ink-900);
   line-height: 1.2;
@@ -1710,12 +1692,11 @@ button {{ cursor: pointer; font: inherit; }}
   margin-top: 3px;
 }}
 .dossier-quote-wrapper {{
-  border-left: 3.5px solid #C48B1B;
-  background: #FAF9F6;
-  padding: 14px 16px;
-  border-radius: 0 16px 16px 0;
+  border-left: 3px solid #C48B1B;
+  background: var(--warm-50);
+  padding: 12px 14px;
+  border-radius: 0 10px 10px 0;
   margin-bottom: 16px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
   transition: border-left-color .3s ease;
 }}
 .dossier-quote-text {{
@@ -1736,43 +1717,46 @@ button {{ cursor: pointer; font: inherit; }}
   gap: 5px;
   font-family: var(--mono);
   font-size: 10.5px;
-  padding: 4px 11px;
+  padding: 3.5px 10px;
   border-radius: 100px;
   background: var(--white);
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid var(--warm-200);
   color: var(--ink-700);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.9);
-  transition: all .2s;
+  transition: border-color .2s;
 }}
 .dossier-chip:hover {{
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+  border-color: var(--emerald-600);
 }}
 .chip-pip {{
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: #C48B1B;
-  box-shadow: 0 0 4px currentColor;
   transition: background .25s ease;
 }}
 .dossier-footer-note {{
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--mono);
-  font-size: 10.5px;
-  color: var(--ink-500);
+  font-size: 11px;
+  color: var(--ink-600);
   border-top: 1px solid var(--warm-200);
   padding-top: 12px;
   margin-top: auto;
+}}
+.hub-pin-icon {{
+  flex-shrink: 0;
+  color: var(--emerald-700);
+  width: 15px;
+  height: 15px;
 }}
 
 /* ── Mobile Responsive Safeguard for Capability Console ── */
 @media(max-width:767px){{
   .cap-editorial-box {{
     padding: 20px 14px;
-    border-radius: 20px;
+    border-radius: 18px;
   }}
   .cap-header-row {{
     flex-direction: column;
@@ -1794,7 +1778,7 @@ button {{ cursor: pointer; font: inherit; }}
   }}
   .cap-hud-panel {{
     padding: 12px 14px;
-    border-radius: 16px;
+    border-radius: 14px;
     margin-bottom: 18px;
   }}
   .hud-top-line {{
@@ -1808,7 +1792,7 @@ button {{ cursor: pointer; font: inherit; }}
     gap: 5px;
   }}
   .cap-precision-strip {{
-    height: 10px;
+    height: 8px;
   }}
   .cap-domain-card {{
     padding: 12px 14px;
@@ -1824,20 +1808,20 @@ button {{ cursor: pointer; font: inherit; }}
     font-size: 15.5px;
   }}
   .cap-dossier-panel {{
-    border-radius: 18px;
+    border-radius: 16px;
   }}
   .dossier-headline {{
     font-size: 18px;
   }}
   .dossier-stat-box {{
     padding: 10px 12px;
-    border-radius: 12px;
+    border-radius: 10px;
   }}
   .stat-box-value {{
     font-size: 13px;
   }}
   .dossier-quote-wrapper {{
-    border-radius: 0 12px 12px 0;
+    border-radius: 0 10px 10px 0;
     padding: 10px 12px;
   }}
   .dossier-quote-text {{
@@ -3630,7 +3614,7 @@ button {{ cursor: pointer; font: inherit; }}
             </div>
 
             <div class="dossier-footer-note">
-              <span>📍</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hub-pin-icon" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
               <span id="dossierFoot">Key Hubs: Bengaluru (Outer Ring Road) &amp; Hyderabad (HITEC City)</span>
             </div>
           </div>
