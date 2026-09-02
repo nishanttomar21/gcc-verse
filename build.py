@@ -55,8 +55,8 @@ def get_html(is_standalone=False):
 
 <style>
 /* ════════════════════════════════════════════════════════
-   GCCVERSE v3.1 — HIGH-PERFORMANCE EDITORIAL DESIGN SYSTEM
-   Inspired by: Financial Times, Stripe, Linear, McKinsey
+   GCCVERSE v3.2 — FULLY RESPONSIVE INSTITUTIONAL PLATFORM
+   Optimized for Phone, Tablet, Laptop, and High-DPI Desktop
    ════════════════════════════════════════════════════════ */
 
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
@@ -108,7 +108,10 @@ def get_html(is_standalone=False):
   --radius-lg: 20px;
 }}
 
-html {{ scroll-behavior: smooth; }}
+html {{
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}}
 
 body {{
   font-family: var(--sans);
@@ -119,21 +122,31 @@ body {{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  width: 100%;
 }}
 
-img {{ display: block; max-width: 100%; height: auto; }}
+img {{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}}
 a {{ color: inherit; text-decoration: none; cursor: pointer; }}
 button {{ cursor: pointer; font: inherit; }}
 
-.container {{ max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }}
+.container {{
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}}
 
 /* ════════════════════════════════════
-   PERFORMANCE & SCROLL REVEAL SYSTEM
+   SCROLL REVEAL SYSTEM
    ════════════════════════════════════ */
 .reveal {{
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }}
 .reveal.revealed {{
@@ -141,12 +154,11 @@ button {{ cursor: pointer; font: inherit; }}
   transform: translateY(0);
 }}
 
-/* Stagger Delays */
 .delay-100 {{ transition-delay: 100ms; }}
 .delay-200 {{ transition-delay: 200ms; }}
 .delay-300 {{ transition-delay: 300ms; }}
 
-/* Content Visibility for High-Performance Scrolling */
+/* Content Visibility for Rendering Speed */
 .stories-section,
 .pillars-section,
 .cities-section,
@@ -156,55 +168,22 @@ button {{ cursor: pointer; font: inherit; }}
 .advisory-section,
 .subscribe-section {{
   content-visibility: auto;
-  contain-intrinsic-size: 1px 700px;
-}}
-
-/* ════════════════════════════════════
-   ANNOUNCEMENT BAR — Thin top strip
-   ════════════════════════════════════ */
-.announce-bar {{
-  background: var(--emerald-900);
-  color: rgba(255,255,255,.88);
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: .04em;
-  padding: 9px 0;
-  text-align: center;
-  position: relative;
-  z-index: 60;
-  border-bottom: 1px solid rgba(227,178,78,.25);
-}}
-.announce-bar b {{ color: #FFF; }}
-.announce-bar a {{ color: var(--gold-400); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; transition: color .2s; }}
-.announce-bar a:hover {{ color: #FFF; }}
-.live-beacon {{
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #10B981;
-  box-shadow: 0 0 8px #10B981;
-  margin-right: 6px;
-  vertical-align: middle;
-  animation: beaconPulse 2s infinite ease-in-out;
-}}
-@keyframes beaconPulse {{
-  0%, 100% {{ transform: scale(1); opacity: 1; }}
-  50% {{ transform: scale(1.4); opacity: 0.4; }}
+  contain-intrinsic-size: 1px 650px;
 }}
 
 /* ════════════════════════════════════
    HEADER — Clean 1-Line Navigation
    ════════════════════════════════════ */
 .site-header {{
-  background: rgba(255,255,255,0.96);
+  background: rgba(255,255,255,0.98);
   border-bottom: 1px solid var(--warm-200);
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 100;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: box-shadow 0.3s ease;
+  width: 100%;
 }}
 .site-header.scrolled {{
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
@@ -218,7 +197,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .logo {{
   font-family: var(--serif);
-  font-size: 27px;
+  font-size: clamp(22px, 3.5vw, 27px);
   font-weight: 700;
   color: var(--ink-900);
   letter-spacing: -.03em;
@@ -243,24 +222,31 @@ button {{ cursor: pointer; font: inherit; }}
   margin-left: 12px;
   display: none;
 }}
-@media(min-width:1160px){{ .logo-sub {{ display: inline; }} }}
+@media(min-width:1200px){{ .logo-sub {{ display: inline; }} }}
 
-.nav-list {{
+/* Desktop Navigation */
+.nav-desktop {{
   display: none;
+}}
+@media(min-width:960px){{
+  .nav-desktop {{ display: block; }}
+}}
+.nav-list {{
+  display: flex;
   list-style: none;
-  gap: 18px;
+  gap: clamp(12px, 1.6vw, 20px);
   align-items: center;
-  font-size: 13.5px;
+  font-size: clamp(13px, 1.1vw, 14px);
   font-weight: 500;
   color: var(--ink-600);
   margin: 0;
   padding: 0;
 }}
-@media(min-width:768px){{ .nav-list {{ display: flex; }} }}
 .nav-list a {{
   position: relative;
   padding: 6px 0;
   transition: color .2s ease;
+  white-space: nowrap;
 }}
 .nav-list a::after {{
   content: "";
@@ -275,6 +261,7 @@ button {{ cursor: pointer; font: inherit; }}
 .nav-list a:hover {{ color: var(--emerald-700); }}
 .nav-list a:hover::after {{ width: 100%; }}
 
+/* Header CTA Buttons */
 .header-cta {{
   display: flex;
   align-items: center;
@@ -282,14 +269,15 @@ button {{ cursor: pointer; font: inherit; }}
   flex-shrink: 0;
 }}
 .btn-outline {{
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--ink-700);
   border: 1.5px solid var(--warm-200);
-  padding: 9px 18px;
+  padding: 8px 16px;
   border-radius: 100px;
   background: transparent;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }}
 .btn-outline:hover {{
   border-color: var(--emerald-700);
@@ -298,11 +286,11 @@ button {{ cursor: pointer; font: inherit; }}
   transform: translateY(-1px);
 }}
 .btn-primary {{
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   color: #FFF;
   background: var(--emerald-800);
-  padding: 10px 22px;
+  padding: 9px 18px;
   border-radius: 100px;
   border: none;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
@@ -317,15 +305,119 @@ button {{ cursor: pointer; font: inherit; }}
   transform: scale(0.98);
 }}
 
+/* Mobile Hamburger Button */
+.mobile-menu-btn {{
+  display: none;
+  background: transparent;
+  border: 1.5px solid var(--warm-200);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: all .2s;
+}}
+.mobile-menu-btn:hover {{
+  border-color: var(--emerald-700);
+  background: var(--warm-50);
+}}
+@media(max-width:959px){{
+  .mobile-menu-btn {{ display: flex; }}
+  .header-cta-desktop {{ display: none; }}
+}}
+.hamburger-icon {{
+  width: 18px;
+  height: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}}
+.hamburger-icon span {{
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--ink-800);
+  border-radius: 2px;
+  transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+.mobile-menu-btn.active .hamburger-icon span:nth-child(1) {{
+  transform: translateY(6px) rotate(45deg);
+}}
+.mobile-menu-btn.active .hamburger-icon span:nth-child(2) {{
+  opacity: 0;
+  transform: scaleX(0);
+}}
+.mobile-menu-btn.active .hamburger-icon span:nth-child(3) {{
+  transform: translateY(-6px) rotate(-45deg);
+}}
+
+/* Mobile Navigation Drawer */
+.mobile-nav-drawer {{
+  display: block;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--warm-200);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.1);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99;
+}}
+.mobile-nav-drawer.open {{
+  max-height: 480px;
+  opacity: 1;
+  pointer-events: auto;
+}}
+.mobile-nav-inner {{
+  padding: 20px 24px 28px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}}
+.mobile-nav-list {{
+  list-style: none;
+  margin: 0 0 20px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}}
+.mobile-nav-list a {{
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-800);
+  display: block;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--warm-100);
+  transition: color .2s;
+}}
+.mobile-nav-list a:hover {{
+  color: var(--emerald-700);
+}}
+.mobile-drawer-cta {{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+}}
+
 /* ════════════════════════════════════
    FULL-WIDTH HERO CINEMATIC CAROUSEL
    ════════════════════════════════════ */
 .hero-carousel {{
   position: relative;
   width: 100%;
-  height: 78vh;
-  min-height: 520px;
-  max-height: 760px;
+  height: clamp(480px, 76vh, 740px);
   overflow: hidden;
   background: #061815;
 }}
@@ -376,7 +468,7 @@ button {{ cursor: pointer; font: inherit; }}
     180deg,
     rgba(4, 24, 21, 0.2) 0%,
     rgba(4, 24, 21, 0.42) 40%,
-    rgba(4, 24, 21, 0.9) 100%
+    rgba(4, 24, 21, 0.92) 100%
   );
   pointer-events: none;
 }}
@@ -407,20 +499,21 @@ button {{ cursor: pointer; font: inherit; }}
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
 }}
 .hero-chip {{
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--gold-400);
   background: rgba(212, 160, 23, 0.14);
   border: 1px solid rgba(212, 160, 23, 0.38);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 100px;
   font-weight: 600;
   backdrop-filter: blur(12px);
@@ -446,16 +539,16 @@ button {{ cursor: pointer; font: inherit; }}
 /* Slide Headlines with Staggered Transitions */
 .hero-headline {{
   font-family: var(--serif);
-  font-size: clamp(34px, 5.2vw, 62px);
+  font-size: clamp(26px, 4.8vw, 58px);
   font-weight: 700;
   color: #FFFFFF;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -.03em;
-  margin-bottom: 16px;
-  max-width: 19ch;
+  margin-bottom: 14px;
+  max-width: 20ch;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
   transition: opacity .85s cubic-bezier(0.16, 1, 0.3, 1), transform .85s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 .hero-headline em {{
@@ -465,13 +558,13 @@ button {{ cursor: pointer; font: inherit; }}
   text-shadow: 0 0 24px rgba(212, 160, 23, 0.45);
 }}
 .hero-excerpt {{
-  font-size: 18px;
+  font-size: clamp(14.5px, 1.3vw, 17.5px);
   color: rgba(255,255,255,.88);
   max-width: 54ch;
-  line-height: 1.6;
+  line-height: 1.55;
   font-weight: 350;
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
   transition: opacity .9s cubic-bezier(0.16, 1, 0.3, 1), transform .9s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 1px 8px rgba(0,0,0,0.3);
 }}
@@ -487,20 +580,21 @@ button {{ cursor: pointer; font: inherit; }}
   transition-delay: .4s;
 }}
 
-/* Floating Live Telemetry Card */
+/* Floating Live Telemetry Card (Laptop & Desktop) */
 .hero-telemetry-card {{
   display: none;
   background: rgba(4, 32, 26, 0.76);
   border: 1px solid rgba(212, 160, 23, 0.35);
   border-radius: 14px;
-  padding: 18px 22px;
-  max-width: 320px;
+  padding: 16px 20px;
+  max-width: 300px;
   backdrop-filter: blur(16px);
   box-shadow: 0 16px 40px rgba(0,0,0,0.4);
   color: #FFF;
   transition: all .35s ease;
+  flex-shrink: 0;
 }}
-@media(min-width:1024px){{ .hero-telemetry-card {{ display: block; }} }}
+@media(min-width:1080px){{ .hero-telemetry-card {{ display: block; }} }}
 .hero-telemetry-card:hover {{
   border-color: var(--gold-400);
   transform: translateY(-3px);
@@ -508,7 +602,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .telemetry-tag {{
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--gold-400);
   text-transform: uppercase;
   letter-spacing: .1em;
@@ -516,7 +610,7 @@ button {{ cursor: pointer; font: inherit; }}
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }}
 .telemetry-pulse {{
   width: 7px;
@@ -526,9 +620,13 @@ button {{ cursor: pointer; font: inherit; }}
   box-shadow: 0 0 10px #10B981;
   animation: beaconPulse 1.8s infinite;
 }}
+@keyframes beaconPulse {{
+  0%, 100% {{ transform: scale(1); opacity: 1; }}
+  50% {{ transform: scale(1.4); opacity: 0.4; }}
+}}
 .telemetry-title {{
   font-family: var(--sans);
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
   color: #F3F7F5;
@@ -536,14 +634,14 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .telemetry-meta {{
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   color: rgba(255,255,255,0.6);
 }}
 
 /* Modern Segmented Interactive Tab Bar */
 .carousel-nav-bar {{
   position: absolute;
-  bottom: 20px;
+  bottom: 18px;
   left: 0;
   right: 0;
   z-index: 10;
@@ -555,12 +653,12 @@ button {{ cursor: pointer; font: inherit; }}
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 16px;
 }}
 .carousel-tabs {{
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex: 1;
   max-width: 820px;
 }}
@@ -569,7 +667,7 @@ button {{ cursor: pointer; font: inherit; }}
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   cursor: pointer;
   text-align: left;
   backdrop-filter: blur(12px);
@@ -578,7 +676,7 @@ button {{ cursor: pointer; font: inherit; }}
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }}
 .carousel-tab:hover {{
   background: rgba(255,255,255,0.16);
@@ -598,14 +696,14 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .tab-idx {{
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--gold-400);
   font-weight: 700;
   letter-spacing: .08em;
 }}
 .tab-title {{
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: rgba(255,255,255,0.94);
   white-space: nowrap;
@@ -639,17 +737,17 @@ button {{ cursor: pointer; font: inherit; }}
 .carousel-controls-right {{
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }}
 .slide-counter {{
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: 12px;
   color: rgba(255,255,255,0.9);
   font-weight: 600;
   background: rgba(0,0,0,0.4);
   border: 1px solid rgba(255,255,255,0.22);
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-radius: 100px;
   backdrop-filter: blur(10px);
   display: none;
@@ -658,8 +756,8 @@ button {{ cursor: pointer; font: inherit; }}
 .slide-counter b {{ color: var(--gold-400); }}
 
 .carousel-arrow-btn {{
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: rgba(255,255,255,0.18);
   backdrop-filter: blur(12px);
@@ -685,19 +783,30 @@ button {{ cursor: pointer; font: inherit; }}
 .stats-ribbon {{
   background: var(--white);
   border-bottom: 1px solid var(--warm-200);
-  padding: 46px 0;
+  padding: clamp(32px, 4vw, 48px) 0;
   position: relative;
   z-index: 5;
 }}
 .stats-grid {{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px 32px;
+  gap: 18px 20px;
 }}
-@media(min-width:768px){{ .stats-grid {{ grid-template-columns: repeat(4, 1fr); }} }}
+@media(max-width:480px){{
+  .stats-grid {{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }}
+}}
+@media(min-width:768px){{
+  .stats-grid {{
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 32px;
+  }}
+}}
 .stat-block {{
   text-align: center;
-  padding: 22px 18px;
+  padding: clamp(16px, 2vw, 22px) 14px;
   border-radius: var(--radius);
   transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -707,7 +816,7 @@ button {{ cursor: pointer; font: inherit; }}
 .stat-block:hover {{
   background: var(--cream);
   border-color: var(--warm-200);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: 0 10px 28px -6px rgba(0,0,0,0.06);
 }}
 .stat-block:not(:last-child)::after {{
@@ -723,7 +832,7 @@ button {{ cursor: pointer; font: inherit; }}
 @media(min-width:768px){{ .stat-block:not(:last-child)::after {{ display: block; }} }}
 .stat-number {{
   font-family: var(--serif);
-  font-size: clamp(38px, 4.2vw, 54px);
+  font-size: clamp(32px, 4vw, 52px);
   font-weight: 700;
   color: var(--ink-900);
   line-height: 1;
@@ -737,7 +846,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .stat-label {{
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .1em;
   color: var(--emerald-700);
@@ -745,7 +854,7 @@ button {{ cursor: pointer; font: inherit; }}
   margin-bottom: 5px;
 }}
 .stat-sub {{
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--ink-400);
   line-height: 1.4;
 }}
@@ -754,38 +863,38 @@ button {{ cursor: pointer; font: inherit; }}
    SECTION HEADINGS — Editorial system
    ════════════════════════════════════ */
 .section-header {{
-  margin-bottom: 48px;
+  margin-bottom: clamp(32px, 4vw, 48px);
 }}
 .section-tag {{
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11.5px;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--emerald-700);
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }}
 .section-tag::before {{
   content: "";
-  width: 24px;
+  width: 20px;
   height: 2px;
   background: var(--emerald-600);
   border-radius: 1px;
 }}
 .section-h2 {{
   font-family: var(--serif);
-  font-size: clamp(30px, 3.5vw, 46px);
+  font-size: clamp(26px, 3.4vw, 44px);
   font-weight: 700;
   color: var(--ink-900);
   line-height: 1.15;
   letter-spacing: -.03em;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }}
 .section-lead {{
-  font-size: 18px;
+  font-size: clamp(15px, 1.3vw, 18px);
   color: var(--ink-500);
   max-width: 60ch;
   line-height: 1.6;
@@ -795,15 +904,20 @@ button {{ cursor: pointer; font: inherit; }}
    FEATURED STORIES — Editorial cards
    ════════════════════════════════════ */
 .stories-section {{
-  padding: 92px 0;
+  padding: clamp(52px, 7vw, 92px) 0;
   background: var(--cream);
 }}
 .stories-grid {{
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 24px;
 }}
-@media(min-width:900px){{ .stories-grid {{ grid-template-columns: 1.4fr 1fr; }} }}
+@media(min-width:960px){{
+  .stories-grid {{
+    grid-template-columns: 1.35fr 1fr;
+    gap: 32px;
+  }}
+}}
 
 .story-feature {{
   background: var(--white);
@@ -814,7 +928,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .story-feature:hover {{
   box-shadow: 0 24px 54px -12px rgba(0,0,0,.12);
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: var(--warm-300);
 }}
 .story-img {{
@@ -830,7 +944,7 @@ button {{ cursor: pointer; font: inherit; }}
   transition: transform .7s ease;
 }}
 .story-feature:hover .story-img img {{ transform: scale(1.05); }}
-.story-body {{ padding: 34px 30px; }}
+.story-body {{ padding: clamp(20px, 3vw, 34px); }}
 .story-meta {{
   display: flex;
   align-items: center;
@@ -852,22 +966,22 @@ button {{ cursor: pointer; font: inherit; }}
 .chip-emerald:hover {{ background: var(--emerald-700); color: #FFF; }}
 .story-title {{
   font-family: var(--serif);
-  font-size: clamp(22px, 2.5vw, 30px);
+  font-size: clamp(20px, 2.3vw, 28px);
   font-weight: 700;
   color: var(--ink-900);
-  line-height: 1.22;
-  margin-bottom: 14px;
+  line-height: 1.24;
+  margin-bottom: 12px;
   letter-spacing: -.02em;
 }}
 .story-excerpt {{
-  font-size: 16px;
+  font-size: clamp(14.5px, 1.1vw, 16px);
   color: var(--ink-500);
-  line-height: 1.65;
-  margin-bottom: 18px;
+  line-height: 1.62;
+  margin-bottom: 16px;
 }}
 .story-source {{
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--ink-400);
   display: flex;
   align-items: center;
@@ -875,33 +989,33 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 
 /* Side stack */
-.stories-stack {{ display: flex; flex-direction: column; gap: 20px; }}
+.stories-stack {{ display: flex; flex-direction: column; gap: 16px; }}
 .story-card-sm {{
   background: var(--white);
   border: 1px solid var(--warm-200);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: clamp(18px, 2vw, 24px);
   transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 .story-card-sm:hover {{
   border-color: var(--emerald-600);
   box-shadow: 0 10px 28px -6px rgba(0,0,0,.08);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }}
-.story-card-sm .story-title {{ font-size: 19px; margin-bottom: 8px; }}
-.story-card-sm .story-excerpt {{ font-size: 14.5px; margin-bottom: 12px; }}
+.story-card-sm .story-title {{ font-size: clamp(17px, 1.5vw, 19px); margin-bottom: 8px; }}
+.story-card-sm .story-excerpt {{ font-size: 14px; margin-bottom: 10px; }}
 
 /* ════════════════════════════════════
-   SIX PILLARS — Clean grid
+   SIX PILLARS — Responsive Grid
    ════════════════════════════════════ */
 .pillars-section {{
-  padding: 96px 0;
+  padding: clamp(52px, 7vw, 96px) 0;
   background: var(--white);
 }}
 .pillars-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 26px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 22px;
 }}
 .pillar-card {{
   border: 1px solid var(--warm-200);
@@ -913,7 +1027,7 @@ button {{ cursor: pointer; font: inherit; }}
 .pillar-card:hover {{
   border-color: var(--emerald-600);
   box-shadow: 0 20px 48px -10px rgba(5,150,105,.15);
-  transform: translateY(-6px);
+  transform: translateY(-4px);
 }}
 .pillar-img {{
   position: relative;
@@ -930,8 +1044,8 @@ button {{ cursor: pointer; font: inherit; }}
 .pillar-card:hover .pillar-img img {{ transform: scale(1.06); }}
 .pillar-badge {{
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 12px;
+  left: 12px;
   font-family: var(--mono);
   font-size: 10px;
   font-weight: 700;
@@ -939,36 +1053,36 @@ button {{ cursor: pointer; font: inherit; }}
   text-transform: uppercase;
   background: var(--white);
   color: var(--ink-700);
-  padding: 5px 11px;
+  padding: 4px 10px;
   border-radius: 6px;
   box-shadow: 0 3px 10px rgba(0,0,0,.15);
 }}
-.pillar-body {{ padding: 26px; }}
+.pillar-body {{ padding: clamp(18px, 2vw, 24px); }}
 .pillar-title {{
   font-family: var(--sans);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--ink-900);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   letter-spacing: -.01em;
 }}
 .pillar-desc {{
-  font-size: 14.5px;
+  font-size: 14px;
   color: var(--ink-500);
   line-height: 1.55;
 }}
 
 /* ════════════════════════════════════
-   CITY CLUSTERS
+   CITY CLUSTERS — Responsive Grid
    ════════════════════════════════════ */
 .cities-section {{
-  padding: 96px 0;
+  padding: clamp(52px, 7vw, 96px) 0;
   background: var(--cream);
 }}
 .cities-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
 }}
 .city-card {{
   border-radius: var(--radius-lg);
@@ -978,7 +1092,7 @@ button {{ cursor: pointer; font: inherit; }}
   transition: all .35s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 .city-card:hover {{
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: 0 24px 54px -12px rgba(0,0,0,.12);
   border-color: var(--warm-300);
 }}
@@ -1001,24 +1115,24 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .city-name {{
   position: absolute;
-  left: 24px;
-  bottom: 20px;
+  left: 20px;
+  bottom: 18px;
   font-family: var(--serif);
-  font-size: 27px;
+  font-size: clamp(22px, 2.5vw, 26px);
   font-weight: 700;
   color: #FFF;
 }}
-.city-body {{ padding: 24px 26px; }}
+.city-body {{ padding: clamp(18px, 2vw, 24px); }}
 .city-desc {{
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--ink-600);
   line-height: 1.55;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }}
 .city-desc b {{ color: var(--ink-900); font-weight: 600; }}
 .city-source {{
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--ink-400);
 }}
 
@@ -1026,39 +1140,46 @@ button {{ cursor: pointer; font: inherit; }}
    DATA INDEX — Metrics + Bar
    ════════════════════════════════════ */
 .data-section {{
-  padding: 96px 0;
+  padding: clamp(52px, 7vw, 96px) 0;
   background: var(--white);
   border-top: 1px solid var(--warm-200);
 }}
 .data-shifts {{
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 40px;
+  gap: 12px;
+  margin-bottom: 36px;
 }}
 .shift-item {{
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 18px 24px;
+  gap: 16px;
+  padding: clamp(14px, 2vw, 18px) clamp(16px, 2vw, 22px);
   border: 1px solid var(--warm-200);
   border-radius: var(--radius);
   background: var(--cream);
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
 }}
+@media(max-width:540px){{
+  .shift-item {{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }}
+}}
 .shift-item:hover {{
   background: var(--white);
   border-color: var(--emerald-600);
-  transform: translateX(4px);
+  transform: translateX(3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.04);
 }}
 .shift-badge {{
   font-family: var(--mono);
   font-weight: 700;
-  font-size: 14px;
-  padding: 6px 14px;
+  font-size: 13.5px;
+  padding: 5px 12px;
   border-radius: 6px;
-  min-width: 90px;
+  min-width: 84px;
   text-align: center;
   white-space: nowrap;
 }}
@@ -1066,7 +1187,7 @@ button {{ cursor: pointer; font: inherit; }}
 .shift-badge.down {{ background: #FDE8E8; color: var(--down); }}
 .shift-badge.gold {{ background: var(--gold-50); color: var(--gold-600); }}
 .shift-text {{
-  font-size: 15.5px;
+  font-size: 15px;
   color: var(--ink-600);
   line-height: 1.45;
 }}
@@ -1076,7 +1197,7 @@ button {{ cursor: pointer; font: inherit; }}
 .cap-box {{
   border: 1px solid var(--warm-200);
   border-radius: var(--radius);
-  padding: 30px;
+  padding: clamp(20px, 3vw, 30px);
   background: var(--cream);
 }}
 .cap-title {{
@@ -1085,26 +1206,26 @@ button {{ cursor: pointer; font: inherit; }}
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }}
 .cap-title h3 {{
   font-family: var(--sans);
-  font-size: 17.5px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--ink-900);
 }}
 .cap-title span {{
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--ink-400);
 }}
 .cap-bar {{
   display: flex;
-  height: 16px;
-  border-radius: 8px;
+  height: 14px;
+  border-radius: 7px;
   overflow: hidden;
   background: var(--warm-100);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }}
 .cap-bar div {{
   height: 100%;
@@ -1115,9 +1236,9 @@ button {{ cursor: pointer; font: inherit; }}
 .cap-legend {{
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 12px 18px;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--ink-500);
 }}
 .cap-legend-item {{
@@ -1126,16 +1247,16 @@ button {{ cursor: pointer; font: inherit; }}
   gap: 6px;
 }}
 .cap-legend-dot {{
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
 }}
 
 /* ════════════════════════════════════
    INTELLIGENCE RIVER
    ════════════════════════════════════ */
 .river-section {{
-  padding: 92px 0;
+  padding: clamp(52px, 7vw, 92px) 0;
   background: var(--cream);
   border-top: 1px solid var(--warm-200);
 }}
@@ -1144,16 +1265,16 @@ button {{ cursor: pointer; font: inherit; }}
   grid-template-columns: 1fr;
   gap: 0;
 }}
-@media(min-width:900px){{ .river-list {{ grid-template-columns: 1fr 1fr; column-gap: 48px; }} }}
+@media(min-width:960px){{ .river-list {{ grid-template-columns: 1fr 1fr; column-gap: 48px; }} }}
 .river-row {{
-  padding: 22px 0;
+  padding: 18px 0;
   border-bottom: 1px solid var(--warm-200);
   transition: background .2s ease;
 }}
 .river-row:first-child {{ border-top: 1px solid var(--warm-200); }}
 .river-cat {{
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: var(--emerald-700);
@@ -1162,16 +1283,17 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .river-src {{
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--ink-400);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }}
 .river-headline {{
-  font-size: 16.5px;
+  font-size: 15.5px;
   font-weight: 600;
   color: var(--ink-800);
   line-height: 1.4;
   transition: color .18s;
+  display: block;
 }}
 .river-headline:hover {{ color: var(--emerald-700); }}
 
@@ -1179,20 +1301,20 @@ button {{ cursor: pointer; font: inherit; }}
    PERSONAS — Who We Serve
    ════════════════════════════════════ */
 .personas-section {{
-  padding: 96px 0;
+  padding: clamp(52px, 7vw, 96px) 0;
   background: var(--white);
 }}
 .personas-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
 }}
 .persona-card {{
   border: 1px solid var(--warm-200);
   border-radius: var(--radius);
-  padding: 28px;
+  padding: clamp(20px, 2.5vw, 26px);
   display: flex;
-  gap: 18px;
+  gap: 16px;
   align-items: start;
   transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
   background: var(--white);
@@ -1200,12 +1322,12 @@ button {{ cursor: pointer; font: inherit; }}
 .persona-card:hover {{
   border-color: var(--emerald-600);
   box-shadow: 0 12px 32px -8px rgba(5,150,105,.12);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }}
 .persona-icon {{
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   background: var(--emerald-50);
   display: grid;
   place-items: center;
@@ -1215,15 +1337,15 @@ button {{ cursor: pointer; font: inherit; }}
 .persona-card:hover .persona-icon {{
   transform: scale(1.08);
 }}
-.persona-icon svg {{ width: 24px; height: 24px; stroke: var(--emerald-700); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }}
+.persona-icon svg {{ width: 22px; height: 22px; stroke: var(--emerald-700); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }}
 .persona-title {{
   font-weight: 700;
-  font-size: 17px;
+  font-size: 16.5px;
   color: var(--ink-900);
   margin-bottom: 4px;
 }}
 .persona-desc {{
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--ink-500);
   line-height: 1.5;
 }}
@@ -1232,36 +1354,36 @@ button {{ cursor: pointer; font: inherit; }}
    ADVISORY
    ════════════════════════════════════ */
 .advisory-section {{
-  padding: 96px 0;
+  padding: clamp(52px, 7vw, 96px) 0;
   background: var(--emerald-900);
   color: #FFF;
 }}
 .advisory-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 20px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+  margin-bottom: 40px;
 }}
 .advisory-card {{
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.12);
   border-radius: var(--radius);
-  padding: 28px;
+  padding: clamp(20px, 2.5vw, 26px);
   transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 .advisory-card:hover {{
   background: rgba(255,255,255,.12);
   border-color: rgba(255,255,255,.3);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }}
 .advisory-card h3 {{
-  font-size: 18px;
+  font-size: 17.5px;
   font-weight: 700;
   margin-bottom: 8px;
 }}
 .advisory-card p {{
-  font-size: 14.5px;
-  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  color: rgba(255,255,255,.74);
   line-height: 1.55;
 }}
 .advisory-cta {{
@@ -1269,24 +1391,24 @@ button {{ cursor: pointer; font: inherit; }}
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 20px;
   background: rgba(255,255,255,.08);
   border: 1px solid rgba(255,255,255,.15);
   border-radius: var(--radius-lg);
-  padding: 36px 40px;
+  padding: clamp(24px, 3.5vw, 36px) clamp(20px, 3.5vw, 40px);
 }}
 .advisory-cta h4 {{
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: clamp(20px, 2.5vw, 24px);
   margin-bottom: 6px;
 }}
-.advisory-cta p {{ color: rgba(255,255,255,.68); font-size: 15px; }}
+.advisory-cta p {{ color: rgba(255,255,255,.7); font-size: 14.5px; }}
 .btn-gold-solid {{
   background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
   color: #1A1200;
   font-weight: 700;
-  font-size: 14.5px;
-  padding: 14px 28px;
+  font-size: 14px;
+  padding: 13px 26px;
   border-radius: 100px;
   border: none;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1302,7 +1424,7 @@ button {{ cursor: pointer; font: inherit; }}
    SUBSCRIBE
    ════════════════════════════════════ */
 .subscribe-section {{
-  padding: 88px 0;
+  padding: clamp(52px, 7vw, 88px) 0;
   background: var(--warm-50);
   border-top: 1px solid var(--warm-200);
   text-align: center;
@@ -1313,7 +1435,7 @@ button {{ cursor: pointer; font: inherit; }}
   background: var(--white);
   border: 1px solid var(--warm-200);
   border-radius: var(--radius-lg);
-  padding: 36px 32px;
+  padding: clamp(24px, 3.5vw, 36px) clamp(18px, 3vw, 32px);
   box-shadow: 0 10px 32px -8px rgba(0,0,0,.07);
   text-align: left;
   transition: box-shadow .3s ease;
@@ -1329,7 +1451,7 @@ button {{ cursor: pointer; font: inherit; }}
 @media(min-width:600px){{ .sub-row {{ flex-direction: row; }} }}
 .sub-input {{
   flex: 1;
-  padding: 14px 18px;
+  padding: 13px 16px;
   border: 1.5px solid var(--warm-200);
   border-radius: 10px;
   font-size: 15px;
@@ -1347,8 +1469,8 @@ button {{ cursor: pointer; font: inherit; }}
   background: var(--emerald-800);
   color: #FFF;
   font-weight: 700;
-  font-size: 15px;
-  padding: 14px 26px;
+  font-size: 14.5px;
+  padding: 13px 24px;
   border-radius: 10px;
   border: none;
   white-space: nowrap;
@@ -1369,7 +1491,7 @@ button {{ cursor: pointer; font: inherit; }}
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 18px 0;
+  margin: 16px 0;
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-400);
@@ -1383,14 +1505,15 @@ button {{ cursor: pointer; font: inherit; }}
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 13px 20px;
+  padding: 12px 18px;
   border: 1.5px solid var(--warm-200);
   border-radius: 10px;
   background: var(--white);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--ink-700);
   transition: all .24s;
+  text-align: center;
 }}
 .btn-linkedin:hover {{
   border-color: #0A66C2;
@@ -1400,12 +1523,12 @@ button {{ cursor: pointer; font: inherit; }}
 .sub-trust {{
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 18px;
-  padding-top: 16px;
+  gap: 12px 16px;
+  margin-top: 16px;
+  padding-top: 14px;
   border-top: 1px solid var(--warm-200);
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--ink-400);
   justify-content: center;
 }}
@@ -1417,7 +1540,7 @@ button {{ cursor: pointer; font: inherit; }}
 .site-footer {{
   background: var(--ink-900);
   color: rgba(255,255,255,.58);
-  padding: 48px 0 36px;
+  padding: clamp(36px, 5vw, 48px) 0 32px;
   font-size: 13.5px;
 }}
 .footer-inner {{
@@ -1435,13 +1558,14 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .footer-links {{
   display: flex;
-  gap: 20px;
+  gap: clamp(14px, 2vw, 20px);
+  flex-wrap: wrap;
 }}
 .footer-links a {{ transition: color .2s; }}
 .footer-links a:hover {{ color: var(--gold-400); }}
 .footer-copy {{
-  margin-top: 28px;
-  padding-top: 20px;
+  margin-top: 24px;
+  padding-top: 18px;
   border-top: 1px solid rgba(255,255,255,.08);
   display: flex;
   justify-content: space-between;
@@ -1460,10 +1584,11 @@ button {{ cursor: pointer; font: inherit; }}
   inset: 0;
   background: rgba(0,0,0,.65);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 200;
   display: none;
   place-items: center;
-  padding: 20px;
+  padding: 16px;
   opacity: 0;
   transition: opacity .3s ease;
 }}
@@ -1474,9 +1599,11 @@ button {{ cursor: pointer; font: inherit; }}
 .modal-box {{
   background: var(--white);
   border-radius: var(--radius-lg);
-  padding: 40px;
+  padding: clamp(24px, 4vw, 40px);
   max-width: 540px;
   width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   box-shadow: 0 30px 80px rgba(0,0,0,.25);
   transform: scale(0.95);
@@ -1487,10 +1614,10 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .modal-close {{
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 34px;
-  height: 34px;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: var(--warm-50);
   border: 1px solid var(--warm-200);
@@ -1504,51 +1631,32 @@ button {{ cursor: pointer; font: inherit; }}
   background: var(--warm-100);
   color: var(--ink-900);
 }}
-.form-group {{ margin-bottom: 16px; }}
+.form-group {{ margin-bottom: 14px; }}
 .form-label {{
   display: block;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: var(--ink-700);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: .05em;
 }}
-.form-input {{
+.form-input, .form-select, .form-textarea {{
   width: 100%;
-  padding: 12px 16px;
+  padding: 11px 14px;
   border: 1.5px solid var(--warm-200);
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14.5px;
   background: var(--cream);
   color: var(--ink-800);
   outline: none;
   transition: border .2s;
 }}
-.form-input:focus {{ border-color: var(--emerald-600); }}
-.form-select {{
-  width: 100%;
-  padding: 12px 16px;
-  border: 1.5px solid var(--warm-200);
-  border-radius: 8px;
-  font-size: 15px;
-  background: var(--cream);
-  color: var(--ink-800);
-  outline: none;
-  appearance: none;
-}}
+.form-input:focus, .form-textarea:focus {{ border-color: var(--emerald-600); }}
 .form-textarea {{
-  width: 100%;
-  padding: 12px 16px;
-  border: 1.5px solid var(--warm-200);
-  border-radius: 8px;
-  font-size: 15px;
-  background: var(--cream);
-  color: var(--ink-800);
-  outline: none;
   resize: none;
-  min-height: 80px;
+  min-height: 75px;
 }}
 
 /* Audio toast */
@@ -1556,21 +1664,23 @@ button {{ cursor: pointer; font: inherit; }}
   position: fixed;
   bottom: 20px;
   right: 20px;
+  left: auto;
   background: var(--white);
   border: 1px solid var(--warm-200);
   border-radius: var(--radius);
-  padding: 14px 18px;
+  padding: 12px 16px;
   box-shadow: 0 14px 40px rgba(0,0,0,.14);
   z-index: 90;
   display: none;
   align-items: center;
-  gap: 14px;
-  max-width: 360px;
+  gap: 12px;
+  max-width: calc(100vw - 40px);
+  width: 340px;
   animation: toastUp .35s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 .audio-toast.show {{ display: flex; }}
 @keyframes toastUp {{ from {{ transform: translateY(24px); opacity: 0; }} to {{ transform: translateY(0); opacity: 1; }} }}
-.wave-bars {{ display: flex; align-items: center; gap: 3px; height: 20px; }}
+.wave-bars {{ display: flex; align-items: center; gap: 3px; height: 18px; }}
 .wave-bar {{ width: 3px; height: 100%; background: var(--emerald-600); border-radius: 2px; animation: waveUp 1s infinite ease-in-out; }}
 .wave-bar:nth-child(2) {{ animation-delay: .12s; height: 70%; }}
 .wave-bar:nth-child(3) {{ animation-delay: .24s; height: 45%; }}
@@ -1585,28 +1695,49 @@ button {{ cursor: pointer; font: inherit; }}
   *, *::before, *::after {{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }}
 }}
 
-/* Responsive tweaks */
+/* ════════════════════════════════════
+   SPECIFIC MOBILE & TABLET ADAPTATIONS
+   ════════════════════════════════════ */
 @media(max-width:768px) {{
-  .hero-carousel {{ height: 70vh; min-height: 460px; }}
-  .hero-content {{ padding-bottom: 84px; }}
-  .carousel-tabs {{ display: none; }}
-  .tab-title {{ display: none; }}
+  :root {{
+    --gutter: 16px;
+  }}
+  .hero-content {{ padding-bottom: 74px; }}
+  .carousel-tabs {{
+    gap: 6px;
+  }}
+  .carousel-tab {{
+    padding: 6px 8px;
+  }}
+  .tab-title {{
+    display: none;
+  }}
+  .slide-counter {{
+    display: none;
+  }}
+  .carousel-arrow-btn {{
+    width: 36px;
+    height: 36px;
+  }}
 }}
+
 @media(max-width:480px) {{
-  .hero-carousel {{ height: 65vh; min-height: 420px; }}
-  .hero-headline {{ font-size: 30px; }}
-  .hero-content {{ padding-bottom: 80px; }}
+  .hero-chip-wrap {{ margin-bottom: 10px; }}
+  .hero-headline {{ font-size: 25px; line-height: 1.15; }}
+  .hero-excerpt {{ font-size: 14px; line-height: 1.5; }}
+  .hero-content {{ padding-bottom: 68px; }}
+  .advisory-cta {{
+    flex-direction: column;
+    align-items: stretch;
+  }}
+  .btn-gold-solid {{
+    width: 100%;
+    text-align: center;
+  }}
 }}
 </style>
 </head>
 <body>
-
-<!-- ═══ ANNOUNCEMENT BAR ═══ -->
-<aside class="announce-bar" aria-label="Ecosystem Announcement">
-  <div class="container">
-    <span class="live-beacon" aria-hidden="true"></span><b>GCCVerse FY2026 Intelligence</b> — 2,117 centres tracked across India · <a href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">Follow on LinkedIn →</a>
-  </div>
-</aside>
 
 <!-- ═══ HEADER — 1-Line Navigation ═══ -->
 <header class="site-header" id="siteHeader">
@@ -1615,7 +1746,7 @@ button {{ cursor: pointer; font: inherit; }}
       GCC<em>Verse</em>
       <span class="logo-sub">Institutional Intelligence</span>
     </a>
-    <nav aria-label="Primary Navigation">
+    <nav class="nav-desktop" aria-label="Primary Navigation">
       <ul class="nav-list">
         <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
         <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
@@ -1626,8 +1757,33 @@ button {{ cursor: pointer; font: inherit; }}
       </ul>
     </nav>
     <div class="header-cta">
-      <button class="btn-outline" type="button" onclick="openModal()">Commission Brief</button>
+      <button class="btn-outline header-cta-desktop" type="button" onclick="openModal()">Commission Brief</button>
       <a href="#subscribe" data-section="subscribe" class="btn-primary">Subscribe Free</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+    <div class="mobile-nav-inner">
+      <ul class="mobile-nav-list">
+        <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
+        <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
+        <li><a href="#cities" data-section="cities">Cities</a></li>
+        <li><a href="#data" data-section="data">The Index</a></li>
+        <li><a href="#river" data-section="river">Live River</a></li>
+        <li><a href="#advisory" data-section="advisory">Advisory</a></li>
+      </ul>
+      <div class="mobile-drawer-cta">
+        <button class="btn-outline" type="button" onclick="openModal(); closeMobileNav();" style="width:100%; text-align:center;">Commission Brief</button>
+        <a href="#subscribe" data-section="subscribe" class="btn-primary" style="width:100%; text-align:center; display:block;" onclick="closeMobileNav()">Subscribe Free</a>
+      </div>
     </div>
   </div>
 </header>
@@ -2000,7 +2156,7 @@ button {{ cursor: pointer; font: inherit; }}
     <div class="section-header reveal">
       <div class="section-tag" style="color:var(--gold-400)">Institutional Advisory Practice</div>
       <h2 class="section-h2" style="color:#FFF">When you require bespoke intelligence.</h2>
-      <p class="section-lead" style="color:rgba(255,255,255,.72)">We advise multinational corporations, sovereign funds, and institutional developers on confidential market entry and expansion.</p>
+      <p class="section-lead" style="color:rgba(255,255,255,.74)">We advise multinational corporations, sovereign funds, and institutional developers on confidential market entry and expansion.</p>
     </div>
     <div class="advisory-grid">
       <div class="advisory-card reveal"><h3>City Intelligence & Feasibility</h3><p>Micro-market analysis of infrastructure, transit, power stability, and talent density to de-risk greenfield site selections.</p></div>
@@ -2129,7 +2285,6 @@ function animateCounter(el) {{
   function update(currentTime) {{
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    // Smooth easeOutExpo curve
     const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
     const currentVal = start + (target - start) * easeProgress;
 
@@ -2180,7 +2335,57 @@ function initCapabilityBar() {{
   observer.observe(capBox);
 }}
 
-// ── 4. Smooth Navigation WITHOUT '#' in URL ──
+// ── 4. Mobile Navigation Drawer & Hamburger ──
+function initMobileNav() {{
+  const btn = document.getElementById('mobileMenuBtn');
+  const drawer = document.getElementById('mobileNavDrawer');
+  if (!btn || !drawer) return;
+
+  function toggle() {{
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {{
+      closeMobileNav();
+    }} else {{
+      openMobileNav();
+    }}
+  }}
+
+  btn.addEventListener('click', (e) => {{
+    e.stopPropagation();
+    toggle();
+  }});
+
+  // Close drawer on click outside
+  document.addEventListener('click', (e) => {{
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {{
+      closeMobileNav();
+    }}
+  }});
+}}
+
+function openMobileNav() {{
+  const btn = document.getElementById('mobileMenuBtn');
+  const drawer = document.getElementById('mobileNavDrawer');
+  if (btn && drawer) {{
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    btn.classList.add('active');
+    btn.setAttribute('aria-expanded', 'true');
+  }}
+}}
+
+function closeMobileNav() {{
+  const btn = document.getElementById('mobileMenuBtn');
+  const drawer = document.getElementById('mobileNavDrawer');
+  if (btn && drawer) {{
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    btn.classList.remove('active');
+    btn.setAttribute('aria-expanded', 'false');
+  }}
+}}
+
+// ── 5. Smooth Navigation WITHOUT '#' in URL ──
 function initCleanNav() {{
   const links = document.querySelectorAll('a[href^="#"], a[data-section]');
   links.forEach(link => {{
@@ -2192,8 +2397,10 @@ function initCleanNav() {{
       const targetEl = document.getElementById(sectionName);
       if (targetEl) {{
         e.preventDefault();
+        closeMobileNav();
+
         const headerH = document.getElementById('siteHeader')?.offsetHeight || 72;
-        const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
+        const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 8;
 
         window.scrollTo({{
           top: targetTop,
@@ -2208,7 +2415,6 @@ function initCleanNav() {{
     }});
   }});
 
-  // Handle browser history navigation
   window.addEventListener('popstate', function(e) {{
     const sectionName = e.state?.section || window.location.pathname.replace(/^\\/+|\\/+$/g, '');
     if (sectionName) {{
@@ -2216,7 +2422,7 @@ function initCleanNav() {{
       if (targetEl) {{
         const headerH = document.getElementById('siteHeader')?.offsetHeight || 72;
         window.scrollTo({{
-          top: targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 12,
+          top: targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 8,
           behavior: 'smooth'
         }});
       }}
@@ -2224,7 +2430,7 @@ function initCleanNav() {{
   }});
 }}
 
-// ── 5. Header Scroll Shadow (Passive Throttle) ──
+// ── 6. Header Scroll Shadow (Passive Throttle) ──
 let ticking = false;
 window.addEventListener('scroll', () => {{
   if (!ticking) {{
@@ -2243,7 +2449,7 @@ window.addEventListener('scroll', () => {{
   }}
 }}, {{ passive: true }});
 
-// ── 6. Ultra-Attractive Hero Carousel Engine ──
+// ── 7. Ultra-Attractive Hero Carousel Engine ──
 (function initCarousel(){{
   const slides = document.querySelectorAll('.hero-slide');
   const tabs = document.querySelectorAll('.carousel-tab');
@@ -2336,7 +2542,7 @@ window.addEventListener('scroll', () => {{
     }}
   }});
 
-  // Touch Swipe
+  // Touch Swipe for Mobile & Tablet
   const carouselEl = document.getElementById('heroCarousel');
   if (carouselEl) {{
     let touchStartX = 0;
@@ -2356,6 +2562,7 @@ window.addEventListener('scroll', () => {{
       start();
     }}, {{ passive: true }});
 
+    // Keyboard navigation
     carouselEl.tabIndex = 0;
     carouselEl.addEventListener('keydown', (e) => {{
       if (e.key === 'ArrowRight') {{
@@ -2371,7 +2578,7 @@ window.addEventListener('scroll', () => {{
   start();
 }})();
 
-// ── 7. River Feed ──
+// ── 8. River Feed ──
 const RIVER=[
   {{cat:"Operating Models",src:"Company Filings 2026",h:"Blackbaud executes phased transition of contract engineers to direct GCC payroll through 2027."}},
   {{cat:"AI & Data",src:"Syneos Health",h:"Production AI deployed in Hyderabad for clinical trial protocol automation and pharmacovigilance."}},
@@ -2384,7 +2591,7 @@ const RIVER=[
 ];
 document.getElementById('riverStream').innerHTML=RIVER.map(r=>`<div class="river-row reveal"><div class="river-cat">${{r.cat}}</div><div class="river-src">${{r.src}}</div><a href="#stories" data-section="stories" class="river-headline">${{r.h}}</a></div>`).join('');
 
-// ── 8. Subscribe ──
+// ── 9. Subscribe ──
 document.getElementById('subForm').onsubmit=function(e){{
   e.preventDefault();
   const em=document.getElementById('subEmail').value.trim();
@@ -2394,11 +2601,11 @@ document.getElementById('subForm').onsubmit=function(e){{
   document.getElementById('subEmail').value='';
 }};
 
-// ── 9. Audio ──
+// ── 10. Audio ──
 function simulateAudio(){{document.getElementById('audioToast').classList.add('show')}}
 function closeAudio(){{document.getElementById('audioToast').classList.remove('show')}}
 
-// ── 10. Modal ──
+// ── 11. Modal ──
 function openModal(){{document.getElementById('advisoryModal').classList.add('open')}}
 function closeModal(){{document.getElementById('advisoryModal').classList.remove('open')}}
 document.getElementById('advisoryModal').onclick=function(e){{if(e.target===this)closeModal()}};
@@ -2413,11 +2620,13 @@ document.addEventListener('DOMContentLoaded', () => {{
   initScrollReveal();
   initStatsCounter();
   initCapabilityBar();
+  initMobileNav();
   initCleanNav();
 }});
 initScrollReveal();
 initStatsCounter();
 initCapabilityBar();
+initMobileNav();
 initCleanNav();
 </script>
 </body>
@@ -2427,10 +2636,10 @@ initCleanNav();
 # Write index.html (modular)
 with open(os.path.join(BASE_DIR, "index.html"), "w") as f:
     f.write(get_html(is_standalone=False))
-print("Generated index.html (Optimized)")
+print("Generated index.html (Responsive & No top bar)")
 
 # Write gccverse_enterprise.html (embedded standalone)
 with open(os.path.join(BASE_DIR, "gccverse_enterprise.html"), "w") as f:
     f.write(get_html(is_standalone=True))
-print("Generated gccverse_enterprise.html (Optimized)")
+print("Generated gccverse_enterprise.html (Responsive & No top bar)")
 
