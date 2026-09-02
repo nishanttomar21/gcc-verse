@@ -1000,7 +1000,35 @@ button {{ cursor: pointer; font: inherit; }}
   gap: 24px;
 }}
 @media(min-width:960px){{
-  .stories-grid {{ grid-template-columns: 1.35fr 1fr; gap: 32px; }}
+  .stories-grid {{
+    grid-template-columns: 1.35fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+  }}
+  .story-feature {{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }}
+  .story-feature .story-body {{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+  .stories-stack {{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+  }}
+  .story-card-sm {{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
 }}
 
 .story-feature {{
@@ -1299,35 +1327,35 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .shift-text b {{ color: var(--ink-900); }}
 
-/* ── Institutional Capability Matrix & Research Console ── */
+/* ── Institutional Capability Distribution Console (Bespoke Senior UI/UX) ── */
 .cap-editorial-box {{
   background: var(--white);
-  border: 1px solid rgba(20,20,19,0.08);
-  border-radius: 14px;
+  border: 1.5px solid var(--warm-200);
+  border-radius: 16px;
   padding: clamp(28px, 4vw, 44px);
-  box-shadow: 0 20px 54px -14px rgba(20,20,19,0.07), 0 0 0 1px rgba(20,20,19,0.03);
+  box-shadow: 0 16px 44px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
   position: relative;
   overflow: hidden;
 }}
-.cap-top-spectrum-bar {{
+.cap-frame-accent {{
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3.5px;
-  background: linear-gradient(90deg, #B8860B 0%, #067352 35%, #1D4ED8 65%, #BE185D 85%, #6D28D9 100%);
+  height: 3px;
+  background: linear-gradient(90deg, #C48B1B 0%, #0A7B5A 35%, #1E5ED8 65%, #D11E52 85%, #702AD9 100%);
 }}
-.cap-editorial-top {{
+.cap-header-row {{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 24px;
-  border-bottom: 1px solid rgba(20,20,19,0.06);
+  border-bottom: 1px solid var(--warm-200);
   padding-bottom: 20px;
 }}
-.cap-pre-eyebrow {{
+.cap-eyebrow-tag {{
   font-family: var(--mono);
   font-size: 11px;
   text-transform: uppercase;
@@ -1336,7 +1364,7 @@ button {{ cursor: pointer; font: inherit; }}
   font-weight: 700;
   margin-bottom: 4px;
 }}
-.cap-editorial-title {{
+.cap-title {{
   font-family: var(--serif);
   font-size: clamp(24px, 2.8vw, 32px);
   font-weight: 700;
@@ -1344,7 +1372,7 @@ button {{ cursor: pointer; font: inherit; }}
   letter-spacing: -.02em;
   line-height: 1.18;
 }}
-.cap-editorial-desc {{
+.cap-desc {{
   font-size: 14.5px;
   color: var(--ink-500);
   margin-top: 4px;
@@ -1361,6 +1389,7 @@ button {{ cursor: pointer; font: inherit; }}
   font-family: var(--mono);
   font-size: 11.5px;
   color: var(--ink-600);
+  white-space: nowrap;
 }}
 .audit-pulse {{
   width: 7px;
@@ -1368,16 +1397,21 @@ button {{ cursor: pointer; font: inherit; }}
   border-radius: 50%;
   background: #059669;
   box-shadow: 0 0 0 3px rgba(5,150,105,0.2);
+  animation: pulseBeacon 2s infinite;
+}}
+@keyframes pulseBeacon {{
+  0%, 100% {{ transform: scale(1); opacity: 1; }}
+  50% {{ transform: scale(1.2); opacity: 0.7; }}
 }}
 .audit-sep {{ color: var(--ink-300); }}
 
 /* ── Integrated Precision Allocation HUD & Spectrum Console ── */
-.cap-spectrum-tray {{
+.cap-hud-panel {{
   background: #FAF9F6;
-  border: 1px solid rgba(20,20,19,0.07);
-  border-radius: 10px;
+  border: 1px solid var(--warm-200);
+  border-radius: 12px;
   padding: 16px 20px;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }}
 .hud-top-line {{
   display: flex;
@@ -1399,31 +1433,31 @@ button {{ cursor: pointer; font: inherit; }}
   flex-shrink: 0;
   transition: background .25s ease;
 }}
-.hud-domain-code {{
+.hud-code-label {{
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: .08em;
   color: var(--ink-400);
   text-transform: uppercase;
 }}
-.hud-domain-title {{
+.hud-active-name {{
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 700;
   color: var(--ink-900);
 }}
-.hud-metrics {{
+.hud-stats-group {{
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }}
-.hud-metric-pill {{
+.hud-stat-badge {{
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: var(--white);
-  border: 1px solid rgba(20,20,19,0.08);
+  border: 1px solid var(--warm-200);
   border-radius: 6px;
   padding: 4px 10px;
   font-family: var(--mono);
@@ -1439,7 +1473,7 @@ button {{ cursor: pointer; font: inherit; }}
   font-weight: 700;
   color: var(--ink-900);
 }}
-.hud-v.text-up {{
+.hud-v.text-emerald {{
   color: var(--emerald-700);
 }}
 
@@ -1447,12 +1481,12 @@ button {{ cursor: pointer; font: inherit; }}
 .cap-precision-strip {{
   display: flex;
   align-items: center;
-  height: 10px;
+  height: 12px;
   border-radius: 6px;
   overflow: hidden;
-  background: rgba(20,20,19,0.06);
+  background: rgba(0,0,0,0.06);
   padding: 0;
-  gap: 3px;
+  gap: 2.5px;
   position: relative;
 }}
 .strip-segment {{
@@ -1484,98 +1518,73 @@ button {{ cursor: pointer; font: inherit; }}
   letter-spacing: .04em;
 }}
 
-/* ── Split Architecture: Financial Benchmark Ledger & Executive Dossier ── */
-.cap-ledger-grid {{
+/* ── Split Architecture: Domain Cards (Left) & Detailed Dossier (Right) ── */
+.cap-grid-layout {{
   display: grid;
   grid-template-columns: 1fr;
   gap: 28px;
 }}
 @media(min-width:960px){{
-  .cap-ledger-grid {{
-    grid-template-columns: 1.3fr 1fr;
+  .cap-grid-layout {{
+    grid-template-columns: 1.25fr 1fr;
     gap: 32px;
     align-items: stretch;
   }}
 }}
 
-/* Left Column: Continuous Financial Benchmark Ledger */
-.cap-ledger-table-wrap {{
+/* Left Column: Interactive Capability Cards */
+.cap-cards-stack {{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}}
+.cap-domain-card {{
   background: var(--white);
-  border: 1px solid rgba(20,20,19,0.08);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px -4px rgba(0,0,0,0.03);
-  display: flex;
-  flex-direction: column;
-}}
-.ledger-table-head {{
-  display: grid;
-  grid-template-columns: 32px 1.4fr 90px 65px;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 18px;
-  background: #FAF9F6;
-  border-bottom: 1px solid rgba(20,20,19,0.07);
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--ink-400);
-}}
-.ledger-table-head .col-talent,
-.ledger-table-head .col-share {{
-  text-align: right;
-}}
-.cap-ledger-table {{
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}}
-.ledger-row {{
-  display: grid;
-  grid-template-columns: 32px 1.4fr 90px 65px;
-  align-items: center;
-  gap: 14px;
+  border: 1.5px solid var(--warm-200);
+  border-radius: 10px;
   padding: 14px 18px;
-  background: var(--white);
-  border-bottom: 1px solid rgba(20,20,19,0.06);
-  border-left: 3px solid transparent;
   cursor: pointer;
-  transition: all .22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
 }}
-.ledger-row:last-child {{
-  border-bottom: none;
+.cap-domain-card:hover, .cap-domain-card.active {{
+  border-color: var(--row-color);
+  box-shadow: inset 4px 0 0 var(--row-color), 0 8px 24px -4px var(--row-glow, rgba(0,0,0,0.08));
+  transform: translateX(3px);
+  background: #FFFFFF;
 }}
-.ledger-row:hover, .ledger-row.active {{
-  border-left-color: var(--row-color, var(--emerald-600));
-  background: #FAF9F6;
-  transform: translateX(2px);
+.card-top-line {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }}
-.ledger-num {{
+.card-domain-info {{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}}
+.domain-num {{
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--ink-400);
   font-weight: 700;
-  transition: color .2s ease;
+  color: var(--ink-400);
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: all .2s;
 }}
-.ledger-row:hover .ledger-num, .ledger-row.active .ledger-num {{
-  color: var(--row-color, var(--ink-900));
+.cap-domain-card:hover .domain-num, .cap-domain-card.active .domain-num {{
+  color: var(--row-color);
+  border-color: var(--row-color);
+  background: var(--white);
 }}
-.ledger-info {{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 0;
-  overflow: hidden;
-}}
-.ledger-name-wrap {{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-}}
-.ledger-name {{
+.domain-title {{
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 600;
@@ -1584,62 +1593,84 @@ button {{ cursor: pointer; font: inherit; }}
   overflow: hidden;
   text-overflow: ellipsis;
 }}
-.ledger-tag {{
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-400);
-  white-space: nowrap;
+.card-metric-group {{
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-shrink: 0;
 }}
-.ledger-gauge {{
-  width: 100%;
-  height: 3.5px;
-  background: rgba(20,20,19,0.06);
-  border-radius: 2px;
-  overflow: hidden;
-}}
-.ledger-gauge-fill {{
-  height: 100%;
-  width: 0%;
-  background: var(--row-color, var(--gold-500));
-  border-radius: 2px;
-  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-}}
-.ledger-talent {{
+.domain-talent {{
   font-family: var(--mono);
   font-size: 11.5px;
   color: var(--ink-500);
-  text-align: right;
-  white-space: nowrap;
 }}
-.ledger-share {{
+.domain-share {{
   font-family: var(--serif);
   font-size: 18px;
   font-weight: 700;
   color: var(--ink-900);
-  text-align: right;
   font-variant-numeric: tabular-nums;
 }}
+.card-gauge-track {{
+  width: 100%;
+  height: 4px;
+  background: var(--warm-100);
+  border-radius: 100px;
+  overflow: hidden;
+}}
+.card-gauge-fill {{
+  height: 100%;
+  width: 0%;
+  background: var(--row-color, var(--gold-500));
+  border-radius: 100px;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+.card-sub-pills {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}}
+.micro-tag {{
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-400);
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  border-radius: 4px;
+  padding: 2px 7px;
+}}
 
-/* ── Right Column: Executive Intelligence Dossier ── */
-.cap-dossier-card {{
-  background: #FAF9F6;
-  border: 1px solid rgba(20,20,19,0.08);
+/* ── Right Column: Strategic Intelligence Dossier ── */
+.cap-dossier-panel {{
+  background: var(--white);
+  border: 1.5px solid var(--warm-200);
   border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 16px -4px rgba(0,0,0,0.03);
+  box-shadow: 0 8px 24px -4px rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: all .28s ease;
 }}
-.dossier-card-header {{
+.dossier-top-accent {{
+  height: 3px;
+  width: 100%;
+  transition: background .3s ease;
+}}
+.dossier-body {{
+  padding: clamp(20px, 2.5vw, 26px);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}}
+.dossier-meta-line {{
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }}
-.dossier-domain-tag {{
+.dossier-tag-badge {{
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1650,14 +1681,14 @@ button {{ cursor: pointer; font: inherit; }}
   color: var(--ink-600);
   font-weight: 700;
 }}
-.dossier-pip {{
+.dossier-live-dot {{
   width: 7px;
   height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
   transition: background .25s ease;
 }}
-.dossier-stamp-badge {{
+.dossier-verified-stamp {{
   font-family: var(--mono);
   font-size: 9.5px;
   letter-spacing: .08em;
@@ -1667,7 +1698,7 @@ button {{ cursor: pointer; font: inherit; }}
   color: #059669;
   font-weight: 700;
 }}
-.dossier-h4 {{
+.dossier-headline {{
   font-family: var(--serif);
   font-size: 22px;
   color: var(--ink-900);
@@ -1675,19 +1706,19 @@ button {{ cursor: pointer; font: inherit; }}
   line-height: 1.2;
   margin-bottom: 14px;
 }}
-.dossier-telemetry-grid {{
+.dossier-stats-grid {{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 14px;
 }}
-.telemetry-tile {{
-  background: var(--white);
-  border: 1px solid rgba(20,20,19,0.07);
+.dossier-stat-box {{
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
   border-radius: 8px;
   padding: 12px 14px;
 }}
-.tile-k {{
+.stat-box-label {{
   font-family: var(--mono);
   font-size: 9.5px;
   color: var(--ink-400);
@@ -1695,33 +1726,37 @@ button {{ cursor: pointer; font: inherit; }}
   letter-spacing: .06em;
   margin-bottom: 2px;
 }}
-.tile-v {{
+.stat-box-value {{
   font-family: var(--mono);
   font-size: 14px;
   font-weight: 700;
   color: var(--ink-900);
   line-height: 1.2;
 }}
-.tile-v.text-up {{
+.stat-box-value.text-emerald {{
   color: var(--emerald-700);
 }}
-.tile-sub {{
+.stat-box-sub {{
   font-size: 10px;
   color: var(--ink-400);
   margin-top: 3px;
 }}
-.dossier-quote-box {{
-  border-left: 2.5px solid var(--dossier-accent, #B8860B);
-  background: var(--white);
+.dossier-quote-wrapper {{
+  border-left: 3px solid #C48B1B;
+  background: #FAF9F6;
   padding: 12px 14px;
   border-radius: 0 8px 8px 0;
   margin-bottom: 14px;
+  transition: border-left-color .3s ease;
 }}
-.dossier-p {{
+.dossier-quote-text {{
   font-size: 13.5px;
   color: var(--ink-700);
   line-height: 1.55;
   margin: 0;
+}}
+.dossier-chips-section {{
+  margin-bottom: 14px;
 }}
 .dossier-chips-label {{
   font-family: var(--mono);
@@ -1731,11 +1766,10 @@ button {{ cursor: pointer; font: inherit; }}
   text-transform: uppercase;
   margin-bottom: 6px;
 }}
-.dossier-chips {{
+.dossier-chips-wrap {{
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 14px;
 }}
 .dossier-chip {{
   display: inline-flex;
@@ -1746,24 +1780,26 @@ button {{ cursor: pointer; font: inherit; }}
   padding: 3.5px 9px;
   border-radius: 100px;
   background: var(--white);
-  border: 1px solid rgba(20,20,19,0.09);
+  border: 1px solid var(--warm-200);
   color: var(--ink-700);
 }}
-.chip-dot {{
+.chip-pip {{
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--dossier-accent, #B8860B);
+  background: #C48B1B;
+  transition: background .25s ease;
 }}
-.dossier-foot-memo {{
+.dossier-footer-note {{
   display: flex;
   align-items: center;
   gap: 6px;
   font-family: var(--mono);
   font-size: 10.5px;
   color: var(--ink-500);
-  border-top: 1px solid rgba(20,20,19,0.06);
+  border-top: 1px solid var(--warm-200);
   padding-top: 10px;
+  margin-top: auto;
 }}
 
 /* ── Mobile Responsive Safeguard for Capability Console ── */
@@ -1772,17 +1808,17 @@ button {{ cursor: pointer; font: inherit; }}
     padding: 20px 14px;
     border-radius: 12px;
   }}
-  .cap-editorial-top {{
+  .cap-header-row {{
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
     margin-bottom: 16px;
     padding-bottom: 14px;
   }}
-  .cap-editorial-title {{
+  .cap-title {{
     font-size: 20px;
   }}
-  .cap-editorial-desc {{
+  .cap-desc {{
     font-size: 13px;
   }}
   .cap-audit-pill {{
@@ -1790,7 +1826,7 @@ button {{ cursor: pointer; font: inherit; }}
     padding: 4px 10px;
     flex-wrap: wrap;
   }}
-  .cap-spectrum-tray {{
+  .cap-hud-panel {{
     padding: 12px 14px;
     margin-bottom: 20px;
   }}
@@ -1799,46 +1835,38 @@ button {{ cursor: pointer; font: inherit; }}
     align-items: flex-start;
     gap: 8px;
   }}
-  .hud-metrics {{
+  .hud-stats-group {{
     gap: 6px;
   }}
-  .hud-metric-pill {{
+  .hud-stat-badge {{
     font-size: 10.5px;
     padding: 3px 8px;
   }}
-  .ledger-table-head {{
+  .cap-domain-card {{
+    padding: 12px 14px;
+  }}
+  .domain-title {{
+    font-size: 13px;
+  }}
+  .domain-talent {{
     display: none;
   }}
-  .ledger-row {{
-    grid-template-columns: 20px minmax(0, 1fr) 50px;
-    gap: 10px;
-    padding: 10px 10px;
-  }}
-  .ledger-talent {{
-    display: none;
-  }}
-  .ledger-tag {{
-    display: none;
-  }}
-  .ledger-name {{
-    font-size: 12.5px;
-  }}
-  .ledger-share {{
+  .domain-share {{
     font-size: 15px;
   }}
-  .cap-dossier-card {{
-    padding: 16px 14px;
+  .micro-tag {{
+    font-size: 9.5px;
   }}
-  .dossier-h4 {{
+  .dossier-headline {{
     font-size: 18px;
   }}
-  .telemetry-tile {{
+  .dossier-stat-box {{
     padding: 10px 10px;
   }}
-  .tile-v {{
+  .stat-box-value {{
     font-size: 12.5px;
   }}
-  .dossier-p {{
+  .dossier-quote-text {{
     font-size: 13px;
   }}
 }}
@@ -3441,18 +3469,19 @@ button {{ cursor: pointer; font: inherit; }}
       </div>
     </div>
 
-    <!-- ── Institutional Capability Matrix & Research Console ── -->
+    <!-- ── Institutional Capability Distribution Console ── -->
     <div class="cap-editorial-box reveal" id="capBox">
-      <!-- Top Color Spectrum Bar -->
-      <div class="cap-top-spectrum-bar"></div>
+      <!-- Architectural Accent Rule -->
+      <div class="cap-frame-accent"></div>
 
-      <div class="cap-editorial-top">
+      <!-- Console Header -->
+      <div class="cap-header-row">
         <div>
-          <div class="cap-pre-eyebrow">Audited Capability Matrix · FY2026 Baseline</div>
-          <h3 class="cap-editorial-title">Ecosystem Functional Capability Distribution</h3>
-          <div class="cap-editorial-desc">Structural talent allocation &amp; functional mandate depth across India's 2,117 active GCCs</div>
+          <div class="cap-eyebrow-tag">✦ AUDITED INSTITUTIONAL BENCHMARK · FY2026</div>
+          <h3 class="cap-title">Ecosystem Functional Capability Distribution</h3>
+          <p class="cap-desc">Audited structural talent allocation &amp; functional mandate depth across India's 2,117 active GCCs</p>
         </div>
-        <div class="cap-editorial-meta">
+        <div class="cap-meta-col">
           <div class="cap-audit-pill">
             <span class="audit-pulse"></span>
             <span>Source: <b>nasscom–Zinnov Baseline Audit</b></span>
@@ -3462,36 +3491,36 @@ button {{ cursor: pointer; font: inherit; }}
         </div>
       </div>
 
-      <!-- Integrated Precision Allocation HUD & Spectrum Console -->
-      <div class="cap-spectrum-tray" id="capLiveReadout">
+      <!-- Master Allocation Spectrum & Live HUD Instrument Tray -->
+      <div class="cap-hud-panel" id="capLiveReadout">
         <div class="hud-top-line">
           <div class="hud-domain-badge">
-            <span class="hud-pip" id="readoutDot" style="background:#B8860B;"></span>
-            <span class="hud-domain-code">ACTIVE DOMAIN:</span>
-            <b class="hud-domain-title" id="readoutTitle">Engineering R&amp;D &amp; Frontier AI</b>
+            <span class="hud-pip" id="readoutDot" style="background:#C48B1B;"></span>
+            <span class="hud-code-label">ACTIVE MANDATE:</span>
+            <span class="hud-active-name" id="readoutTitle">Engineering R&amp;D &amp; Frontier AI</span>
           </div>
-          <div class="hud-metrics">
-            <div class="hud-metric-pill">
+          <div class="hud-stats-group">
+            <div class="hud-stat-badge">
               <span class="hud-k">SHARE</span>
               <b class="hud-v" id="readoutShare">35.4%</b>
             </div>
-            <div class="hud-metric-pill">
+            <div class="hud-stat-badge">
               <span class="hud-k">TALENT POOL</span>
               <b class="hud-v" id="readoutTalent">~835,000 FTEs</b>
             </div>
-            <div class="hud-metric-pill">
+            <div class="hud-stat-badge">
               <span class="hud-k">VELOCITY</span>
-              <b class="hud-v text-up" id="readoutGrowth">+4.8% YoY</b>
+              <b class="hud-v text-emerald" id="readoutGrowth">+4.8% YoY</b>
             </div>
           </div>
         </div>
 
         <div class="cap-precision-strip" id="masterStrip">
-          <div class="strip-segment active" id="strip-0" style="background:#B8860B; --seg-color:#B8860B; --seg-glow:rgba(184,134,11,0.5);" data-width="35.4%"></div>
-          <div class="strip-segment" id="strip-1" style="background:#067352; --seg-color:#067352; --seg-glow:rgba(6,115,82,0.5);" data-width="28.1%"></div>
-          <div class="strip-segment" id="strip-2" style="background:#1D4ED8; --seg-color:#1D4ED8; --seg-glow:rgba(29,78,216,0.5);" data-width="19.5%"></div>
-          <div class="strip-segment" id="strip-3" style="background:#BE185D; --seg-color:#BE185D; --seg-glow:rgba(190,24,93,0.5);" data-width="10.2%"></div>
-          <div class="strip-segment" id="strip-4" style="background:#6D28D9; --seg-color:#6D28D9; --seg-glow:rgba(109,40,217,0.5);" data-width="6.8%"></div>
+          <div class="strip-segment active" id="strip-0" style="background:#C48B1B; --seg-color:#C48B1B; --seg-glow:rgba(196,139,27,0.45);" data-width="35.4%"></div>
+          <div class="strip-segment" id="strip-1" style="background:#0A7B5A; --seg-color:#0A7B5A; --seg-glow:rgba(10,123,90,0.45);" data-width="28.1%"></div>
+          <div class="strip-segment" id="strip-2" style="background:#1E5ED8; --seg-color:#1E5ED8; --seg-glow:rgba(30,94,216,0.45);" data-width="19.5%"></div>
+          <div class="strip-segment" id="strip-3" style="background:#D11E52; --seg-color:#D11E52; --seg-glow:rgba(209,30,82,0.45);" data-width="10.2%"></div>
+          <div class="strip-segment" id="strip-4" style="background:#702AD9; --seg-color:#702AD9; --seg-glow:rgba(112,42,217,0.45);" data-width="6.8%"></div>
         </div>
 
         <div class="spectrum-ticks">
@@ -3503,132 +3532,168 @@ button {{ cursor: pointer; font: inherit; }}
         </div>
       </div>
 
-      <!-- Split Architecture: Financial Benchmark Ledger & Executive Dossier -->
-      <div class="cap-ledger-grid">
-        <!-- Left: Continuous Financial Benchmark Ledger -->
-        <div class="cap-ledger-table-wrap">
-          <div class="ledger-table-head">
-            <span class="col-code">CODE</span>
-            <span class="col-domain">FUNCTIONAL DOMAIN &amp; WORKFORCE DEPTH</span>
-            <span class="col-talent">TALENT POOL</span>
-            <span class="col-share">SHARE</span>
+      <!-- Split Console: Left Ledger Cards & Right Strategic Dossier -->
+      <div class="cap-grid-layout">
+        <!-- Left: Precision Functional Capability Cards -->
+        <div class="cap-cards-stack" id="ledgerTable">
+          <!-- Card 01 -->
+          <div class="cap-domain-card active" data-index="0" style="--row-color:#C48B1B; --row-glow:rgba(196,139,27,0.12);">
+            <div class="card-top-line">
+              <div class="card-domain-info">
+                <span class="domain-num">01</span>
+                <span class="domain-title">Engineering R&amp;D &amp; Frontier AI</span>
+              </div>
+              <div class="card-metric-group">
+                <span class="domain-talent">~835,000 FTEs</span>
+                <span class="domain-share">35.4%</span>
+              </div>
+            </div>
+            <div class="card-gauge-track">
+              <div class="card-gauge-fill" data-width="35.4%"></div>
+            </div>
+            <div class="card-sub-pills">
+              <span class="micro-tag">Semiconductor VLSI</span>
+              <span class="micro-tag">Generative AI Labs</span>
+              <span class="micro-tag">Autonomous Systems</span>
+            </div>
           </div>
-          <div class="cap-ledger-table" id="ledgerTable">
-            <!-- Row 01 -->
-            <div class="ledger-row active" data-index="0" style="--row-color:#B8860B;">
-              <div class="ledger-num">01</div>
-              <div class="ledger-info">
-                <div class="ledger-name-wrap">
-                  <span class="ledger-name">Engineering R&amp;D &amp; Frontier AI</span>
-                  <span class="ledger-tag">Core IP &amp; Chips</span>
-                </div>
-                <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="35.4%"></div></div>
-              </div>
-              <div class="ledger-talent">~835,000 FTEs</div>
-              <div class="ledger-share">35.4%</div>
-            </div>
 
-            <!-- Row 02 -->
-            <div class="ledger-row" data-index="1" style="--row-color:#067352;">
-              <div class="ledger-num">02</div>
-              <div class="ledger-info">
-                <div class="ledger-name-wrap">
-                  <span class="ledger-name">Software &amp; Cloud Platforms</span>
-                  <span class="ledger-tag">SaaS &amp; Cyber</span>
-                </div>
-                <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="28.1%"></div></div>
+          <!-- Card 02 -->
+          <div class="cap-domain-card" data-index="1" style="--row-color:#0A7B5A; --row-glow:rgba(10,123,90,0.12);">
+            <div class="card-top-line">
+              <div class="card-domain-info">
+                <span class="domain-num">02</span>
+                <span class="domain-title">Software &amp; Cloud Platforms</span>
               </div>
-              <div class="ledger-talent">~663,000 FTEs</div>
-              <div class="ledger-share">28.1%</div>
+              <div class="card-metric-group">
+                <span class="domain-talent">~663,000 FTEs</span>
+                <span class="domain-share">28.1%</span>
+              </div>
             </div>
-
-            <!-- Row 03 -->
-            <div class="ledger-row" data-index="2" style="--row-color:#1D4ED8;">
-              <div class="ledger-num">03</div>
-              <div class="ledger-info">
-                <div class="ledger-name-wrap">
-                  <span class="ledger-name">BFSI, FinTech &amp; Risk Quant</span>
-                  <span class="ledger-tag">Algo Trading &amp; Risk</span>
-                </div>
-                <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="19.5%"></div></div>
-              </div>
-              <div class="ledger-talent">~460,000 FTEs</div>
-              <div class="ledger-share">19.5%</div>
+            <div class="card-gauge-track">
+              <div class="card-gauge-fill" data-width="28.1%"></div>
             </div>
-
-            <!-- Row 04 -->
-            <div class="ledger-row" data-index="3" style="--row-color:#BE185D;">
-              <div class="ledger-num">04</div>
-              <div class="ledger-info">
-                <div class="ledger-name-wrap">
-                  <span class="ledger-name">Life Sciences &amp; Clinical Tech</span>
-                  <span class="ledger-tag">Biopharma &amp; Trials</span>
-                </div>
-                <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="10.2%"></div></div>
-              </div>
-              <div class="ledger-talent">~240,000 FTEs</div>
-              <div class="ledger-share">10.2%</div>
+            <div class="card-sub-pills">
+              <span class="micro-tag">Multi-Cloud SaaS</span>
+              <span class="micro-tag">Zero-Trust Cyber</span>
+              <span class="micro-tag">Microservices</span>
             </div>
+          </div>
 
-            <!-- Row 05 -->
-            <div class="ledger-row" data-index="4" style="--row-color:#6D28D9;">
-              <div class="ledger-num">05</div>
-              <div class="ledger-info">
-                <div class="ledger-name-wrap">
-                  <span class="ledger-name">Strategic Operations &amp; Supply</span>
-                  <span class="ledger-tag">Global Treasury &amp; Twins</span>
-                </div>
-                <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="6.8%"></div></div>
+          <!-- Card 03 -->
+          <div class="cap-domain-card" data-index="2" style="--row-color:#1E5ED8; --row-glow:rgba(30,94,216,0.12);">
+            <div class="card-top-line">
+              <div class="card-domain-info">
+                <span class="domain-num">03</span>
+                <span class="domain-title">BFSI, FinTech &amp; Risk Quant</span>
               </div>
-              <div class="ledger-talent">~160,000 FTEs</div>
-              <div class="ledger-share">6.8%</div>
+              <div class="card-metric-group">
+                <span class="domain-talent">~460,000 FTEs</span>
+                <span class="domain-share">19.5%</span>
+              </div>
+            </div>
+            <div class="card-gauge-track">
+              <div class="card-gauge-fill" data-width="19.5%"></div>
+            </div>
+            <div class="card-sub-pills">
+              <span class="micro-tag">Algo Trading</span>
+              <span class="micro-tag">Risk Modeling</span>
+              <span class="micro-tag">Actuarial Analytics</span>
+            </div>
+          </div>
+
+          <!-- Card 04 -->
+          <div class="cap-domain-card" data-index="3" style="--row-color:#D11E52; --row-glow:rgba(209,30,82,0.12);">
+            <div class="card-top-line">
+              <div class="card-domain-info">
+                <span class="domain-num">04</span>
+                <span class="domain-title">Life Sciences &amp; Clinical Tech</span>
+              </div>
+              <div class="card-metric-group">
+                <span class="domain-talent">~240,000 FTEs</span>
+                <span class="domain-share">10.2%</span>
+              </div>
+            </div>
+            <div class="card-gauge-track">
+              <div class="card-gauge-fill" data-width="10.2%"></div>
+            </div>
+            <div class="card-sub-pills">
+              <span class="micro-tag">Clinical Trials</span>
+              <span class="micro-tag">Pharmacovigilance</span>
+              <span class="micro-tag">Genomic AI</span>
+            </div>
+          </div>
+
+          <!-- Card 05 -->
+          <div class="cap-domain-card" data-index="4" style="--row-color:#702AD9; --row-glow:rgba(112,42,217,0.12);">
+            <div class="card-top-line">
+              <div class="card-domain-info">
+                <span class="domain-num">05</span>
+                <span class="domain-title">Strategic Operations &amp; Supply</span>
+              </div>
+              <div class="card-metric-group">
+                <span class="domain-talent">~160,000 FTEs</span>
+                <span class="domain-share">6.8%</span>
+              </div>
+            </div>
+            <div class="card-gauge-track">
+              <div class="card-gauge-fill" data-width="6.8%"></div>
+            </div>
+            <div class="card-sub-pills">
+              <span class="micro-tag">Supply Chain Twins</span>
+              <span class="micro-tag">Global Treasury</span>
+              <span class="micro-tag">Procurement</span>
             </div>
           </div>
         </div>
 
-        <!-- Right: Executive Research Memo / Deep Dossier -->
-        <div class="cap-dossier-card" id="dossierCard">
-          <div>
-            <div class="dossier-card-header">
-              <div class="dossier-domain-tag">
-                <span class="dossier-pip" id="dossierPip" style="background:#B8860B;"></span>
-                <span id="dossierTag">Domain 01 of 05 · Global IP Leadership</span>
+        <!-- Right: Executive Strategic Intelligence Dossier -->
+        <div class="cap-dossier-panel" id="dossierCard">
+          <div class="dossier-top-accent" id="dossierAccentBar" style="background:#C48B1B;"></div>
+          <div class="dossier-body">
+            <div>
+              <div class="dossier-meta-line">
+                <div class="dossier-tag-badge">
+                  <span class="dossier-live-dot" id="dossierPip" style="background:#C48B1B;"></span>
+                  <span id="dossierTag">Domain 01 of 05 · Global IP Leadership</span>
+                </div>
+                <span class="dossier-verified-stamp">AUDITED MANDATE</span>
               </div>
-              <span class="dossier-stamp-badge">VERIFIED MANDATE</span>
-            </div>
 
-            <h4 class="dossier-h4" id="dossierTitle">Engineering R&amp;D &amp; Frontier AI</h4>
+              <h4 class="dossier-headline" id="dossierTitle">Engineering R&amp;D &amp; Frontier AI</h4>
 
-            <!-- Precision Telemetry Tiles -->
-            <div class="dossier-telemetry-grid">
-              <div class="telemetry-tile">
-                <div class="tile-k">TOTAL TALENT POOL</div>
-                <div class="tile-v" id="dossierTalent">~835,000 Engineers</div>
-                <div class="tile-sub">Full-Time Equivalents (FTEs)</div>
+              <div class="dossier-stats-grid">
+                <div class="dossier-stat-box">
+                  <div class="stat-box-label">TOTAL TALENT POOL</div>
+                  <div class="stat-box-value" id="dossierTalent">~835,000 Engineers</div>
+                  <div class="stat-box-sub">Full-Time Equivalents (FTEs)</div>
+                </div>
+                <div class="dossier-stat-box">
+                  <div class="stat-box-label">ANNUAL EXPANSION RATE</div>
+                  <div class="stat-box-value text-emerald" id="dossierGrowth">+4.8% YoY Expansion</div>
+                  <div class="stat-box-sub">Net Annualized Growth</div>
+                </div>
               </div>
-              <div class="telemetry-tile">
-                <div class="tile-k">ANNUAL EXPANSION RATE</div>
-                <div class="tile-v text-up" id="dossierGrowth">+4.8% YoY Expansion</div>
-                <div class="tile-sub">Net Annualized Growth</div>
+
+              <div class="dossier-quote-wrapper" id="dossierQuoteWrap" style="border-left-color: #C48B1B;">
+                <p class="dossier-quote-text" id="dossierText">Over 42% of Fortune 500 GCCs now anchor primary patent filings and core algorithmic product development in India. The capability focus has transitioned from software maintenance to generative AI model tuning, chip design (VLSI), and autonomous aerospace systems.</p>
+              </div>
+
+              <div class="dossier-chips-section">
+                <div class="dossier-chips-label">CORE TECHNICAL FOCUS PILLARS</div>
+                <div class="dossier-chips-wrap" id="dossierChips">
+                  <span class="dossier-chip"><span class="chip-pip" style="background:#C48B1B;"></span>Semiconductor VLSI</span>
+                  <span class="dossier-chip"><span class="chip-pip" style="background:#C48B1B;"></span>Generative AI Labs</span>
+                  <span class="dossier-chip"><span class="chip-pip" style="background:#C48B1B;"></span>Autonomous Systems</span>
+                  <span class="dossier-chip"><span class="chip-pip" style="background:#C48B1B;"></span>Embedded Firmware</span>
+                </div>
               </div>
             </div>
 
-            <div class="dossier-quote-box">
-              <p class="dossier-p" id="dossierText">Over 42% of Fortune 500 GCCs now anchor primary patent filings and core algorithmic product development in India. The capability focus has transitioned from software maintenance to generative AI model tuning, chip design (VLSI), and autonomous aerospace systems.</p>
+            <div class="dossier-footer-note">
+              <span>📍</span>
+              <span id="dossierFoot">Key Hubs: Bengaluru (Outer Ring Road) &amp; Hyderabad (HITEC City)</span>
             </div>
-
-            <div class="dossier-chips-label">CORE TECHNICAL FOCUS PILLARS</div>
-            <div class="dossier-chips" id="dossierChips">
-              <span class="dossier-chip"><span class="chip-dot"></span>Semiconductor VLSI</span>
-              <span class="dossier-chip"><span class="chip-dot"></span>Generative AI Labs</span>
-              <span class="dossier-chip"><span class="chip-dot"></span>Autonomous Systems</span>
-              <span class="dossier-chip"><span class="chip-dot"></span>Embedded Firmware</span>
-            </div>
-          </div>
-
-          <div class="dossier-foot-memo">
-            <span>📍</span>
-            <span id="dossierFoot">Key Hubs: Bengaluru (Outer Ring Road) &amp; Hyderabad (HITEC City)</span>
           </div>
         </div>
       </div>
@@ -4149,7 +4214,7 @@ function initCapabilityLedger() {{
   if (!capBox) return;
 
   const stripSegments = document.querySelectorAll('.strip-segment');
-  const ledgerRows = document.querySelectorAll('.ledger-row');
+  const domainCards = document.querySelectorAll('.cap-domain-card');
   let hasAnimated = false;
 
   const observer = new IntersectionObserver((entries, obs) => {{
@@ -4163,10 +4228,10 @@ function initCapabilityLedger() {{
           seg.style.width = seg.getAttribute('data-width');
         }});
 
-        // Animate gauge fills in ledger
-        ledgerRows.forEach((row, idx) => {{
+        // Animate gauge fills in domain cards
+        domainCards.forEach((card, idx) => {{
           setTimeout(() => {{
-            const fill = row.querySelector('.ledger-gauge-fill');
+            const fill = card.querySelector('.card-gauge-fill');
             if (fill) fill.style.width = fill.getAttribute('data-width');
           }}, idx * 100);
         }});
@@ -4177,11 +4242,11 @@ function initCapabilityLedger() {{
 
   // Update Dossier on hover or click
   function selectDomain(idx) {{
-    ledgerRows.forEach((r, i) => {{
+    domainCards.forEach((c, i) => {{
       if (i === idx) {{
-        r.classList.add('active');
+        c.classList.add('active');
       }} else {{
-        r.classList.remove('active');
+        c.classList.remove('active');
       }}
     }});
 
@@ -4200,10 +4265,14 @@ function initCapabilityLedger() {{
     const d = CAP_DATA[idx];
     if (!d) return;
 
-    const dossier = document.getElementById('dossierCard');
-    if (dossier) {{
-      dossier.style.setProperty('--dossier-accent', d.color);
-    }}
+    const dAccentBar = document.getElementById('dossierAccentBar');
+    if (dAccentBar) dAccentBar.style.background = d.color;
+
+    const dQuoteWrap = document.getElementById('dossierQuoteWrap');
+    if (dQuoteWrap) dQuoteWrap.style.borderLeftColor = d.color;
+
+    const dPip = document.getElementById('dossierPip');
+    if (dPip) dPip.style.background = d.color;
 
     document.getElementById('dossierTag').textContent = d.tag;
     document.getElementById('dossierTitle').textContent = d.title;
@@ -4220,16 +4289,14 @@ function initCapabilityLedger() {{
     const rGrowth = document.getElementById('readoutGrowth');
     if (rDot) rDot.style.background = d.color;
     if (rTitle) rTitle.textContent = d.title;
-    if (rShare) rShare.textContent = shares[idx] + " Share";
+    if (rShare) rShare.textContent = shares[idx];
     if (rTalent) rTalent.textContent = d.talent;
     if (rGrowth) rGrowth.textContent = d.growth;
 
     const chipsEl = document.getElementById('dossierChips');
     if (chipsEl) {{
-      chipsEl.innerHTML = d.chips.map(c => `<span class="dossier-chip"><span class="chip-dot"></span>${{c}}</span>`).join('');
+      chipsEl.innerHTML = d.chips.map(c => `<span class="dossier-chip"><span class="chip-pip" style="background:${{d.color}};"></span>${{c}}</span>`).join('');
     }}
-    const dPip = document.getElementById('dossierPip');
-    if (dPip) dPip.style.background = d.color;
 
     const hubs = [
       "Key Hubs: Bengaluru (Outer Ring Road) & Hyderabad (HITEC City)",
@@ -4242,9 +4309,9 @@ function initCapabilityLedger() {{
     if (dFoot && hubs[idx]) dFoot.textContent = hubs[idx];
   }}
 
-  ledgerRows.forEach((row, idx) => {{
-    row.addEventListener('mouseenter', () => selectDomain(idx));
-    row.addEventListener('click', () => selectDomain(idx));
+  domainCards.forEach((card, idx) => {{
+    card.addEventListener('mouseenter', () => selectDomain(idx));
+    card.addEventListener('click', () => selectDomain(idx));
   }});
 
   stripSegments.forEach((seg, idx) => {{
