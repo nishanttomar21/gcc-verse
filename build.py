@@ -1107,18 +1107,25 @@ button {{ cursor: pointer; font: inherit; }}
   position: relative;
   aspect-ratio: 4/3;
   overflow: hidden;
+  background: var(--ink-900);
 }}
 .city-img img {{
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .7s ease;
+  z-index: 1;
+  transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }}
-.city-card:hover .city-img img {{ transform: scale(1.05); }}
+.city-card:hover .city-img img {{ transform: scale(1.06); }}
 .city-overlay {{
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.15) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(2, 43, 34, 0.88) 0%, rgba(2, 43, 34, 0.22) 50%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
 }}
 .city-name {{
   position: absolute;
@@ -1127,7 +1134,14 @@ button {{ cursor: pointer; font: inherit; }}
   font-family: var(--serif);
   font-size: clamp(22px, 2.5vw, 26px);
   font-weight: 700;
-  color: #FFF;
+  color: #FFFFFF;
+  z-index: 3;
+  pointer-events: none;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  transition: transform .3s ease;
+}}
+.city-card:hover .city-name {{
+  transform: translateY(-2px);
 }}
 .city-body {{ padding: clamp(18px, 2vw, 24px); }}
 .city-desc {{
@@ -1470,7 +1484,7 @@ button {{ cursor: pointer; font: inherit; }}
 .river-headline:hover {{ color: var(--emerald-700); }}
 
 /* ════════════════════════════════════
-   PERSONAS — Who We Serve
+   PERSONAS — Who We Serve (Executive Mandates)
    ════════════════════════════════════ */
 .personas-section {{
   padding: clamp(52px, 7vw, 96px) 0;
@@ -1478,46 +1492,109 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .personas-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 24px;
 }}
 .persona-card {{
-  border: 1px solid var(--warm-200);
-  border-radius: var(--radius);
-  padding: clamp(20px, 2.5vw, 26px);
-  display: flex;
-  gap: 16px;
-  align-items: start;
-  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1.5px solid var(--warm-200);
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 2.8vw, 30px);
   background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all .32s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+.persona-card::before {{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--emerald-600), var(--gold-500));
+  opacity: 0;
+  transition: opacity .3s ease;
 }}
 .persona-card:hover {{
   border-color: var(--emerald-600);
-  box-shadow: 0 12px 32px -8px rgba(5,150,105,.12);
-  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -8px rgba(4,77,58,.14);
+  transform: translateY(-4px);
 }}
-.persona-icon {{
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+.persona-card:hover::before {{
+  opacity: 1;
+}}
+.persona-card-top {{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}}
+.persona-tag {{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--emerald-800);
+  font-weight: 700;
   background: var(--emerald-50);
+  border: 1px solid rgba(5,150,105,0.25);
+  padding: 4px 10px;
+  border-radius: 100px;
+}}
+.persona-icon-box {{
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--cream);
+  border: 1.5px solid var(--warm-200);
   display: grid;
   place-items: center;
+  color: var(--emerald-800);
   flex-shrink: 0;
-  transition: transform .25s ease;
+  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-.persona-card:hover .persona-icon {{ transform: scale(1.08); }}
-.persona-icon svg {{ width: 22px; height: 22px; stroke: var(--emerald-700); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }}
+.persona-card:hover .persona-icon-box {{
+  background: var(--emerald-50);
+  border-color: var(--emerald-600);
+  color: var(--emerald-700);
+  transform: scale(1.08) rotate(3deg);
+}}
+.persona-icon-box svg {{
+  width: 24px;
+  height: 24px;
+}}
 .persona-title {{
+  font-family: var(--sans);
+  font-size: 18.5px;
   font-weight: 700;
-  font-size: 16.5px;
   color: var(--ink-900);
-  margin-bottom: 4px;
+  line-height: 1.3;
+  margin-top: 4px;
 }}
 .persona-desc {{
-  font-size: 13.5px;
-  color: var(--ink-500);
-  line-height: 1.5;
+  font-size: 14px;
+  color: var(--ink-600);
+  line-height: 1.55;
+}}
+.persona-chips {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--warm-100);
+}}
+.persona-chip {{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  color: var(--ink-600);
 }}
 
 /* ════════════════════════════════════
@@ -2340,8 +2417,14 @@ button {{ cursor: pointer; font: inherit; }}
       <div class="hero-content-inner">
         <div class="hero-text-col">
           <div class="hero-chip-wrap">
-            <span class="hero-chip">01 · Ecosystem Footprint</span>
-            <span class="hero-chip" style="background:rgba(16,185,129,.14);border-color:rgba(16,185,129,.35);color:#34D399;">✨ +140 Net Centres in FY26</span>
+            <span class="hero-chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+              <span>01 · Ecosystem Footprint</span>
+            </span>
+            <span class="hero-chip" style="background:rgba(16,185,129,.16);border-color:rgba(16,185,129,.42);color:#34D399;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>+140 Net Centres in FY26</span>
+            </span>
           </div>
           <h1 class="hero-headline">2,117 Centres. The world's largest capability network.</h1>
           <p class="hero-excerpt">India's Global Capability Centres house 3,728 operating units across 24 cities, commanding $98.4B in aggregate revenue and 38.4% of all Grade-A office absorption.</p>
@@ -2363,8 +2446,14 @@ button {{ cursor: pointer; font: inherit; }}
       <div class="hero-content-inner">
         <div class="hero-text-col">
           <div class="hero-chip-wrap">
-            <span class="hero-chip">02 · Talent Architecture</span>
-            <span class="hero-chip" style="background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.35);color:#60A5FA;">⚡ 35.4% in Core R&amp;D &amp; AI</span>
+            <span class="hero-chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>02 · Talent Architecture</span>
+            </span>
+            <span class="hero-chip" style="background:rgba(59,130,246,.16);border-color:rgba(59,130,246,.42);color:#60A5FA;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+              <span>35.4% in Core R&amp;D &amp; AI</span>
+            </span>
           </div>
           <h1 class="hero-headline">2.36 Million <em>deep-domain</em> professionals.</h1>
           <p class="hero-excerpt">Over 35% are now engaged in engineering R&D, generative AI, and algorithmic product development — the fastest transformation in India's technology history.</p>
@@ -2386,8 +2475,14 @@ button {{ cursor: pointer; font: inherit; }}
       <div class="hero-content-inner">
         <div class="hero-text-col">
           <div class="hero-chip-wrap">
-            <span class="hero-chip">03 · Commercial Real Estate</span>
-            <span class="hero-chip" style="background:rgba(236,72,153,.14);border-color:rgba(236,72,153,.35);color:#F472B6;">🏢 38.4% of All Metro Office Leasing</span>
+            <span class="hero-chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span>03 · Commercial Real Estate</span>
+            </span>
+            <span class="hero-chip" style="background:rgba(236,72,153,.16);border-color:rgba(236,72,153,.42);color:#F472B6;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v8h4"/><path d="M18 9h2a2 2 0 0 1 2 2v11h-4"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>
+              <span>38.4% of All Metro Office Leasing</span>
+            </span>
           </div>
           <h1 class="hero-headline">31.3 Million sq ft <em>absorbed.</em></h1>
           <p class="hero-excerpt">GCCs now anchor 38.4% of all Grade-A office leasing in India's top 7 cities, reshaping skylines and rental economics from Bengaluru to Gurugram.</p>
@@ -2409,8 +2504,14 @@ button {{ cursor: pointer; font: inherit; }}
       <div class="hero-content-inner">
         <div class="hero-text-col">
           <div class="hero-chip-wrap">
-            <span class="hero-chip">04 · Economic Weight</span>
-            <span class="hero-chip" style="background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.35);color:#A78BFA;">📊 $98.4B Sector Valuation</span>
+            <span class="hero-chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10l8 4M8 14l8-4"/></svg>
+              <span>04 · Economic Weight</span>
+            </span>
+            <span class="hero-chip" style="background:rgba(139,92,246,.16);border-color:rgba(139,92,246,.42);color:#A78BFA;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>$98.4B Sector Valuation</span>
+            </span>
           </div>
           <h1 class="hero-headline">$98.4 Billion <em>in aggregate revenue.</em></h1>
           <p class="hero-excerpt">Approaching the landmark $100B threshold with 9.8% compound growth, centres transition from cost arbitrage to global IP ownership and profit leadership.</p>
@@ -2601,15 +2702,27 @@ button {{ cursor: pointer; font: inherit; }}
     </div>
     <div class="cities-grid">
       <article class="city-card reveal">
-        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Bengaluru</span><img src="{img_src('gcc_city_bengaluru')}" alt="Bengaluru tech corridor" loading="lazy" decoding="async" width="600" height="450"/></div>
+        <div class="city-img">
+          <img src="{img_src('gcc_city_bengaluru')}" alt="Bengaluru tech corridor" loading="lazy" decoding="async" width="600" height="450"/>
+          <div class="city-overlay"></div>
+          <span class="city-name">Bengaluru</span>
+        </div>
         <div class="city-body"><p class="city-desc"><b>The Global Capability Capital.</b> Over 29% of all Indian GCC units and 35%+ of total headcount. Anchored by Outer Ring Road, Bellandur, and Whitefield.</p><div class="city-source">600+ Enterprise Centres · nasscom–Zinnov FY2026</div></div>
       </article>
       <article class="city-card reveal delay-100">
-        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Hyderabad</span><img src="{img_src('gcc_city_hyderabad')}" alt="Hyderabad Financial District" loading="lazy" decoding="async" width="600" height="450"/></div>
+        <div class="city-img">
+          <img src="{img_src('gcc_city_hyderabad')}" alt="Hyderabad Financial District" loading="lazy" decoding="async" width="600" height="450"/>
+          <div class="city-overlay"></div>
+          <span class="city-name">Hyderabad</span>
+        </div>
         <div class="city-body"><p class="city-desc"><b>Fastest Scaling Mega-Hub.</b> 75% of new large-format campus announcements in H1 2026. Preferred nexus for Life Sciences, FinTech, and Cloud.</p><div class="city-source">450+ Enterprise Centres · State IT Ministry 2026</div></div>
       </article>
       <article class="city-card reveal delay-200">
-        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Delhi NCR</span><img src="{img_src('gcc_city_delhincr')}" alt="Gurugram Cyber City" loading="lazy" decoding="async" width="600" height="450"/></div>
+        <div class="city-img">
+          <img src="{img_src('gcc_city_delhincr')}" alt="Gurugram Cyber City" loading="lazy" decoding="async" width="600" height="450"/>
+          <div class="city-overlay"></div>
+          <span class="city-name">Delhi NCR</span>
+        </div>
         <div class="city-body"><p class="city-desc"><b>Northern Strategic Anchor.</b> Concentrated in Gurugram Cyber City, Golf Course Road, and Noida. Houses consulting, BFSI, and industrial capability HQs.</p><div class="city-source">380+ Enterprise Centres · CREDAI-JLL 2025</div></div>
       </article>
     </div>
@@ -2761,20 +2874,142 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 </section>
 
-<!-- ═══ PERSONAS ═══ -->
+<!-- ═══ PERSONAS (EXECUTIVE MANDATES) ═══ -->
 <section class="personas-section" id="personas" aria-label="Who We Serve">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag">Who We Serve</div>
+      <div class="section-tag">Ecosystem Stakeholders</div>
       <h2 class="section-h2">Built for the decision-makers of the ecosystem.</h2>
+      <p class="section-lead">Actionable telemetry and bespoke intelligence tailored for the leaders shaping India's $98.4B captive landscape.</p>
     </div>
     <div class="personas-grid">
-      <div class="persona-card reveal"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div><div><div class="persona-title">GCC & Site Leaders</div><p class="persona-desc">Benchmark peer mandates, wage inflation, AI scope, and parent organizational autonomy.</p></div></div>
-      <div class="persona-card reveal delay-100"><div class="persona-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><div class="persona-title">Investors & Asset Managers</div><p class="persona-desc">Track capital flows, M&A carve-outs, PE roll-ups, and commercial real estate yields.</p></div></div>
-      <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="persona-title">Corporate Real Estate</div><p class="persona-desc">Anticipate mega-leasing transactions, spatial density, and micro-market rental shifts.</p></div></div>
-      <div class="persona-card reveal"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="persona-title">Policymakers & State Boards</div><p class="persona-desc">Evaluate competitive state incentive frameworks and infrastructure readiness.</p></div></div>
-      <div class="persona-card reveal delay-100"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="persona-title">Talent & HR Directors</div><p class="persona-desc">Monitor executive mobility, specialty compensation benchmarks, and attrition trends.</p></div></div>
-      <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="persona-title">Consultants & Advisory Firms</div><p class="persona-desc">Arm client teams with market sizing, peer landscapes, and location feasibility models.</p></div></div>
+      <!-- 01: GCC & Site Leaders -->
+      <article class="persona-card reveal">
+        <div>
+          <div class="persona-card-top">
+            <span class="persona-tag">Mandate 01 · Site Autonomy</span>
+            <div class="persona-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="persona-title">GCC &amp; Site Leaders</h3>
+          <p class="persona-desc" style="margin-top:8px;">Benchmark peer organizational structures, direct payroll transitions, wage inflation, and corporate decision autonomy.</p>
+        </div>
+        <div class="persona-chips">
+          <span class="persona-chip">Headcount Sizing</span>
+          <span class="persona-chip">Direct Payroll</span>
+          <span class="persona-chip">HQ Reporting Lines</span>
+        </div>
+      </article>
+
+      <!-- 02: Investors & Asset Managers -->
+      <article class="persona-card reveal delay-100">
+        <div>
+          <div class="persona-card-top">
+            <span class="persona-tag">Mandate 02 · Capital Strategy</span>
+            <div class="persona-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                <circle cx="12" cy="14" r="2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="persona-title">Investors &amp; Asset Managers</h3>
+          <p class="persona-desc" style="margin-top:8px;">Track cross-border FDI flows, private equity carve-outs, institutional roll-ups, and commercial captive valuation multiples.</p>
+        </div>
+        <div class="persona-chips">
+          <span class="persona-chip">PE Carve-Outs</span>
+          <span class="persona-chip">Valuation Multiples</span>
+          <span class="persona-chip">Capital Outflows</span>
+        </div>
+      </article>
+
+      <!-- 03: Corporate Real Estate -->
+      <article class="persona-card reveal delay-200">
+        <div>
+          <div class="persona-card-top">
+            <span class="persona-tag">Mandate 03 · Spatial Strategy</span>
+            <div class="persona-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="persona-title">Corporate Real Estate</h3>
+          <p class="persona-desc" style="margin-top:8px;">Anticipate mega-leasing transactions, campus supply pipeline schedules, and micro-market rental indices across top-7 tech corridors.</p>
+        </div>
+        <div class="persona-chips">
+          <span class="persona-chip">Campus Pre-Leasing</span>
+          <span class="persona-chip">Rental Indexing</span>
+          <span class="persona-chip">Density Scenarios</span>
+        </div>
+      </article>
+
+      <!-- 04: Policymakers & State Boards -->
+      <article class="persona-card reveal">
+        <div>
+          <div class="persona-card-top">
+            <span class="persona-tag">Mandate 04 · Sovereign Policy</span>
+            <div class="persona-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 22h16M2 7l10-4 10 4M4 7v11M8 7v11M12 7v11M16 7v11M20 7v11"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="persona-title">Policymakers &amp; State Boards</h3>
+          <p class="persona-desc" style="margin-top:8px;">Evaluate inter-state tax incentive competitiveness, stamp duty exemptions, SEZ policy shifts, and green grid stability.</p>
+        </div>
+        <div class="persona-chips">
+          <span class="persona-chip">State Incentive Audits</span>
+          <span class="persona-chip">SEZ Amendments</span>
+          <span class="persona-chip">Renewable Power</span>
+        </div>
+      </article>
+
+      <!-- 05: Talent & HR Directors -->
+      <article class="persona-card reveal delay-100">
+        <div>
+          <div class="persona-card-top">
+            <span class="persona-tag">Mandate 05 · Human Capital</span>
+            <div class="persona-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="persona-title">Talent &amp; HR Directors</h3>
+          <p class="persona-desc" style="margin-top:8px;">Monitor executive mobility, specialized AI and VLSI compensation matrices, retention packages, and annualized attrition metrics.</p>
+        </div>
+        <div class="persona-chips">
+          <span class="persona-chip">Executive Mobility</span>
+          <span class="persona-chip">AI Compensation</span>
+          <span class="persona-chip">Attrition Benchmarks</span>
+        </div>
+      </article>
+
+      <!-- 06: Consultants & Advisory Firms -->
+      <article class="persona-card reveal delay-200">
+        <div>
+          <div class="persona-card-top">
+            <span class="persona-tag">Mandate 06 · Strategic Intelligence</span>
+            <div class="persona-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="persona-title">Consultants &amp; Advisory Firms</h3>
+          <p class="persona-desc" style="margin-top:8px;">Arm enterprise strategy teams with validated market sizing, competitor footprint databases, and location feasibility models.</p>
+        </div>
+        <div class="persona-chips">
+          <span class="persona-chip">Location Scoring</span>
+          <span class="persona-chip">Competitor Footprints</span>
+          <span class="persona-chip">Market Feasibility</span>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -2977,12 +3212,17 @@ button {{ cursor: pointer; font: inherit; }}
       </div>
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:12px;">
+    <div style="display:flex; flex-direction:column; gap:16px;">
       <a class="btn-linkedin-vip" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
         <span>Follow on LinkedIn (1,600+ Members)</span>
       </a>
-      <button class="btn-outline" type="button" onclick="closeSubModal()" style="width:100%; padding:12px; color:var(--ink-800); border-color:var(--warm-300);">Back to Terminal</button>
+
+      <!-- 5-Second Auto-Close Progress Bar -->
+      <div class="auto-close-bar-wrap" style="max-width:320px; margin:0 auto; width:100%;">
+        <div class="auto-close-text">Closing window in <b id="subCountdownTimer">5</b> seconds...</div>
+        <div class="auto-close-track"><div class="auto-close-progress" id="subAutoCloseProgress"></div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -3437,11 +3677,14 @@ const RIVER=[
 ];
 document.getElementById('riverStream').innerHTML=RIVER.map(r=>`<div class="river-row reveal"><div class="river-cat">${{r.cat}}</div><div class="river-src">${{r.src}}</div><a href="#stories" data-section="stories" class="river-headline">${{r.h}}</a></div>`).join('');
 
-// ── 9. Interactive Subscribe System with Window Popup ──
+// ── 9. Interactive Subscribe System with Window Popup & 5s Auto-Close ──
 const interestPills = document.querySelectorAll('#subInterestPills .sub-pill');
 interestPills.forEach(p => {{
   p.addEventListener('click', () => {{ p.classList.toggle('active'); }});
 }});
+
+let subAutoCloseTimeout = null;
+let subCountdownInterval = null;
 
 document.getElementById('subForm').onsubmit = function(e) {{
   e.preventDefault();
@@ -3463,15 +3706,46 @@ document.getElementById('subForm').onsubmit = function(e) {{
 
   emailInput.value = '';
   emailInput.style.borderColor = 'var(--warm-200)';
+
+  // 5-second countdown with animated progress bar
+  const progressBar = document.getElementById('subAutoCloseProgress');
+  const timerDisplay = document.getElementById('subCountdownTimer');
+  if (progressBar) {{
+    progressBar.classList.remove('animate');
+    void progressBar.offsetWidth;
+    progressBar.classList.add('animate');
+  }}
+
+  let secondsLeft = 5;
+  if (timerDisplay) timerDisplay.textContent = secondsLeft;
+
+  if (subCountdownInterval) clearInterval(subCountdownInterval);
+  subCountdownInterval = setInterval(() => {{
+    secondsLeft -= 1;
+    if (secondsLeft >= 0 && timerDisplay) {{
+      timerDisplay.textContent = secondsLeft;
+    }}
+    if (secondsLeft <= 0) {{
+      clearInterval(subCountdownInterval);
+    }}
+  }}, 1000);
+
+  if (subAutoCloseTimeout) clearTimeout(subAutoCloseTimeout);
+  subAutoCloseTimeout = setTimeout(() => {{
+    closeSubModal();
+  }}, 5000);
 }};
 
 function closeSubModal() {{
+  if (subAutoCloseTimeout) clearTimeout(subAutoCloseTimeout);
+  if (subCountdownInterval) clearInterval(subCountdownInterval);
   const subModal = document.getElementById('subSuccessModal');
   if (subModal) subModal.classList.remove('open');
 }}
 document.getElementById('subSuccessModal').onclick = function(e) {{
   if (e.target === this) closeSubModal();
 }};
+
 
 // ── 10. Real Functional Executive Audio Brief Player ──
 let isAudioPlaying = false;
