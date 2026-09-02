@@ -65,7 +65,6 @@ gccverse/
     │   ├── gcc_policy_investment.webp
     │   ├── gcc_real_estate.webp
     │   └── gcc_talent_hub.webp
-    └── images_data.json          # Pre-encoded base64 data URIs dictionary
 ```
 
 ---

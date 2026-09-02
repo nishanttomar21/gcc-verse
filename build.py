@@ -1,13 +1,23 @@
-import json
+import base64
 import os
 
-with open("/Users/nishanttomar21/Downloads/gccverse/assets/images_data.json", "r") as f:
-    img_data = json.load(f)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+IMAGE_DIR = os.path.join(BASE_DIR, "assets", "images")
+
+_b64_cache = {}
+
+def get_base64_uri(key):
+    if key not in _b64_cache:
+        path = os.path.join(IMAGE_DIR, f"{key}.webp")
+        with open(path, "rb") as f:
+            encoded = base64.b64encode(f.read()).decode("utf-8")
+        _b64_cache[key] = f"data:image/webp;base64,{encoded}"
+    return _b64_cache[key]
 
 def get_html(is_standalone=False):
     def img_src(key):
         if is_standalone:
-            return img_data[key]
+            return get_base64_uri(key)
         return f"assets/images/{key}.webp"
 
     return f"""<!DOCTYPE html>
@@ -17,13 +27,35 @@ def get_html(is_standalone=False):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>GCCVerse — India's Global Capability Centre Intelligence Platform</title>
 <meta name="description" content="Track, analyse, and connect with India's $98.4B GCC ecosystem. 2,117 centres. 2.36M talent. The definitive weekly briefing for institutional leaders."/>
-<meta name="theme-color" content="#FFFFFF"/>
+<meta name="theme-color" content="#022B22"/>
+<link rel="canonical" href="https://gccverse.in/"/>
+
+<!-- Open Graph / LinkedIn / Facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://gccverse.in/"/>
+<meta property="og:site_name" content="GCCVerse"/>
+<meta property="og:title" content="GCCVerse — India's Global Capability Centre Intelligence Platform"/>
+<meta property="og:description" content="Track, analyse, and connect with India's $98.4B GCC ecosystem. 2,117 centres. 2.36M talent."/>
+<meta property="og:image" content="https://gccverse.in/assets/images/gcc_campus_exterior.webp"/>
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:url" content="https://gccverse.in/"/>
+<meta name="twitter:title" content="GCCVerse — India's GCC Intelligence Platform"/>
+<meta name="twitter:description" content="Track, analyse, and connect with India's $98.4B GCC ecosystem."/>
+<meta name="twitter:image" content="https://gccverse.in/assets/images/gcc_campus_exterior.webp"/>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23022B22'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' fill='%23D4A017' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E"/>
+
+<!-- Preconnect Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
 <style>
 /* ════════════════════════════════════════════════════════
-   GCCVERSE v3.0 — PREMIUM LIGHT EDITORIAL THEME
+   GCCVERSE v3.1 — HIGH-PERFORMANCE EDITORIAL DESIGN SYSTEM
    Inspired by: Financial Times, Stripe, Linear, McKinsey
    ════════════════════════════════════════════════════════ */
 
@@ -85,6 +117,7 @@ body {{
   color: var(--ink-700);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }}
 
@@ -95,12 +128,12 @@ button {{ cursor: pointer; font: inherit; }}
 .container {{ max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }}
 
 /* ════════════════════════════════════
-   SCROLL REVEAL & TRANSITION SYSTEM
+   PERFORMANCE & SCROLL REVEAL SYSTEM
    ════════════════════════════════════ */
 .reveal {{
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }}
 .reveal.revealed {{
@@ -112,7 +145,19 @@ button {{ cursor: pointer; font: inherit; }}
 .delay-100 {{ transition-delay: 100ms; }}
 .delay-200 {{ transition-delay: 200ms; }}
 .delay-300 {{ transition-delay: 300ms; }}
-.delay-400 {{ transition-delay: 400ms; }}
+
+/* Content Visibility for High-Performance Scrolling */
+.stories-section,
+.pillars-section,
+.cities-section,
+.data-section,
+.river-section,
+.personas-section,
+.advisory-section,
+.subscribe-section {{
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}}
 
 /* ════════════════════════════════════
    ANNOUNCEMENT BAR — Thin top strip
@@ -302,15 +347,9 @@ button {{ cursor: pointer; font: inherit; }}
 
 /* Continuous cinematic Ken Burns camera motion */
 @keyframes kenBurnsSlide {{
-  0% {{
-    transform: scale(1.0) translate(0, 0);
-  }}
-  50% {{
-    transform: scale(1.07) translate(-1.2%, -0.8%);
-  }}
-  100% {{
-    transform: scale(1.0) translate(0, 0);
-  }}
+  0% {{ transform: scale(1.0) translate(0, 0); }}
+  50% {{ transform: scale(1.07) translate(-1.2%, -0.8%); }}
+  100% {{ transform: scale(1.0) translate(0, 0); }}
 }}
 
 .hero-slide img {{
@@ -1563,39 +1602,42 @@ button {{ cursor: pointer; font: inherit; }}
 <body>
 
 <!-- ═══ ANNOUNCEMENT BAR ═══ -->
-<div class="announce-bar">
+<aside class="announce-bar" aria-label="Ecosystem Announcement">
   <div class="container">
-    <span class="live-beacon"></span><b>GCCVerse FY2026 Intelligence</b> — 2,117 centres tracked across India · <a href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">Follow on LinkedIn →</a>
+    <span class="live-beacon" aria-hidden="true"></span><b>GCCVerse FY2026 Intelligence</b> — 2,117 centres tracked across India · <a href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">Follow on LinkedIn →</a>
   </div>
-</div>
+</aside>
 
 <!-- ═══ HEADER — 1-Line Navigation ═══ -->
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
-    <a href="/" class="logo">
+    <a href="/" class="logo" aria-label="GCCVerse Home">
       GCC<em>Verse</em>
       <span class="logo-sub">Institutional Intelligence</span>
     </a>
-    <ul class="nav-list">
-      <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
-      <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
-      <li><a href="#cities" data-section="cities">Cities</a></li>
-      <li><a href="#data" data-section="data">The Index</a></li>
-      <li><a href="#river" data-section="river">Live River</a></li>
-      <li><a href="#advisory" data-section="advisory">Advisory</a></li>
-    </ul>
+    <nav aria-label="Primary Navigation">
+      <ul class="nav-list">
+        <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
+        <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
+        <li><a href="#cities" data-section="cities">Cities</a></li>
+        <li><a href="#data" data-section="data">The Index</a></li>
+        <li><a href="#river" data-section="river">Live River</a></li>
+        <li><a href="#advisory" data-section="advisory">Advisory</a></li>
+      </ul>
+    </nav>
     <div class="header-cta">
-      <button class="btn-outline" onclick="openModal()">Commission Brief</button>
+      <button class="btn-outline" type="button" onclick="openModal()">Commission Brief</button>
       <a href="#subscribe" data-section="subscribe" class="btn-primary">Subscribe Free</a>
     </div>
   </div>
 </header>
 
+<main>
 <!-- ═══ FULL-WIDTH HERO CINEMATIC CAROUSEL ═══ -->
-<section class="hero-carousel" id="heroCarousel">
+<section class="hero-carousel" id="heroCarousel" aria-label="Featured Intelligence Carousel">
   <!-- Slide 1 -->
-  <div class="hero-slide active" data-slide="0">
-    <img src="{img_src('gcc_campus_exterior')}" alt="Modern corporate tech park campus in India at twilight" loading="eager"/>
+  <div class="hero-slide active" data-slide="0" aria-hidden="false">
+    <img src="{img_src('gcc_campus_exterior')}" alt="Modern corporate tech park campus in India at twilight" loading="eager" fetchpriority="high" width="1920" height="1080"/>
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-content-inner">
@@ -1617,8 +1659,8 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 
   <!-- Slide 2 -->
-  <div class="hero-slide" data-slide="1">
-    <img src="{img_src('gcc_talent_hub')}" alt="Indian engineers and data scientists collaborating in a modern GCC workspace" loading="lazy"/>
+  <div class="hero-slide" data-slide="1" aria-hidden="true">
+    <img src="{img_src('gcc_talent_hub')}" alt="Indian engineers and data scientists collaborating in a modern GCC workspace" loading="lazy" decoding="async" width="1920" height="1080"/>
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-content-inner">
@@ -1640,8 +1682,8 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 
   <!-- Slide 3 -->
-  <div class="hero-slide" data-slide="2">
-    <img src="{img_src('gcc_office_space')}" alt="Grade-A biophilic corporate office interior with natural light" loading="lazy"/>
+  <div class="hero-slide" data-slide="2" aria-hidden="true">
+    <img src="{img_src('gcc_office_space')}" alt="Grade-A biophilic corporate office interior with natural light" loading="lazy" decoding="async" width="1920" height="1080"/>
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-content-inner">
@@ -1663,8 +1705,8 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 
   <!-- Slide 4 -->
-  <div class="hero-slide" data-slide="3">
-    <img src="{img_src('gcc_executive_board')}" alt="Executive boardroom meeting with global corporate leaders" loading="lazy"/>
+  <div class="hero-slide" data-slide="3" aria-hidden="true">
+    <img src="{img_src('gcc_executive_board')}" alt="Executive boardroom meeting with global corporate leaders" loading="lazy" decoding="async" width="1920" height="1080"/>
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-content-inner">
@@ -1722,13 +1764,13 @@ button {{ cursor: pointer; font: inherit; }}
 
       <!-- Controls Right: Counter & Arrows -->
       <div class="carousel-controls-right">
-        <div class="slide-counter">
+        <div class="slide-counter" aria-live="polite">
           <b id="currSlideDisplay">01</b><span>/</span><span>04</span>
         </div>
-        <button class="carousel-arrow-btn" id="heroPrev" aria-label="Previous slide">
+        <button class="carousel-arrow-btn" id="heroPrev" aria-label="Previous slide" type="button">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
         </button>
-        <button class="carousel-arrow-btn" id="heroNext" aria-label="Next slide">
+        <button class="carousel-arrow-btn" id="heroNext" aria-label="Next slide" type="button">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
         </button>
       </div>
@@ -1737,7 +1779,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ MACRO STATS RIBBON (ANIMATED NUMBERS) ═══ -->
-<section class="stats-ribbon">
+<section class="stats-ribbon" aria-label="Macro Ecosystem Statistics">
   <div class="container">
     <div class="stats-grid">
       <div class="stat-block reveal">
@@ -1765,7 +1807,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ FEATURED STORIES ═══ -->
-<section class="stories-section" id="stories">
+<section class="stories-section" id="stories" aria-label="Weekly Dispatch">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">Weekly Dispatch · August 2026</div>
@@ -1775,12 +1817,12 @@ button {{ cursor: pointer; font: inherit; }}
     <div class="stories-grid">
       <article class="story-feature reveal">
         <div class="story-img">
-          <img src="{img_src('gcc_news_developments')}" alt="Syneos Health Hyderabad Global Capability Centre inauguration" loading="lazy"/>
+          <img src="{img_src('gcc_news_developments')}" alt="Syneos Health Hyderabad Global Capability Centre inauguration" loading="lazy" decoding="async" width="800" height="450"/>
         </div>
         <div class="story-body">
           <div class="story-meta">
             <span class="chip chip-gold">GCC Launch · Hyderabad</span>
-            <button class="chip chip-emerald" onclick="simulateAudio()" style="cursor:pointer;border:none;">🎧 Audio Brief</button>
+            <button class="chip chip-emerald" type="button" onclick="simulateAudio()" style="cursor:pointer;border:none;">🎧 Audio Brief</button>
           </div>
           <h3 class="story-title">Syneos Health Inaugurates Asia's Largest Capability Centre in Hyderabad</h3>
           <p class="story-excerpt">The global biopharmaceutical solutions giant opened its flagship facility at Phoenix Equinox, Gachibowli — its largest in Asia and third-largest globally, serving as the elite hub for production AI, clinical data architecture, and pharmacovigilance.</p>
@@ -1815,7 +1857,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ SIX PILLARS ═══ -->
-<section class="pillars-section" id="pillars">
+<section class="pillars-section" id="pillars" aria-label="Six Pillars Taxonomy">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">Intelligence Taxonomy</div>
@@ -1824,27 +1866,27 @@ button {{ cursor: pointer; font: inherit; }}
     </div>
     <div class="pillars-grid">
       <article class="pillar-card reveal">
-        <div class="pillar-img"><span class="pillar-badge">Pillar 01</span><img src="{img_src('gcc_news_developments')}" alt="GCC News" loading="lazy"/></div>
+        <div class="pillar-img"><span class="pillar-badge">Pillar 01</span><img src="{img_src('gcc_news_developments')}" alt="GCC News" loading="lazy" decoding="async" width="600" height="338"/></div>
         <div class="pillar-body"><h3 class="pillar-title">News & Developments</h3><p class="pillar-desc">Greenfield launches, secondary expansions, corporate capital investments, and strategic mandates from parent headquarters.</p></div>
       </article>
       <article class="pillar-card reveal delay-100">
-        <div class="pillar-img"><span class="pillar-badge">Pillar 02</span><img src="{img_src('gcc_data_intelligence')}" alt="GCC Data Intelligence" loading="lazy"/></div>
+        <div class="pillar-img"><span class="pillar-badge">Pillar 02</span><img src="{img_src('gcc_data_intelligence')}" alt="GCC Data Intelligence" loading="lazy" decoding="async" width="600" height="338"/></div>
         <div class="pillar-body"><h3 class="pillar-title">Data & Intelligence</h3><p class="pillar-desc">Compensation benchmarks, maturity models, cost arbitrage ratios, and predictive talent availability across AI stacks.</p></div>
       </article>
       <article class="pillar-card reveal delay-200">
-        <div class="pillar-img"><span class="pillar-badge">Pillar 03</span><img src="{img_src('gcc_cities_clusters')}" alt="GCC Cities" loading="lazy"/></div>
+        <div class="pillar-img"><span class="pillar-badge">Pillar 03</span><img src="{img_src('gcc_cities_clusters')}" alt="GCC Cities" loading="lazy" decoding="async" width="600" height="338"/></div>
         <div class="pillar-body"><h3 class="pillar-title">Cities & Locations</h3><p class="pillar-desc">Spatial distribution across Tier-1 core corridors versus high-velocity Tier-2 alternatives like GIFT City and Kochi.</p></div>
       </article>
       <article class="pillar-card reveal">
-        <div class="pillar-img"><span class="pillar-badge">Pillar 04</span><img src="{img_src('gcc_real_estate')}" alt="GCC Real Estate" loading="lazy"/></div>
+        <div class="pillar-img"><span class="pillar-badge">Pillar 04</span><img src="{img_src('gcc_real_estate')}" alt="GCC Real Estate" loading="lazy" decoding="async" width="600" height="338"/></div>
         <div class="pillar-body"><h3 class="pillar-title">Real Estate & Workplace</h3><p class="pillar-desc">Leasing velocity, campus supply pipelines, flexibility structures, and architectural transformations driving productivity.</p></div>
       </article>
       <article class="pillar-card reveal delay-100">
-        <div class="pillar-img"><span class="pillar-badge">Pillar 05</span><img src="{img_src('gcc_policy_investment')}" alt="GCC Policy" loading="lazy"/></div>
+        <div class="pillar-img"><span class="pillar-badge">Pillar 05</span><img src="{img_src('gcc_policy_investment')}" alt="GCC Policy" loading="lazy" decoding="async" width="600" height="338"/></div>
         <div class="pillar-body"><h3 class="pillar-title">Policy & Investment</h3><p class="pillar-desc">State incentive frameworks, stamp duty exemptions, capital subsidies, SEZ amendments, and bilateral FDI corridors.</p></div>
       </article>
       <article class="pillar-card reveal delay-200">
-        <div class="pillar-img"><span class="pillar-badge">Pillar 06</span><img src="{img_src('gcc_leadership_talent')}" alt="GCC Leadership" loading="lazy"/></div>
+        <div class="pillar-img"><span class="pillar-badge">Pillar 06</span><img src="{img_src('gcc_leadership_talent')}" alt="GCC Leadership" loading="lazy" decoding="async" width="600" height="338"/></div>
         <div class="pillar-body"><h3 class="pillar-title">Leadership & Talent</h3><p class="pillar-desc">C-suite appointments, MD mobility, organizational design shifts, attrition metrics, and AI upskilling programmes.</p></div>
       </article>
     </div>
@@ -1852,7 +1894,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ CITY CLUSTERS ═══ -->
-<section class="cities-section" id="cities">
+<section class="cities-section" id="cities" aria-label="Geographic Corridors">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">Geographic Corridors</div>
@@ -1861,15 +1903,15 @@ button {{ cursor: pointer; font: inherit; }}
     </div>
     <div class="cities-grid">
       <article class="city-card reveal">
-        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Bengaluru</span><img src="{img_src('gcc_city_bengaluru')}" alt="Bengaluru tech corridor" loading="lazy"/></div>
+        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Bengaluru</span><img src="{img_src('gcc_city_bengaluru')}" alt="Bengaluru tech corridor" loading="lazy" decoding="async" width="600" height="450"/></div>
         <div class="city-body"><p class="city-desc"><b>The Global Capability Capital.</b> Over 29% of all Indian GCC units and 35%+ of total headcount. Anchored by Outer Ring Road, Bellandur, and Whitefield.</p><div class="city-source">600+ Enterprise Centres · nasscom–Zinnov FY2026</div></div>
       </article>
       <article class="city-card reveal delay-100">
-        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Hyderabad</span><img src="{img_src('gcc_city_hyderabad')}" alt="Hyderabad Financial District" loading="lazy"/></div>
+        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Hyderabad</span><img src="{img_src('gcc_city_hyderabad')}" alt="Hyderabad Financial District" loading="lazy" decoding="async" width="600" height="450"/></div>
         <div class="city-body"><p class="city-desc"><b>Fastest Scaling Mega-Hub.</b> 75% of new large-format campus announcements in H1 2026. Preferred nexus for Life Sciences, FinTech, and Cloud.</p><div class="city-source">450+ Enterprise Centres · State IT Ministry 2026</div></div>
       </article>
       <article class="city-card reveal delay-200">
-        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Delhi NCR</span><img src="{img_src('gcc_city_delhincr')}" alt="Gurugram Cyber City" loading="lazy"/></div>
+        <div class="city-img"><div class="city-overlay"></div><span class="city-name">Delhi NCR</span><img src="{img_src('gcc_city_delhincr')}" alt="Gurugram Cyber City" loading="lazy" decoding="async" width="600" height="450"/></div>
         <div class="city-body"><p class="city-desc"><b>Northern Strategic Anchor.</b> Concentrated in Gurugram Cyber City, Golf Course Road, and Noida. Houses consulting, BFSI, and industrial capability HQs.</p><div class="city-source">380+ Enterprise Centres · CREDAI-JLL 2025</div></div>
       </article>
     </div>
@@ -1877,7 +1919,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ DATA INDEX ═══ -->
-<section class="data-section" id="data">
+<section class="data-section" id="data" aria-label="Ecosystem Data Index">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">The Baseline · FY2026</div>
@@ -1924,7 +1966,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ INTELLIGENCE RIVER ═══ -->
-<section class="river-section" id="river">
+<section class="river-section" id="river" aria-label="Live Intelligence River">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">Live Intelligence River</div>
@@ -1935,7 +1977,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ PERSONAS ═══ -->
-<section class="personas-section" id="personas">
+<section class="personas-section" id="personas" aria-label="Who We Serve">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">Who We Serve</div>
@@ -1953,7 +1995,7 @@ button {{ cursor: pointer; font: inherit; }}
 </section>
 
 <!-- ═══ ADVISORY ═══ -->
-<section class="advisory-section" id="advisory">
+<section class="advisory-section" id="advisory" aria-label="Institutional Advisory Practice">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag" style="color:var(--gold-400)">Institutional Advisory Practice</div>
@@ -1970,13 +2012,13 @@ button {{ cursor: pointer; font: inherit; }}
     </div>
     <div class="advisory-cta reveal">
       <div><h4>Commission a Confidential Research Brief</h4><p>Engage our Gurugram research desk for custom intelligence and peer benchmarking.</p></div>
-      <button class="btn-gold-solid" onclick="openModal()">Request Advisory Consultation →</button>
+      <button class="btn-gold-solid" type="button" onclick="openModal()">Request Advisory Consultation →</button>
     </div>
   </div>
 </section>
 
 <!-- ═══ SUBSCRIBE ═══ -->
-<section class="subscribe-section" id="subscribe">
+<section class="subscribe-section" id="subscribe" aria-label="Newsletter Subscription">
   <div class="container">
     <div class="section-header reveal" style="text-align:center">
       <div class="section-tag" style="justify-content:center">Stay Informed</div>
@@ -1986,10 +2028,10 @@ button {{ cursor: pointer; font: inherit; }}
     <div class="sub-card reveal">
       <form id="subForm" novalidate>
         <div class="sub-row">
-          <input class="sub-input" id="subEmail" type="email" placeholder="name@company.com" required/>
+          <input class="sub-input" id="subEmail" type="email" placeholder="name@company.com" required aria-label="Corporate Email Address"/>
           <button class="sub-btn" type="submit">Subscribe Free</button>
         </div>
-        <p class="sub-feedback" id="subFeedback"></p>
+        <p class="sub-feedback" id="subFeedback" role="alert"></p>
       </form>
       <div class="sub-divider">or connect on LinkedIn</div>
       <a class="btn-linkedin" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
@@ -2004,12 +2046,13 @@ button {{ cursor: pointer; font: inherit; }}
     </div>
   </div>
 </section>
+</main>
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <div><span class="footer-brand">GCCVerse</span><br>Institutional Intelligence & Advisory · Gurugram 122001, Haryana, India</div>
+      <div><span class="footer-brand">GCCVerse</span><br>Institutional Intelligence &amp; Advisory · Gurugram 122001, Haryana, India</div>
       <div class="footer-links">
         <a href="#stories" data-section="stories">Weekly Brief</a>
         <a href="#pillars" data-section="pillars">Six Pillars</a>
@@ -2027,32 +2070,32 @@ button {{ cursor: pointer; font: inherit; }}
 </footer>
 
 <!-- ═══ MODAL ═══ -->
-<div class="modal-bg" id="advisoryModal">
+<div class="modal-bg" id="advisoryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">×</button>
+    <button class="modal-close" type="button" onclick="closeModal()" aria-label="Close dialog">×</button>
     <div class="section-tag" style="margin-bottom:8px">Confidential Inquiry</div>
-    <h3 style="font-family:var(--serif);font-size:24px;color:var(--ink-900);margin-bottom:6px">Commission an Advisory Brief</h3>
+    <h3 id="modalTitle" style="font-family:var(--serif);font-size:24px;color:var(--ink-900);margin-bottom:6px">Commission an Advisory Brief</h3>
     <p style="font-size:14px;color:var(--ink-500);margin-bottom:24px">Share your requirements. We respond within 12 business hours.</p>
     <form id="modalForm" onsubmit="handleModalSubmit(event)">
-      <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
-      <div class="form-group"><label class="form-label">Corporate Email</label><input class="form-input" type="email" placeholder="rajiv@fortune500.com" required/></div>
-      <div class="form-group"><label class="form-label">Advisory Area</label><select class="form-select"><option>GCC City Intelligence & Feasibility</option><option>Peer Benchmarking & Compensation</option><option>Commercial Real Estate (CRE) Audit</option><option>State Incentives & Policy</option><option>Greenfield Setup / In-Sourcing</option><option>Custom Board Advisory Brief</option></select></div>
-      <div class="form-group"><label class="form-label">Scope or City</label><textarea class="form-textarea" placeholder="e.g. Evaluating Hyderabad vs Bengaluru for a 1,500-seat AI R&D center."></textarea></div>
+      <div class="form-group"><label class="form-label" for="modalName">Your Name</label><input class="form-input" id="modalName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
+      <div class="form-group"><label class="form-label" for="modalEmail">Corporate Email</label><input class="form-input" id="modalEmail" type="email" placeholder="rajiv@fortune500.com" required/></div>
+      <div class="form-group"><label class="form-label" for="modalArea">Advisory Area</label><select class="form-select" id="modalArea"><option>GCC City Intelligence &amp; Feasibility</option><option>Peer Benchmarking &amp; Compensation</option><option>Commercial Real Estate (CRE) Audit</option><option>State Incentives &amp; Policy</option><option>Greenfield Setup / In-Sourcing</option><option>Custom Board Advisory Brief</option></select></div>
+      <div class="form-group"><label class="form-label" for="modalScope">Scope or City</label><textarea class="form-textarea" id="modalScope" placeholder="e.g. Evaluating Hyderabad vs Bengaluru for a 1,500-seat AI R&amp;D center."></textarea></div>
       <button type="submit" class="sub-btn" style="width:100%">Submit Confidential Brief</button>
-      <div id="modalSuccess" style="display:none;color:var(--up);margin-top:12px;text-align:center;font-weight:600">Your advisory request has been dispatched to our research desk.</div>
+      <div id="modalSuccess" style="display:none;color:var(--up);margin-top:12px;text-align:center;font-weight:600" role="status">Your advisory request has been dispatched to our research desk.</div>
     </form>
   </div>
 </div>
 
 <!-- ═══ AUDIO TOAST ═══ -->
-<div class="audio-toast" id="audioToast">
+<div class="audio-toast" id="audioToast" role="status">
   <div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
   <div style="flex:1"><div style="font-family:var(--mono);font-size:10px;color:var(--emerald-700);font-weight:600;text-transform:uppercase">Now Playing</div><div style="font-size:13px;font-weight:600;color:var(--ink-800)">Syneos Health Flagship (3:14)</div></div>
-  <button onclick="closeAudio()" style="background:none;border:none;color:var(--ink-400);font-size:18px">×</button>
+  <button onclick="closeAudio()" type="button" style="background:none;border:none;color:var(--ink-400);font-size:18px;cursor:pointer;" aria-label="Dismiss audio brief">×</button>
 </div>
 
 <script>
-// ── 1. Scroll-Triggered Reveal System ──
+// ── 1. Scroll-Triggered Reveal System (Optimized IntersectionObserver) ──
 function initScrollReveal() {{
   const reveals = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) {{
@@ -2067,8 +2110,8 @@ function initScrollReveal() {{
       }}
     }});
   }}, {{
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -30px 0px'
   }});
   reveals.forEach(el => observer.observe(el));
 }}
@@ -2109,15 +2152,14 @@ function animateCounter(el) {{
 function initStatsCounter() {{
   const statsSection = document.querySelector('.stats-ribbon');
   if (!statsSection) return;
-  let animated = false;
-  const observer = new IntersectionObserver((entries) => {{
+  const observer = new IntersectionObserver((entries, obs) => {{
     entries.forEach(entry => {{
-      if (entry.isIntersecting && !animated) {{
-        animated = true;
+      if (entry.isIntersecting) {{
+        obs.unobserve(entry.target);
         document.querySelectorAll('.stat-number').forEach(el => animateCounter(el));
       }}
     }});
-  }}, {{ threshold: 0.25 }});
+  }}, {{ threshold: 0.2 }});
   observer.observe(statsSection);
 }}
 
@@ -2125,18 +2167,16 @@ function initStatsCounter() {{
 function initCapabilityBar() {{
   const capBox = document.querySelector('.cap-box');
   if (!capBox) return;
-  let animated = false;
-  const observer = new IntersectionObserver((entries) => {{
+  const observer = new IntersectionObserver((entries, obs) => {{
     entries.forEach(entry => {{
-      if (entry.isIntersecting && !animated) {{
-        animated = true;
+      if (entry.isIntersecting) {{
+        obs.unobserve(entry.target);
         document.querySelectorAll('.cap-bar div').forEach(bar => {{
-          const targetW = bar.getAttribute('data-width');
-          bar.style.width = targetW;
+          bar.style.width = bar.getAttribute('data-width');
         }});
       }}
     }});
-  }}, {{ threshold: 0.25 }});
+  }}, {{ threshold: 0.2 }});
   observer.observe(capBox);
 }}
 
@@ -2160,18 +2200,15 @@ function initCleanNav() {{
           behavior: 'smooth'
         }});
 
-        // Update URL cleanly without '#' — just the menu item name!
         try {{
           const cleanPath = '/' + sectionName;
           window.history.pushState({{ section: sectionName }}, '', cleanPath);
-        }} catch (err) {{
-          // fallback if file:// protocol security restrictions apply
-        }}
+        }} catch (err) {{}}
       }}
     }});
   }});
 
-  // Handle browser back/forward history navigation
+  // Handle browser history navigation
   window.addEventListener('popstate', function(e) {{
     const sectionName = e.state?.section || window.location.pathname.replace(/^\\/+|\\/+$/g, '');
     if (sectionName) {{
@@ -2187,13 +2224,22 @@ function initCleanNav() {{
   }});
 }}
 
-// ── 5. Header Scroll Shadow ──
+// ── 5. Header Scroll Shadow (Passive Throttle) ──
+let ticking = false;
 window.addEventListener('scroll', () => {{
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 15) {{
-    header.classList.add('scrolled');
-  }} else {{
-    header.classList.remove('scrolled');
+  if (!ticking) {{
+    window.requestAnimationFrame(() => {{
+      const header = document.getElementById('siteHeader');
+      if (header) {{
+        if (window.scrollY > 15) {{
+          header.classList.add('scrolled');
+        }} else {{
+          header.classList.remove('scrolled');
+        }}
+      }}
+      ticking = false;
+    }});
+    ticking = true;
   }}
 }}, {{ passive: true }});
 
@@ -2214,6 +2260,7 @@ window.addEventListener('scroll', () => {{
 
     // Deactivate previous
     slides[cur].classList.remove('active');
+    slides[cur].setAttribute('aria-hidden', 'true');
     if (tabs[cur]) {{
       tabs[cur].classList.remove('active');
     }}
@@ -2222,9 +2269,9 @@ window.addEventListener('scroll', () => {{
 
     // Activate new
     slides[cur].classList.add('active');
+    slides[cur].setAttribute('aria-hidden', 'false');
     if (tabs[cur]) {{
       tabs[cur].classList.add('active');
-      // Restart CSS animation on progress bar
       const fillEl = tabs[cur].querySelector('.tab-progress-fill');
       if (fillEl) {{
         fillEl.style.animation = 'none';
@@ -2268,7 +2315,6 @@ window.addEventListener('scroll', () => {{
     }});
   }}
 
-  // Interactive Tab Clicks
   tabs.forEach((tab, idx) => {{
     tab.addEventListener('click', (e) => {{
       e.stopPropagation();
@@ -2277,13 +2323,11 @@ window.addEventListener('scroll', () => {{
     }});
   }});
 
-  // Pause only when hovering over the navigation controls
   if (navBox) {{
     navBox.addEventListener('mouseenter', stop);
     navBox.addEventListener('mouseleave', start);
   }}
 
-  // Pause when browser tab is inactive, resume when focused
   document.addEventListener('visibilitychange', () => {{
     if (document.hidden) {{
       stop();
@@ -2292,7 +2336,7 @@ window.addEventListener('scroll', () => {{
     }}
   }});
 
-  // Touch Swipe on Carousel Container
+  // Touch Swipe
   const carouselEl = document.getElementById('heroCarousel');
   if (carouselEl) {{
     let touchStartX = 0;
@@ -2312,7 +2356,6 @@ window.addEventListener('scroll', () => {{
       start();
     }}, {{ passive: true }});
 
-    // Keyboard navigation
     carouselEl.tabIndex = 0;
     carouselEl.addEventListener('keydown', (e) => {{
       if (e.key === 'ArrowRight') {{
@@ -2325,7 +2368,6 @@ window.addEventListener('scroll', () => {{
     }});
   }}
 
-  // Start rotation immediately
   start();
 }})();
 
@@ -2383,12 +2425,12 @@ initCleanNav();
 """
 
 # Write index.html (modular)
-with open("/Users/nishanttomar21/Downloads/gccverse/index.html", "w") as f:
+with open(os.path.join(BASE_DIR, "index.html"), "w") as f:
     f.write(get_html(is_standalone=False))
-print("Generated /Users/nishanttomar21/Downloads/gccverse/index.html")
+print("Generated index.html (Optimized)")
 
 # Write gccverse_enterprise.html (embedded standalone)
-with open("/Users/nishanttomar21/Downloads/gccverse/gccverse_enterprise.html", "w") as f:
+with open(os.path.join(BASE_DIR, "gccverse_enterprise.html"), "w") as f:
     f.write(get_html(is_standalone=True))
-print("Generated /Users/nishanttomar21/Downloads/gccverse/gccverse_enterprise.html")
+print("Generated gccverse_enterprise.html (Optimized)")
 
