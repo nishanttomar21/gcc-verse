@@ -211,6 +211,34 @@ button { cursor: pointer; font: inherit; }
 @media(min-width:1200px){ .logo-sub { display: inline; } }
 
 /* Desktop Navigation */
+.header-left-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 24px);
+  height: 100%;
+}
+
+/* Modern Vertical Divider (Laptop/Desktop only) */
+.header-v-divider {
+  display: none;
+}
+@media(min-width:960px) {
+  .header-v-divider {
+    display: block;
+    width: 1.5px;
+    height: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(212,160,23,0.75) 40%, rgba(255,255,255,0.5) 70%, rgba(255,255,255,0.05) 100%);
+    border-radius: 2px;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(212,160,23,0.35);
+    transition: background 0.32s ease, box-shadow 0.32s ease;
+  }
+  .site-header.scrolled .header-v-divider {
+    background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, var(--warm-300) 30%, var(--emerald-600) 65%, rgba(0,0,0,0.04) 100%);
+    box-shadow: 0 0 6px rgba(5,150,105,0.15);
+  }
+}
+
 .nav-desktop { display: none; }
 @media(min-width:960px){ .nav-desktop { display: block; } }
 .nav-list {
@@ -2447,20 +2475,23 @@ button { cursor: pointer; font: inherit; }
 <!-- ═══ HEADER — Transparent by Default, White & Sticky on Scroll ═══ -->
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
-    <a href="/" class="logo" aria-label="GCCVerse Home">
-      GCC<em>Verse</em>
-      <span class="logo-sub">Institutional Intelligence</span>
-    </a>
-    <nav class="nav-desktop" aria-label="Primary Navigation">
-      <ul class="nav-list">
-        <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
-        <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
-        <li><a href="#cities" data-section="cities">Cities</a></li>
-        <li><a href="#data" data-section="data">The Index</a></li>
-        <li><a href="#river" data-section="river">Live River</a></li>
-        <li><a href="#advisory" data-section="advisory">Advisory</a></li>
-      </ul>
-    </nav>
+    <div class="header-left-group">
+      <a href="/" class="logo" aria-label="GCCVerse Home">
+        GCC<em>Verse</em>
+        <span class="logo-sub">Institutional Intelligence</span>
+      </a>
+      <div class="header-v-divider" aria-hidden="true"></div>
+      <nav class="nav-desktop" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
+          <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
+          <li><a href="#cities" data-section="cities">Cities</a></li>
+          <li><a href="#data" data-section="data">The Index</a></li>
+          <li><a href="#river" data-section="river">Live River</a></li>
+          <li><a href="#advisory" data-section="advisory">Advisory</a></li>
+        </ul>
+      </nav>
+    </div>
     <div class="header-cta">
       <button class="btn-outline header-cta-desktop" type="button" onclick="openContactModal()">Contact Us</button>
       <a href="#subscribe" data-section="subscribe" class="btn-primary">Subscribe Free</a>
