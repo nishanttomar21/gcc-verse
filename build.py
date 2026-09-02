@@ -1,7 +1,11 @@
 import json
 import os
 
-with open("/Users/nishanttomar21/Downloads/gccverse/assets/images_data.json", "r") as f:
+# Get the directory where the script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+images_data_path = os.path.join(script_dir, "assets", "images_data.json")
+
+with open(images_data_path, "r") as f:
     img_data = json.load(f)
 
 def get_html(is_standalone=False):
@@ -1352,6 +1356,9 @@ button {{ cursor: pointer; font: inherit; }}
   .hero-headline {{ font-size: 32px; }}
 }}
 </style>
+
+<!-- Vercel Web Analytics -->
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
 
@@ -2004,12 +2011,14 @@ initCleanNav();
 """
 
 # Write index.html (modular)
-with open("/Users/nishanttomar21/Downloads/gccverse/index.html", "w") as f:
+index_path = os.path.join(script_dir, "index.html")
+with open(index_path, "w") as f:
     f.write(get_html(is_standalone=False))
-print("Generated /Users/nishanttomar21/Downloads/gccverse/index.html")
+print(f"Generated {index_path}")
 
 # Write gccverse_enterprise.html (embedded standalone)
-with open("/Users/nishanttomar21/Downloads/gccverse/gccverse_enterprise.html", "w") as f:
+enterprise_path = os.path.join(script_dir, "gccverse_enterprise.html")
+with open(enterprise_path, "w") as f:
     f.write(get_html(is_standalone=True))
-print("Generated /Users/nishanttomar21/Downloads/gccverse/gccverse_enterprise.html")
+print(f"Generated {enterprise_path}")
 
