@@ -92,6 +92,11 @@ html {
   overflow-x: hidden;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
 body {
   font-family: var(--sans);
   font-size: 16px;
@@ -100,8 +105,6 @@ body {
   background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  width: 100%;
 }
 
 img {
@@ -1900,12 +1903,15 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   SUBSCRIBE SECTION (Mobile-Optimized)
+   SUBSCRIBE SECTION (Rock-Solid Mobile & Desktop)
    ════════════════════════════════════ */
 .subscribe-section {
   padding: clamp(48px, 7vw, 108px) 0;
   background: linear-gradient(180deg, var(--white) 0%, var(--warm-50) 100%);
   border-top: 1px solid var(--warm-200);
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 .sub-master-container {
   background: var(--white);
@@ -1915,6 +1921,9 @@ button { cursor: pointer; font: inherit; }
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 @media(min-width:960px){
   .sub-master-container {
@@ -1931,6 +1940,10 @@ button { cursor: pointer; font: inherit; }
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .sub-pitch-col::after {
   content: "";
@@ -1949,127 +1962,6 @@ button { cursor: pointer; font: inherit; }
     right: 0;
     width: 100%;
     height: 1px;
-  }
-}
-@media(max-width:640px){
-  .subscribe-section {
-    padding: 36px 0 44px;
-  }
-  .sub-master-container {
-    border-radius: 14px;
-    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.06);
-    margin: 0 -4px;
-  }
-  .sub-pitch-col {
-    padding: 24px 18px 22px;
-  }
-  .sub-prestige-tag {
-    font-size: 10px;
-    padding: 4px 10px;
-    margin-bottom: 12px;
-  }
-  .sub-headline {
-    font-size: 24px;
-    line-height: 1.22;
-    margin-bottom: 10px;
-  }
-  .sub-pitch-desc {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 18px;
-  }
-  .sub-perks-list {
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .sub-perk-item {
-    font-size: 13px;
-    gap: 9px;
-    line-height: 1.4;
-  }
-  .sub-perk-icon {
-    font-size: 14px;
-  }
-  .sub-proof-strip {
-    padding-top: 16px;
-    gap: 10px;
-  }
-  .sub-avatar-circle {
-    width: 28px;
-    height: 28px;
-    font-size: 10px;
-  }
-  .sub-proof-text {
-    font-size: 11px;
-    line-height: 1.35;
-  }
-  .sub-action-col {
-    padding: 24px 18px;
-  }
-  .sub-form-card-h3 {
-    font-size: 20px;
-    margin-bottom: 4px;
-  }
-  .sub-form-card-sub {
-    font-size: 13px;
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-  .sub-input-vip {
-    padding: 14px 16px 14px 42px;
-    font-size: 14px;
-    border-radius: 10px;
-  }
-  .sub-input-icon {
-    left: 14px;
-    width: 18px;
-    height: 18px;
-  }
-  .sub-interest-pills {
-    gap: 6px;
-    margin: 6px 0 10px;
-  }
-  .sub-pill {
-    font-size: 10.5px;
-    padding: 5px 9px;
-  }
-  .sub-btn-vip {
-    padding: 12px 18px;
-    font-size: 13.5px;
-    font-weight: 600;
-    border-radius: 100px;
-    gap: 8px;
-    white-space: nowrap;
-    box-shadow: 0 4px 14px rgba(2,43,34,0.18);
-    height: 44px;
-  }
-  .sub-btn-vip svg {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-  }
-  .btn-linkedin-vip {
-    padding: 11px 16px;
-    font-size: 12.5px;
-    font-weight: 600;
-    border-radius: 100px;
-    gap: 8px;
-    white-space: nowrap;
-    box-shadow: 0 4px 14px rgba(10,102,194,0.2);
-    height: 42px;
-  }
-  .btn-linkedin-vip svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-  .sub-or-line {
-    margin: 14px 0;
-    font-size: 10px;
-  }
-  .sub-guarantee {
-    font-size: 11px;
-    line-height: 1.35;
   }
 }
 .sub-prestige-tag {
@@ -2095,6 +1987,8 @@ button { cursor: pointer; font: inherit; }
   line-height: 1.16;
   margin-bottom: 14px;
   color: #FFF;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .sub-headline em {
   color: var(--gold-400);
@@ -2169,6 +2063,11 @@ button { cursor: pointer; font: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0;
 }
 .sub-form-card-h3 {
   font-family: var(--serif);
@@ -2185,8 +2084,10 @@ button { cursor: pointer; font: inherit; }
   display: flex;
   flex-direction: column;
   gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
-.sub-input-box { position: relative; }
+.sub-input-box { position: relative; width: 100%; box-sizing: border-box; }
 .sub-input-vip {
   width: 100%;
   padding: 16px 20px 16px 46px;
@@ -2197,6 +2098,7 @@ button { cursor: pointer; font: inherit; }
   color: var(--ink-900);
   outline: none;
   transition: all .2s;
+  box-sizing: border-box;
 }
 .sub-input-vip:focus {
   border-color: var(--emerald-700);
@@ -2217,6 +2119,8 @@ button { cursor: pointer; font: inherit; }
   flex-wrap: wrap;
   gap: 8px;
   margin: 6px 0 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .sub-pill {
   font-family: var(--mono);
@@ -2248,6 +2152,8 @@ button { cursor: pointer; font: inherit; }
   align-items: center;
   justify-content: center;
   gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .sub-btn-vip:hover {
   background: linear-gradient(135deg, var(--emerald-700), var(--emerald-800));
@@ -2296,6 +2202,7 @@ button { cursor: pointer; font: inherit; }
   overflow: hidden;
   transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
   text-align: center;
+  box-sizing: border-box;
 }
 .btn-linkedin-vip::after {
   content: "";
@@ -2329,19 +2236,160 @@ button { cursor: pointer; font: inherit; }
   animation: beaconPulse 1.8s infinite;
 }
 
-@media(max-width:390px){
+/* ══════════════════════════════════════════════════════════════
+   MOBILE PHONE STYLES FOR SUBSCRIBE (GUARANTEED WINNING CASCADE)
+   ══════════════════════════════════════════════════════════════ */
+@media(max-width: 768px) {
+  .subscribe-section {
+    padding: 36px 0 44px;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .sub-master-container {
+    border-radius: 14px;
+    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.06);
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .sub-pitch-col {
+    padding: 24px 18px 22px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .sub-prestige-tag {
+    font-size: 10px;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+  }
+  .sub-headline {
+    font-size: 22px;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .sub-pitch-desc {
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .sub-perks-list {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .sub-perk-item {
+    font-size: 12.5px;
+    gap: 9px;
+    line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .sub-perk-icon {
+    font-size: 14px;
+  }
+  .sub-proof-strip {
+    padding-top: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .sub-avatar-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+  .sub-proof-text {
+    font-size: 11px;
+    line-height: 1.35;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .sub-action-col {
+    padding: 24px 18px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .sub-form-card-h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .sub-form-card-sub {
+    font-size: 13px;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .sub-input-vip {
+    padding: 12px 14px 12px 38px;
+    font-size: 13.5px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .sub-input-icon {
+    left: 12px;
+    width: 16px;
+    height: 16px;
+  }
+  .sub-interest-pills {
+    gap: 6px;
+    margin: 6px 0 10px;
+  }
+  .sub-pill {
+    font-size: 10.5px;
+    padding: 4px 9px;
+  }
   .sub-btn-vip {
-    font-size: 12px !important;
-    padding: 10px 12px !important;
-    height: 42px !important;
+    padding: 11px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-radius: 100px;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(2,43,34,0.18);
+    height: 42px;
+  }
+  .sub-btn-vip svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
   }
   .btn-linkedin-vip {
-    font-size: 11.5px !important;
-    padding: 9px 12px !important;
-    height: 40px !important;
-    gap: 6px !important;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 100px;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(10,102,194,0.2);
+    height: 40px;
+  }
+  .btn-linkedin-vip svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+  .sub-or-line {
+    margin: 14px 0;
+    font-size: 10px;
+  }
+  .sub-guarantee {
+    font-size: 10.5px;
+    line-height: 1.35;
   }
 }
+
 /* ════════════════════════════════════
    FOOTER
    ════════════════════════════════════ */
@@ -2379,10 +2427,10 @@ button { cursor: pointer; font: inherit; }
   justify-content: center;
   text-align: center;
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: .02em;
-  color: rgba(255,255,255,.65);
+  letter-spacing: .03em;
+  color: rgba(255,255,255,.55);
 }
 
 /* ════════════════════════════════════
