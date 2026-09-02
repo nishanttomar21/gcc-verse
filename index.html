@@ -29,18 +29,17 @@
 <!-- Preconnect Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
 <style>
 /* ════════════════════════════════════════════════════════
-   GCCVERSE v3.2 — FULLY RESPONSIVE INSTITUTIONAL PLATFORM
-   Optimized for Phone, Tablet, Laptop, and High-DPI Desktop
+   GCCVERSE v3.3 — INSTITUTIONAL TERMINAL DESIGN SYSTEM
    ════════════════════════════════════════════════════════ */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  /* ── Surfaces ── */
+  /* Surfaces */
   --white: #FFFFFF;
   --cream: #FAFAF7;
   --warm-50: #F5F3EE;
@@ -48,7 +47,7 @@
   --warm-200: #DCD8CE;
   --warm-300: #C2BDB1;
 
-  /* ── Ink ── */
+  /* Ink */
   --ink-900: #141413;
   --ink-800: #1C1C1A;
   --ink-700: #2E2E2B;
@@ -57,7 +56,7 @@
   --ink-400: #8E8E87;
   --ink-300: #B3B3AB;
 
-  /* ── Brand: Deep Emerald + Gold ── */
+  /* Brand: Deep Emerald + Gold */
   --emerald-900: #022B22;
   --emerald-800: #044D3A;
   --emerald-700: #067352;
@@ -69,17 +68,19 @@
   --gold-400: #E8B931;
   --gold-50: #FEF9E7;
 
-  /* ── Signals ── */
+  /* Signals & Categories */
   --up: #16A34A;
   --down: #DC2626;
   --blue: #2563EB;
+  --purple: #7C3AED;
+  --rose: #DB2777;
 
-  /* ── Fonts ── */
+  /* Typography */
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* ── Layout ── */
+  /* Spacing */
   --max-w: 1280px;
   --gutter: 24px;
   --radius: 12px;
@@ -136,19 +137,6 @@ button { cursor: pointer; font: inherit; }
 .delay-200 { transition-delay: 200ms; }
 .delay-300 { transition-delay: 300ms; }
 
-/* Content Visibility for Rendering Speed */
-.stories-section,
-.pillars-section,
-.cities-section,
-.data-section,
-.river-section,
-.personas-section,
-.advisory-section,
-.subscribe-section {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 650px;
-}
-
 /* ════════════════════════════════════
    HEADER — Clean 1-Line Navigation
    ════════════════════════════════════ */
@@ -203,12 +191,8 @@ button { cursor: pointer; font: inherit; }
 @media(min-width:1200px){ .logo-sub { display: inline; } }
 
 /* Desktop Navigation */
-.nav-desktop {
-  display: none;
-}
-@media(min-width:960px){
-  .nav-desktop { display: block; }
-}
+.nav-desktop { display: none; }
+@media(min-width:960px){ .nav-desktop { display: block; } }
 .nav-list {
   display: flex;
   list-style: none;
@@ -279,9 +263,7 @@ button { cursor: pointer; font: inherit; }
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(4,77,58,.28);
 }
-.btn-primary:active, .btn-outline:active {
-  transform: scale(0.98);
-}
+.btn-primary:active, .btn-outline:active { transform: scale(0.98); }
 
 /* Mobile Hamburger Button */
 .mobile-menu-btn {
@@ -297,10 +279,7 @@ button { cursor: pointer; font: inherit; }
   cursor: pointer;
   transition: all .2s;
 }
-.mobile-menu-btn:hover {
-  border-color: var(--emerald-700);
-  background: var(--warm-50);
-}
+.mobile-menu-btn:hover { border-color: var(--emerald-700); background: var(--warm-50); }
 @media(max-width:959px){
   .mobile-menu-btn { display: flex; }
   .header-cta-desktop { display: none; }
@@ -321,16 +300,9 @@ button { cursor: pointer; font: inherit; }
   border-radius: 2px;
   transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.mobile-menu-btn.active .hamburger-icon span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-.mobile-menu-btn.active .hamburger-icon span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.mobile-menu-btn.active .hamburger-icon span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
+.mobile-menu-btn.active .hamburger-icon span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.mobile-menu-btn.active .hamburger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mobile-menu-btn.active .hamburger-icon span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* Mobile Navigation Drawer */
 .mobile-nav-drawer {
@@ -379,9 +351,7 @@ button { cursor: pointer; font: inherit; }
   border-bottom: 1px solid var(--warm-100);
   transition: color .2s;
 }
-.mobile-nav-list a:hover {
-  color: var(--emerald-700);
-}
+.mobile-nav-list a:hover { color: var(--emerald-700); }
 .mobile-drawer-cta {
   display: flex;
   flex-direction: column;
@@ -415,7 +385,6 @@ button { cursor: pointer; font: inherit; }
   z-index: 2;
 }
 
-/* Continuous cinematic Ken Burns camera motion */
 @keyframes kenBurnsSlide {
   0% { transform: scale(1.0) translate(0, 0); }
   50% { transform: scale(1.07) translate(-1.2%, -0.8%); }
@@ -433,7 +402,6 @@ button { cursor: pointer; font: inherit; }
   animation: kenBurnsSlide 16s ease-in-out infinite alternate;
 }
 
-/* Multi-layered cinematic gradient scrim */
 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -451,7 +419,6 @@ button { cursor: pointer; font: inherit; }
   pointer-events: none;
 }
 
-/* Content wrapper */
 .hero-content {
   position: absolute;
   bottom: 0;
@@ -468,11 +435,8 @@ button { cursor: pointer; font: inherit; }
   align-items: flex-end;
   gap: 32px;
 }
-.hero-text-col {
-  max-width: 800px;
-}
+.hero-text-col { max-width: 800px; }
 
-/* Shimmering Badge / Pill */
 .hero-chip-wrap {
   display: inline-flex;
   align-items: center;
@@ -514,7 +478,6 @@ button { cursor: pointer; font: inherit; }
   35%, 100% { left: 160%; }
 }
 
-/* Slide Headlines with Staggered Transitions */
 .hero-headline {
   font-family: var(--serif);
   font-size: clamp(26px, 4.8vw, 58px);
@@ -547,18 +510,9 @@ button { cursor: pointer; font: inherit; }
   text-shadow: 0 1px 8px rgba(0,0,0,0.3);
 }
 
-.hero-slide.active .hero-headline {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .25s;
-}
-.hero-slide.active .hero-excerpt {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .4s;
-}
+.hero-slide.active .hero-headline { opacity: 1; transform: translateY(0); transition-delay: .25s; }
+.hero-slide.active .hero-excerpt { opacity: 1; transform: translateY(0); transition-delay: .4s; }
 
-/* Floating Live Telemetry Card (Laptop & Desktop) */
 .hero-telemetry-card {
   display: none;
   background: rgba(4, 32, 26, 0.76);
@@ -616,7 +570,7 @@ button { cursor: pointer; font: inherit; }
   color: rgba(255,255,255,0.6);
 }
 
-/* Modern Segmented Interactive Tab Bar */
+/* Segmented Interactive Tab Bar */
 .carousel-nav-bar {
   position: absolute;
   bottom: 18px;
@@ -711,7 +665,6 @@ button { cursor: pointer; font: inherit; }
   100% { width: 100%; }
 }
 
-/* Slide Counter & Arrow Buttons */
 .carousel-controls-right {
   display: flex;
   align-items: center;
@@ -751,12 +704,10 @@ button { cursor: pointer; font: inherit; }
   border-color: rgba(255,255,255,0.7);
   transform: scale(1.08);
 }
-.carousel-arrow-btn:active {
-  transform: scale(0.95);
-}
+.carousel-arrow-btn:active { transform: scale(0.95); }
 
 /* ════════════════════════════════════
-   MACRO STATS RIBBON (ANIMATED NUMBERS)
+   MACRO STATS RIBBON
    ════════════════════════════════════ */
 .stats-ribbon {
   background: var(--white);
@@ -771,16 +722,10 @@ button { cursor: pointer; font: inherit; }
   gap: 18px 20px;
 }
 @media(max-width:480px){
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
+  .stats-grid { grid-template-columns: 1fr; gap: 14px; }
 }
 @media(min-width:768px){
-  .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px 32px;
-  }
+  .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 24px 32px; }
 }
 .stat-block {
   text-align: center;
@@ -819,9 +764,7 @@ button { cursor: pointer; font: inherit; }
   font-variant-numeric: tabular-nums;
   transition: color .3s ease;
 }
-.stat-block:hover .stat-number {
-  color: var(--emerald-800);
-}
+.stat-block:hover .stat-number { color: var(--emerald-800); }
 .stat-label {
   font-family: var(--mono);
   font-size: 11px;
@@ -838,11 +781,9 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   SECTION HEADINGS — Editorial system
+   SECTION HEADINGS
    ════════════════════════════════════ */
-.section-header {
-  margin-bottom: clamp(32px, 4vw, 48px);
-}
+.section-header { margin-bottom: clamp(32px, 4vw, 48px); }
 .section-tag {
   display: inline-flex;
   align-items: center;
@@ -879,7 +820,7 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   FEATURED STORIES — Editorial cards
+   FEATURED STORIES
    ════════════════════════════════════ */
 .stories-section {
   padding: clamp(52px, 7vw, 92px) 0;
@@ -891,10 +832,7 @@ button { cursor: pointer; font: inherit; }
   gap: 24px;
 }
 @media(min-width:960px){
-  .stories-grid {
-    grid-template-columns: 1.35fr 1fr;
-    gap: 32px;
-  }
+  .stories-grid { grid-template-columns: 1.35fr 1fr; gap: 32px; }
 }
 
 .story-feature {
@@ -984,7 +922,7 @@ button { cursor: pointer; font: inherit; }
 .story-card-sm .story-excerpt { font-size: 14px; margin-bottom: 10px; }
 
 /* ════════════════════════════════════
-   SIX PILLARS — Responsive Grid
+   SIX PILLARS
    ════════════════════════════════════ */
 .pillars-section {
   padding: clamp(52px, 7vw, 96px) 0;
@@ -1051,7 +989,7 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   CITY CLUSTERS — Responsive Grid
+   CITY CLUSTERS
    ════════════════════════════════════ */
 .cities-section {
   padding: clamp(52px, 7vw, 96px) 0;
@@ -1115,7 +1053,7 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   DATA INDEX — Metrics + Bar
+   DATA INDEX & ADVANCED CAPABILITY VISUALIZATION
    ════════════════════════════════════ */
 .data-section {
   padding: clamp(52px, 7vw, 96px) 0;
@@ -1139,11 +1077,7 @@ button { cursor: pointer; font: inherit; }
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @media(max-width:540px){
-  .shift-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+  .shift-item { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 .shift-item:hover {
   background: var(--white);
@@ -1171,63 +1105,176 @@ button { cursor: pointer; font: inherit; }
 }
 .shift-text b { color: var(--ink-900); }
 
-/* Capability bar */
-.cap-box {
-  border: 1px solid var(--warm-200);
-  border-radius: var(--radius);
-  padding: clamp(20px, 3vw, 30px);
+/* ── Upgraded Interactive Capability Showcase ── */
+.cap-showcase {
   background: var(--cream);
+  border: 1px solid var(--warm-200);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3.5vw, 36px);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  transition: all .3s ease;
 }
-.cap-title {
+.cap-showcase:hover {
+  border-color: var(--warm-300);
+  box-shadow: 0 16px 40px -12px rgba(0,0,0,0.08);
+}
+.cap-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 22px;
 }
-.cap-title h3 {
-  font-family: var(--sans);
-  font-size: 17px;
+.cap-title-wrap h3 {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.2vw, 24px);
   font-weight: 700;
   color: var(--ink-900);
+  margin-bottom: 4px;
 }
-.cap-title span {
+.cap-title-wrap p {
+  font-size: 13.5px;
+  color: var(--ink-500);
+}
+.cap-audit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--ink-400);
+  color: var(--emerald-800);
+  background: var(--emerald-50);
+  border: 1px solid rgba(5,150,105,0.25);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-weight: 600;
 }
-.cap-bar {
+
+/* Master Multi-Segment Visual Bar */
+.master-bar-container {
+  position: relative;
+  margin-bottom: 28px;
+}
+.master-cap-bar {
   display: flex;
-  height: 14px;
-  border-radius: 7px;
+  height: 26px;
+  border-radius: 13px;
   overflow: hidden;
   background: var(--warm-100);
-  margin-bottom: 16px;
+  border: 2px solid var(--white);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 4px 14px rgba(0,0,0,0.04);
+  cursor: pointer;
 }
-.cap-bar div {
+.bar-seg {
   height: 100%;
   width: 0%;
-  transition: width 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity .2s;
+  position: relative;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, filter 0.3s ease;
+  overflow: hidden;
 }
-.cap-bar div:hover { opacity: .8; }
-.cap-legend {
+.bar-seg.highlight {
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(0,0,0,0.2));
+  z-index: 2;
+}
+.bar-seg.dimmed {
+  opacity: 0.35;
+}
+.bar-seg span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #FFF;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  white-space: nowrap;
+  display: none;
+}
+@media(min-width:640px){ .bar-seg span { display: block; } }
+
+/* Responsive Capability Domain Cards Grid */
+.cap-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 16px;
+}
+.cap-card {
+  background: var(--white);
+  border: 1.5px solid var(--warm-200);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+}
+.cap-card:hover, .cap-card.active {
+  transform: translateY(-4px);
+  border-color: var(--domain-color, var(--emerald-600));
+  box-shadow: 0 12px 28px -6px rgba(0,0,0,0.09);
+}
+.cap-card-top {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.cap-dot-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cap-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  background: var(--domain-color);
+  box-shadow: 0 0 8px var(--domain-color);
+  flex-shrink: 0;
+}
+.cap-pct {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink-900);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.cap-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-800);
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+.cap-metric {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-500);
+  margin-bottom: 10px;
 }
-.cap-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.cap-legend-dot {
-  width: 9px;
-  height: 9px;
+.cap-card-track {
+  width: 100%;
+  height: 4px;
+  background: var(--warm-100);
   border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.cap-card-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--domain-color);
+  border-radius: 2px;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cap-tags {
+  font-size: 11.5px;
+  color: var(--ink-400);
+  line-height: 1.4;
 }
 
 /* ════════════════════════════════════
@@ -1312,9 +1359,7 @@ button { cursor: pointer; font: inherit; }
   flex-shrink: 0;
   transition: transform .25s ease;
 }
-.persona-card:hover .persona-icon {
-  transform: scale(1.08);
-}
+.persona-card:hover .persona-icon { transform: scale(1.08); }
 .persona-icon svg { width: 22px; height: 22px; stroke: var(--emerald-700); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .persona-title {
   font-weight: 700;
@@ -1399,118 +1444,254 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   SUBSCRIBE
+   UPGRADED HIGH-CONVERTING SUBSCRIBE SECTION
    ════════════════════════════════════ */
 .subscribe-section {
-  padding: clamp(52px, 7vw, 88px) 0;
-  background: var(--warm-50);
+  padding: clamp(60px, 8vw, 108px) 0;
+  background: linear-gradient(180deg, var(--white) 0%, var(--warm-50) 100%);
   border-top: 1px solid var(--warm-200);
-  text-align: center;
 }
-.sub-card {
-  max-width: 580px;
-  margin: 0 auto;
+.sub-master-container {
   background: var(--white);
   border: 1px solid var(--warm-200);
   border-radius: var(--radius-lg);
-  padding: clamp(24px, 3.5vw, 36px) clamp(18px, 3vw, 32px);
-  box-shadow: 0 10px 32px -8px rgba(0,0,0,.07);
-  text-align: left;
-  transition: box-shadow .3s ease;
+  box-shadow: 0 20px 54px -12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
 }
-.sub-card:hover {
-  box-shadow: 0 16px 44px -8px rgba(0,0,0,.1);
+@media(min-width:960px){
+  .sub-master-container {
+    grid-template-columns: 1.15fr 1fr;
+  }
 }
-.sub-row {
+
+/* Left Editorial Pitch Column */
+.sub-pitch-col {
+  padding: clamp(32px, 5vw, 56px);
+  background: linear-gradient(145deg, #02241C 0%, #03362A 100%);
+  color: #FFF;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  position: relative;
 }
-@media(min-width:600px){ .sub-row { flex-direction: row; } }
-.sub-input {
-  flex: 1;
-  padding: 13px 16px;
-  border: 1.5px solid var(--warm-200);
-  border-radius: 10px;
-  font-size: 15px;
-  background: var(--cream);
-  color: var(--ink-800);
-  outline: none;
-  transition: border .2s, box-shadow .2s;
+.sub-pitch-col::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(212,160,23,0.25);
 }
-.sub-input:focus {
-  border-color: var(--emerald-600);
-  box-shadow: 0 0 0 3px rgba(5,150,105,.12);
+.sub-prestige-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  background: rgba(212,160,23,0.15);
+  border: 1px solid rgba(212,160,23,0.35);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  align-self: flex-start;
 }
-.sub-input::placeholder { color: var(--ink-300); }
-.sub-btn {
-  background: var(--emerald-800);
-  color: #FFF;
+.sub-headline {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.2vw, 40px);
   font-weight: 700;
-  font-size: 14.5px;
-  padding: 13px 24px;
-  border-radius: 10px;
-  border: none;
-  white-space: nowrap;
-  transition: all .2s;
+  line-height: 1.16;
+  margin-bottom: 14px;
+  color: #FFF;
 }
-.sub-btn:hover {
-  background: var(--emerald-700);
-  transform: translateY(-1px);
+.sub-headline em {
+  color: var(--gold-400);
+  font-style: italic;
+  font-weight: 400;
 }
-.sub-feedback {
-  font-size: 13px;
-  margin-top: 10px;
-  display: none;
+.sub-pitch-desc {
+  font-size: 15.5px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+  margin-bottom: 28px;
 }
-.sub-feedback.success { display: block; color: var(--up); font-weight: 600; }
-.sub-feedback.error { display: block; color: var(--down); }
-.sub-divider {
+.sub-perks-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.sub-perk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.45;
+}
+.sub-perk-icon {
+  color: var(--gold-400);
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.sub-proof-strip {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 16px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.sub-avatars {
+  display: flex;
+  align-items: center;
+}
+.sub-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #03362A;
+  background: var(--gold-500);
+  color: #1A1200;
+  font-weight: 700;
+  font-size: 11px;
+  display: grid;
+  place-items: center;
+  margin-left: -8px;
+}
+.sub-avatar-circle:first-child { margin-left: 0; background: #059669; color: #FFF; }
+.sub-avatar-circle:nth-child(2) { background: #2563EB; color: #FFF; }
+.sub-avatar-circle:nth-child(3) { background: #D4A017; color: #1A1200; }
+.sub-proof-text {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.7);
+}
+.sub-proof-text b { color: #FFF; }
+
+/* Right Form Action Column */
+.sub-action-col {
+  padding: clamp(32px, 5vw, 56px);
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sub-form-card-h3 {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--ink-900);
+  margin-bottom: 6px;
+}
+.sub-form-card-sub {
+  font-size: 14.5px;
+  color: var(--ink-500);
+  margin-bottom: 24px;
+}
+.sub-interactive-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sub-input-box {
+  position: relative;
+}
+.sub-input-vip {
+  width: 100%;
+  padding: 16px 20px 16px 46px;
+  border: 1.5px solid var(--warm-200);
+  border-radius: 12px;
+  font-size: 15.5px;
+  background: var(--cream);
+  color: var(--ink-900);
+  outline: none;
+  transition: all .2s;
+}
+.sub-input-vip:focus {
+  border-color: var(--emerald-700);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(6,115,82,0.12);
+}
+.sub-input-vip::placeholder { color: var(--ink-400); }
+.sub-input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-400);
+  pointer-events: none;
+}
+.sub-interest-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+.sub-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 11px;
+  border-radius: 100px;
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  color: var(--ink-600);
+  cursor: pointer;
+  transition: all .2s;
+}
+.sub-pill.active, .sub-pill:hover {
+  background: var(--emerald-50);
+  border-color: var(--emerald-600);
+  color: var(--emerald-800);
+}
+.sub-btn-vip {
+  background: linear-gradient(135deg, var(--emerald-800), var(--emerald-900));
+  color: #FFF;
+  font-weight: 700;
+  font-size: 15.5px;
+  padding: 16px 28px;
+  border-radius: 12px;
+  border: none;
+  transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 20px rgba(2,43,34,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.sub-btn-vip:hover {
+  background: linear-gradient(135deg, var(--emerald-700), var(--emerald-800));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(2,43,34,0.35);
+}
+.sub-btn-vip:active { transform: scale(0.98); }
+.sub-guarantee {
+  font-size: 12px;
+  color: var(--ink-400);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.sub-or-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-400);
   text-transform: uppercase;
   letter-spacing: .08em;
 }
-.sub-divider::before, .sub-divider::after { content: ""; flex: 1; height: 1px; background: var(--warm-200); }
-.btn-linkedin {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px 18px;
-  border: 1.5px solid var(--warm-200);
-  border-radius: 10px;
-  background: var(--white);
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--ink-700);
-  transition: all .24s;
-  text-align: center;
-}
-.btn-linkedin:hover {
-  border-color: #0A66C2;
-  color: #0A66C2;
-  background: rgba(10,102,194,.04);
-}
-.sub-trust {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 16px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--warm-200);
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-400);
-  justify-content: center;
-}
-.sub-trust b { color: var(--ink-700); }
+.sub-or-line::before, .sub-or-line::after { content: ""; flex: 1; height: 1px; background: var(--warm-200); }
 
 /* ════════════════════════════════════
    FOOTER
@@ -1555,14 +1736,14 @@ button { cursor: pointer; font: inherit; }
 }
 
 /* ════════════════════════════════════
-   MODAL
+   MODALS (Advisory & Subscribe Popups)
    ════════════════════════════════════ */
 .modal-bg {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0,0,0,.68);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 200;
   display: none;
   place-items: center;
@@ -1580,16 +1761,14 @@ button { cursor: pointer; font: inherit; }
   padding: clamp(24px, 4vw, 40px);
   max-width: 540px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 92vh;
   overflow-y: auto;
   position: relative;
   box-shadow: 0 30px 80px rgba(0,0,0,.25);
   transform: scale(0.95);
   transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.modal-bg.open .modal-box {
-  transform: scale(1);
-}
+.modal-bg.open .modal-box { transform: scale(1); }
 .modal-close {
   position: absolute;
   top: 14px;
@@ -1605,10 +1784,8 @@ button { cursor: pointer; font: inherit; }
   font-size: 18px;
   transition: all .2s;
 }
-.modal-close:hover {
-  background: var(--warm-100);
-  color: var(--ink-900);
-}
+.modal-close:hover { background: var(--warm-100); color: var(--ink-900); }
+
 .form-group { margin-bottom: 14px; }
 .form-label {
   display: block;
@@ -1632,9 +1809,108 @@ button { cursor: pointer; font: inherit; }
   transition: border .2s;
 }
 .form-input:focus, .form-textarea:focus { border-color: var(--emerald-600); }
-.form-textarea {
-  resize: none;
-  min-height: 75px;
+.form-textarea { resize: none; min-height: 75px; }
+
+/* ── Animated Success Card Components ── */
+.success-card {
+  text-align: center;
+  padding: 10px 4px;
+  animation: fadeInModal .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fadeInModal {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.success-icon-wrap {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--emerald-50);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 10px rgba(5,150,105,.12);
+  animation: scaleBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes scaleBounce {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.success-checkmark {
+  width: 52px;
+  height: 52px;
+  stroke: var(--emerald-700);
+  stroke-width: 3.5;
+  stroke-miterlimit: 10;
+}
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke: var(--emerald-600);
+  animation: strokeCircle 0.65s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: strokeCheck 0.45s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards;
+}
+@keyframes strokeCircle { 100% { stroke-dashoffset: 0; } }
+@keyframes strokeCheck { 100% { stroke-dashoffset: 0; } }
+
+.success-telemetry-box {
+  background: var(--cream);
+  border: 1px solid var(--warm-200);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  max-width: 440px;
+  margin: 0 auto 20px;
+  text-align: left;
+  font-size: 13.5px;
+}
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--warm-100);
+}
+.telemetry-row:last-child { border-bottom: none; }
+.telemetry-row span { color: var(--ink-500); font-family: var(--mono); font-size: 11.5px; }
+.telemetry-row b { color: var(--ink-900); font-family: var(--mono); font-size: 12.5px; }
+
+.auto-close-bar-wrap {
+  max-width: 360px;
+  margin: 0 auto;
+}
+.auto-close-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-500);
+  margin-bottom: 8px;
+}
+.auto-close-text b { color: var(--emerald-700); }
+.auto-close-track {
+  width: 100%;
+  height: 4px;
+  background: var(--warm-200);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.auto-close-progress {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-500), var(--emerald-600));
+  transform-origin: left center;
+}
+.auto-close-progress.animate {
+  animation: closeCountdown 5s linear forwards;
+}
+@keyframes closeCountdown {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
 }
 
 /* Audio toast */
@@ -1668,50 +1944,27 @@ button { cursor: pointer; font: inherit; }
 /* Focus states */
 :focus-visible { outline: 2px solid var(--emerald-600); outline-offset: 2px; border-radius: 4px; }
 
-/* prefers-reduced-motion */
 @media(prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* ════════════════════════════════════
-   SPECIFIC MOBILE & TABLET ADAPTATIONS
-   ════════════════════════════════════ */
+/* Responsive Tweaks */
 @media(max-width:768px) {
-  :root {
-    --gutter: 16px;
-  }
+  :root { --gutter: 16px; }
   .hero-content { padding-bottom: 74px; }
-  .carousel-tabs {
-    gap: 6px;
-  }
-  .carousel-tab {
-    padding: 6px 8px;
-  }
-  .tab-title {
-    display: none;
-  }
-  .slide-counter {
-    display: none;
-  }
-  .carousel-arrow-btn {
-    width: 36px;
-    height: 36px;
-  }
+  .carousel-tabs { gap: 6px; }
+  .carousel-tab { padding: 6px 8px; }
+  .tab-title { display: none; }
+  .slide-counter { display: none; }
+  .carousel-arrow-btn { width: 36px; height: 36px; }
 }
-
 @media(max-width:480px) {
   .hero-chip-wrap { margin-bottom: 10px; }
   .hero-headline { font-size: 25px; line-height: 1.15; }
   .hero-excerpt { font-size: 14px; line-height: 1.5; }
   .hero-content { padding-bottom: 68px; }
-  .advisory-cta {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .btn-gold-solid {
-    width: 100%;
-    text-align: center;
-  }
+  .advisory-cta { flex-direction: column; align-items: stretch; }
+  .btn-gold-solid { width: 100%; text-align: center; }
 }
 </style>
 </head>
@@ -2052,7 +2305,7 @@ button { cursor: pointer; font: inherit; }
   </div>
 </section>
 
-<!-- ═══ DATA INDEX ═══ -->
+<!-- ═══ DATA INDEX & UPGRADED CAPABILITY DISTRIBUTION ═══ -->
 <section class="data-section" id="data" aria-label="Ecosystem Data Index">
   <div class="container">
     <div class="section-header reveal">
@@ -2076,24 +2329,91 @@ button { cursor: pointer; font: inherit; }
       </div>
     </div>
 
-    <div class="cap-box reveal">
-      <div class="cap-title">
-        <h3>Ecosystem Functional Capability Distribution</h3>
-        <span>FY2026 · nasscom–Zinnov Baseline</span>
+    <!-- ── Elevating Ecosystem Functional Capability Distribution ── -->
+    <div class="cap-showcase reveal" id="capShowcase">
+      <div class="cap-top-bar">
+        <div class="cap-title-wrap">
+          <h3>Ecosystem Functional Capability Distribution</h3>
+          <p>Structural talent allocation &amp; IP ownership across India's 2,117 active GCCs</p>
+        </div>
+        <div class="cap-audit-pill">
+          <span class="telemetry-pulse" style="width:6px;height:6px;"></span>
+          FY2026 · nasscom–Zinnov Baseline Audit
+        </div>
       </div>
-      <div class="cap-bar">
-        <div data-width="35.4%" style="width:0%;background:#D4A017" title="Engineering R&D & AI: 35.4%"></div>
-        <div data-width="28.1%" style="width:0%;background:#059669" title="Software & Cloud: 28.1%"></div>
-        <div data-width="19.5%" style="width:0%;background:#2563EB" title="BFSI & Risk: 19.5%"></div>
-        <div data-width="10.2%" style="width:0%;background:#DB2777" title="Life Sciences: 10.2%"></div>
-        <div data-width="6.8%" style="width:0%;background:#7C3AED" title="Strategic Ops: 6.8%"></div>
+
+      <!-- Master Multi-Segment Distribution Bar -->
+      <div class="master-bar-container">
+        <div class="master-cap-bar" id="masterCapBar">
+          <div class="bar-seg" id="seg-0" data-index="0" data-width="35.4%" style="background:#D4A017" title="Engineering R&D & AI: 35.4%"><span>35.4%</span></div>
+          <div class="bar-seg" id="seg-1" data-index="1" data-width="28.1%" style="background:#059669" title="Software & Cloud: 28.1%"><span>28.1%</span></div>
+          <div class="bar-seg" id="seg-2" data-index="2" data-width="19.5%" style="background:#2563EB" title="BFSI & Risk: 19.5%"><span>19.5%</span></div>
+          <div class="bar-seg" id="seg-3" data-index="3" data-width="10.2%" style="background:#DB2777" title="Life Sciences: 10.2%"><span>10.2%</span></div>
+          <div class="bar-seg" id="seg-4" data-index="4" data-width="6.8%" style="background:#7C3AED" title="Strategic Ops: 6.8%"><span>6.8%</span></div>
+        </div>
       </div>
-      <div class="cap-legend">
-        <div class="cap-legend-item"><span class="cap-legend-dot" style="background:#D4A017"></span>Engineering R&D & AI (35.4%)</div>
-        <div class="cap-legend-item"><span class="cap-legend-dot" style="background:#059669"></span>Software & Cloud (28.1%)</div>
-        <div class="cap-legend-item"><span class="cap-legend-dot" style="background:#2563EB"></span>BFSI & Risk (19.5%)</div>
-        <div class="cap-legend-item"><span class="cap-legend-dot" style="background:#DB2777"></span>Life Sciences (10.2%)</div>
-        <div class="cap-legend-item"><span class="cap-legend-dot" style="background:#7C3AED"></span>Strategic Ops (6.8%)</div>
+
+      <!-- Capability Domain Cards Grid -->
+      <div class="cap-cards-grid" id="capCardsGrid">
+        <!-- 01: Engineering R&D & AI -->
+        <div class="cap-card" data-index="0" style="--domain-color:#D4A017;">
+          <div class="cap-card-top">
+            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#D4A017;">01 · CORE</span></div>
+            <div class="cap-pct" data-target="35.4">0.0%</div>
+          </div>
+          <h4 class="cap-name">Engineering R&D &amp; AI</h4>
+          <div class="cap-metric">~835,000 Talent · +4.8% YoY</div>
+          <div class="cap-card-track"><div class="cap-card-fill" data-width="35.4%"></div></div>
+          <div class="cap-tags">Generative AI Labs · Semiconductor VLSI · Autonomous Tech</div>
+        </div>
+
+        <!-- 02: Software & Cloud -->
+        <div class="cap-card" data-index="1" style="--domain-color:#059669;">
+          <div class="cap-card-top">
+            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#059669;">02 · CLOUD</span></div>
+            <div class="cap-pct" data-target="28.1">0.0%</div>
+          </div>
+          <h4 class="cap-name">Software &amp; Cloud</h4>
+          <div class="cap-metric">~663,000 Talent · +3.2% YoY</div>
+          <div class="cap-card-track"><div class="cap-card-fill" data-width="28.1%"></div></div>
+          <div class="cap-tags">Enterprise Platforms · Cyber Defense · Microservices Core</div>
+        </div>
+
+        <!-- 03: BFSI & Risk -->
+        <div class="cap-card" data-index="2" style="--domain-color:#2563EB;">
+          <div class="cap-card-top">
+            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#2563EB;">03 · QUANT</span></div>
+            <div class="cap-pct" data-target="19.5">0.0%</div>
+          </div>
+          <h4 class="cap-name">BFSI &amp; Risk Analytics</h4>
+          <div class="cap-metric">~460,000 Talent · +2.4% YoY</div>
+          <div class="cap-card-track"><div class="cap-card-fill" data-width="19.5%"></div></div>
+          <div class="cap-tags">Algorithmic Trading · Compliance AI · Actuarial Modeling</div>
+        </div>
+
+        <!-- 04: Life Sciences -->
+        <div class="cap-card" data-index="3" style="--domain-color:#DB2777;">
+          <div class="cap-card-top">
+            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#DB2777;">04 · HEALTH</span></div>
+            <div class="cap-pct" data-target="10.2">0.0%</div>
+          </div>
+          <h4 class="cap-name">Life Sciences &amp; Pharma</h4>
+          <div class="cap-metric">~240,000 Talent · +5.6% YoY</div>
+          <div class="cap-card-track"><div class="cap-card-fill" data-width="10.2%"></div></div>
+          <div class="cap-tags">Clinical Protocol AI · Pharmacovigilance · Genomics</div>
+        </div>
+
+        <!-- 05: Strategic Ops -->
+        <div class="cap-card" data-index="4" style="--domain-color:#7C3AED;">
+          <div class="cap-card-top">
+            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#7C3AED;">05 · OPS</span></div>
+            <div class="cap-pct" data-target="6.8">0.0%</div>
+          </div>
+          <h4 class="cap-name">Strategic Operations</h4>
+          <div class="cap-metric">~160,000 Talent · +1.8% YoY</div>
+          <div class="cap-card-track"><div class="cap-card-fill" data-width="6.8%"></div></div>
+          <div class="cap-tags">Supply Chain Twins · Global Treasury · Procurement Labs</div>
+        </div>
       </div>
     </div>
   </div>
@@ -2151,31 +2471,62 @@ button { cursor: pointer; font: inherit; }
   </div>
 </section>
 
-<!-- ═══ SUBSCRIBE ═══ -->
+<!-- ═══ UPGRADED HIGH-CONVERTING SUBSCRIBE SECTION ═══ -->
 <section class="subscribe-section" id="subscribe" aria-label="Newsletter Subscription">
   <div class="container">
-    <div class="section-header reveal" style="text-align:center">
-      <div class="section-tag" style="justify-content:center">Stay Informed</div>
-      <h2 class="section-h2">Receive the Tuesday Executive Briefing.</h2>
-      <p class="section-lead" style="margin:0 auto">Join thousands of GCC leaders tracking India's capability revolution.</p>
-    </div>
-    <div class="sub-card reveal">
-      <form id="subForm" novalidate>
-        <div class="sub-row">
-          <input class="sub-input" id="subEmail" type="email" placeholder="name@company.com" required aria-label="Corporate Email Address"/>
-          <button class="sub-btn" type="submit">Subscribe Free</button>
+    <div class="sub-master-container reveal">
+      <!-- Left Column: Editorial Value Proposition -->
+      <div class="sub-pitch-col">
+        <div>
+          <div class="sub-prestige-tag">✦ Tuesday Executive Briefing</div>
+          <h2 class="sub-headline">The signal before <em>the market moves.</em></h2>
+          <p class="sub-pitch-desc">Every Tuesday at 08:00 AM IST, join 1,600+ Global Site Heads, Enterprise Managing Directors, and Sovereign Fund Managers tracking India's capability revolution.</p>
+          <ul class="sub-perks-list">
+            <li class="sub-perk-item"><span class="sub-perk-icon">⚡</span><span><b>Proprietary Market Signals:</b> Greenfield setups, captive in-sourcing, and SEZ policy shifts weeks before public press release.</span></li>
+            <li class="sub-perk-item"><span class="sub-perk-icon">👥</span><span><b>C-Suite Mandate Tracker:</b> Leadership movements, VP appointments, and functional capability transitions across 2,117 centres.</span></li>
+            <li class="sub-perk-item"><span class="sub-perk-icon">🏢</span><span><b>Grade-A Commercial Real Estate:</b> Micro-market leasing rates and spatial density across Bengaluru, Hyderabad, Pune, and NCR.</span></li>
+          </ul>
         </div>
-        <p class="sub-feedback" id="subFeedback" role="alert"></p>
-      </form>
-      <div class="sub-divider">or connect on LinkedIn</div>
-      <a class="btn-linkedin" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-        Follow GCCVerse on LinkedIn (1,600+ Members)
-      </a>
-      <div class="sub-trust">
-        <span><b>1,600+</b> Institutional Readers</span>
-        <span>Every Tuesday, 08:00 IST</span>
-        <span>Zero Spam · One-Click Unsubscribe</span>
+        <div class="sub-proof-strip">
+          <div class="sub-avatars">
+            <div class="sub-avatar-circle">M</div>
+            <div class="sub-avatar-circle">G</div>
+            <div class="sub-avatar-circle">J</div>
+          </div>
+          <div class="sub-proof-text">Read by leaders from <b>Fortune 500 Captives, JLL, Blackstone &amp; State IT Ministries</b></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Subscription Form -->
+      <div class="sub-action-col">
+        <h3 class="sub-form-card-h3">Activate Institutional Access</h3>
+        <p class="sub-form-card-sub">Delivered free every Tuesday. Zero promotional noise. One-click unsubscribe.</p>
+        <form class="sub-interactive-form" id="subForm" novalidate>
+          <div class="sub-input-box">
+            <svg class="sub-input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input class="sub-input-vip" id="subEmail" type="email" placeholder="corporate.email@enterprise.com" required aria-label="Corporate Email Address"/>
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--ink-500);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;">Select Primary Mandate (Optional):</div>
+          <div class="sub-interest-pills" id="subInterestPills">
+            <span class="sub-pill active" data-mandate="Executive Strategy">Executive Strategy</span>
+            <span class="sub-pill" data-mandate="AI & Engineering">AI &amp; Engineering</span>
+            <span class="sub-pill" data-mandate="Commercial Real Estate">Commercial Real Estate</span>
+            <span class="sub-pill" data-mandate="Talent & Comp">Talent &amp; Comp</span>
+          </div>
+          <button class="sub-btn-vip" type="submit">
+            <span>Subscribe Free to Tuesday Dispatch</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <div class="sub-guarantee">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Strict privacy compliance · Institutional inbox guarantee · Never sold</span>
+          </div>
+        </form>
+        <div class="sub-or-line">or connect on LinkedIn</div>
+        <a class="btn-linkedin" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          Follow GCCVerse on LinkedIn (1,600+ Members)
+        </a>
       </div>
     </div>
   </div>
@@ -2203,21 +2554,85 @@ button { cursor: pointer; font: inherit; }
   </div>
 </footer>
 
-<!-- ═══ MODAL ═══ -->
+<!-- ═══ ADVISORY INQUIRY MODAL (WITH ANIMATED SUCCESS CARD) ═══ -->
 <div class="modal-bg" id="advisoryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-box">
-    <button class="modal-close" type="button" onclick="closeModal()" aria-label="Close dialog">×</button>
-    <div class="section-tag" style="margin-bottom:8px">Confidential Inquiry</div>
-    <h3 id="modalTitle" style="font-family:var(--serif);font-size:24px;color:var(--ink-900);margin-bottom:6px">Commission an Advisory Brief</h3>
-    <p style="font-size:14px;color:var(--ink-500);margin-bottom:24px">Share your requirements. We respond within 12 business hours.</p>
-    <form id="modalForm" onsubmit="handleModalSubmit(event)">
-      <div class="form-group"><label class="form-label" for="modalName">Your Name</label><input class="form-input" id="modalName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
-      <div class="form-group"><label class="form-label" for="modalEmail">Corporate Email</label><input class="form-input" id="modalEmail" type="email" placeholder="rajiv@fortune500.com" required/></div>
-      <div class="form-group"><label class="form-label" for="modalArea">Advisory Area</label><select class="form-select" id="modalArea"><option>GCC City Intelligence &amp; Feasibility</option><option>Peer Benchmarking &amp; Compensation</option><option>Commercial Real Estate (CRE) Audit</option><option>State Incentives &amp; Policy</option><option>Greenfield Setup / In-Sourcing</option><option>Custom Board Advisory Brief</option></select></div>
-      <div class="form-group"><label class="form-label" for="modalScope">Scope or City</label><textarea class="form-textarea" id="modalScope" placeholder="e.g. Evaluating Hyderabad vs Bengaluru for a 1,500-seat AI R&amp;D center."></textarea></div>
-      <button type="submit" class="sub-btn" style="width:100%">Submit Confidential Brief</button>
-      <div id="modalSuccess" style="display:none;color:var(--up);margin-top:12px;text-align:center;font-weight:600" role="status">Your advisory request has been dispatched to our research desk.</div>
-    </form>
+    <!-- View 1: Form Inputs -->
+    <div id="modalFormView">
+      <button class="modal-close" type="button" onclick="closeModal()" aria-label="Close dialog">×</button>
+      <div class="section-tag" style="margin-bottom:8px">Confidential Inquiry</div>
+      <h3 id="modalTitle" style="font-family:var(--serif);font-size:24px;color:var(--ink-900);margin-bottom:6px">Commission an Advisory Brief</h3>
+      <p style="font-size:14px;color:var(--ink-500);margin-bottom:24px">Share your requirements. We respond within 12 business hours.</p>
+      <form id="modalForm" onsubmit="handleModalSubmit(event)">
+        <div class="form-group"><label class="form-label" for="modalName">Your Name</label><input class="form-input" id="modalName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
+        <div class="form-group"><label class="form-label" for="modalEmail">Corporate Email</label><input class="form-input" id="modalEmail" type="email" placeholder="rajiv@fortune500.com" required/></div>
+        <div class="form-group"><label class="form-label" for="modalArea">Advisory Area</label><select class="form-select" id="modalArea"><option>GCC City Intelligence &amp; Feasibility</option><option>Peer Benchmarking &amp; Compensation</option><option>Commercial Real Estate (CRE) Audit</option><option>State Incentives &amp; Policy</option><option>Greenfield Setup / In-Sourcing</option><option>Custom Board Advisory Brief</option></select></div>
+        <div class="form-group"><label class="form-label" for="modalScope">Scope or City</label><textarea class="form-textarea" id="modalScope" placeholder="e.g. Evaluating Hyderabad vs Bengaluru for a 1,500-seat AI R&amp;D center."></textarea></div>
+        <button type="submit" class="sub-btn" style="width:100%;padding:14px;font-size:15px;">Submit Confidential Brief →</button>
+      </form>
+    </div>
+
+    <!-- View 2: Animated Success Card (Clean Transition on Same Window) -->
+    <div class="success-card" id="modalSuccessCard" style="display:none;">
+      <div class="success-icon-wrap">
+        <svg class="success-checkmark" viewBox="0 0 52 52">
+          <circle class="checkmark-circle" cx="26" cy="26" r="24" fill="none"/>
+          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <div class="chip chip-emerald" style="display:inline-block; margin-bottom:12px;">Inquiry Dispatched Successfully</div>
+      <h3 style="font-family:var(--serif); font-size:clamp(22px, 3vw, 26px); color:var(--ink-900); margin-bottom:8px;">Your Mandate is Logged</h3>
+      <p style="font-size:14.5px; color:var(--ink-600); line-height:1.55; max-width:440px; margin:0 auto 20px;">
+        Thank you, <b id="successUserName" style="color:var(--ink-900);">Partner</b>. Our Gurugram senior research desk has received your scoping parameters and will deliver an executive response.
+      </p>
+      <div class="success-telemetry-box">
+        <div class="telemetry-row"><span>Tracking Reference:</span><b id="successRefNumber">GCC-ADV-2026-8942</b></div>
+        <div class="telemetry-row"><span>SLA Commitment:</span><b>Within 12 Business Hours</b></div>
+        <div class="telemetry-row"><span>Assigned Desk:</span><b>Senior Advisory Practice · Gurugram</b></div>
+      </div>
+      <div class="auto-close-bar-wrap">
+        <div class="auto-close-text">Closing window in <b id="countdownTimer">5</b> seconds...</div>
+        <div class="auto-close-track"><div class="auto-close-progress" id="autoCloseProgress"></div></div>
+      </div>
+      <button type="button" class="btn-outline" onclick="closeModal()" style="margin-top:20px;">Close Window Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUBSCRIPTION SUCCESS WINDOW POPUP ═══ -->
+<div class="modal-bg" id="subSuccessModal" role="dialog" aria-modal="true" aria-labelledby="subSuccessTitle">
+  <div class="modal-box" style="text-align:center; padding:clamp(28px, 4vw, 44px);">
+    <button class="modal-close" type="button" onclick="closeSubModal()" aria-label="Close dialog">×</button>
+    <div class="success-icon-wrap" style="background:var(--gold-50); box-shadow:0 0 0 10px rgba(212,160,23,0.15);">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+    <div class="chip chip-gold" style="display:inline-block; margin-bottom:12px;">✦ VIP Access Confirmed</div>
+    <h3 id="subSuccessTitle" style="font-family:var(--serif); font-size:clamp(24px, 3.2vw, 28px); color:var(--ink-900); margin-bottom:10px;">Welcome to the Executive Circle</h3>
+    <p style="font-size:15px; color:var(--ink-600); line-height:1.6; max-width:440px; margin:0 auto 20px;">
+      You have been successfully added to the dispatch list for <b id="subSuccessEmailDisplay" style="color:var(--ink-900);">your email</b>.
+    </p>
+
+    <!-- Benchmark Gift Card inside Popup -->
+    <div style="background:var(--cream); border:1px solid var(--warm-200); border-radius:var(--radius); padding:16px 20px; text-align:left; margin-bottom:24px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:40px;height:40px;border-radius:8px;background:var(--emerald-50);color:var(--emerald-700);display:grid;place-items:center;font-size:20px;flex-shrink:0;">📑</div>
+        <div>
+          <div style="font-weight:700; font-size:14px; color:var(--ink-900);">FY2026 India GCC Executive Memo</div>
+          <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-500);">Scheduled for dispatch: Tuesday 08:00 AM IST</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <a class="btn-linkedin" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener" style="padding:14px; font-size:14.5px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        Follow GCCVerse on LinkedIn (1,600+ Members)
+      </a>
+      <button class="btn-outline" type="button" onclick="closeSubModal()" style="width:100%; padding:12px;">Back to Terminal</button>
+    </div>
   </div>
 </div>
 
@@ -2229,7 +2644,7 @@ button { cursor: pointer; font: inherit; }
 </div>
 
 <script>
-// ── 1. Scroll-Triggered Reveal System (Optimized IntersectionObserver) ──
+// ── 1. Scroll-Triggered Reveal System ──
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) {
@@ -2243,10 +2658,7 @@ function initScrollReveal() {
         obs.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -30px 0px'
-  });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
   reveals.forEach(el => observer.observe(el));
 }
 
@@ -2296,21 +2708,91 @@ function initStatsCounter() {
   observer.observe(statsSection);
 }
 
-// ── 3. Capability Bar Animation ──
-function initCapabilityBar() {
-  const capBox = document.querySelector('.cap-box');
-  if (!capBox) return;
+// ── 3. High-End Interactive Capability Distribution Engine ──
+function initCapabilityShowcase() {
+  const showcase = document.getElementById('capShowcase');
+  if (!showcase) return;
+
+  const barSegments = document.querySelectorAll('.bar-seg');
+  const capCards = document.querySelectorAll('.cap-card');
+  let hasAnimated = false;
+
+  // Animate elements on scroll
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && !hasAnimated) {
+        hasAnimated = true;
         obs.unobserve(entry.target);
-        document.querySelectorAll('.cap-bar div').forEach(bar => {
-          bar.style.width = bar.getAttribute('data-width');
+
+        // 1. Animate Master Bar
+        barSegments.forEach(seg => {
+          seg.style.width = seg.getAttribute('data-width');
+        });
+
+        // 2. Animate Cards Progress & Counters
+        capCards.forEach((card, idx) => {
+          setTimeout(() => {
+            const fill = card.querySelector('.cap-card-fill');
+            if (fill) fill.style.width = fill.getAttribute('data-width');
+
+            const pctEl = card.querySelector('.cap-pct');
+            if (pctEl) {
+              const target = parseFloat(pctEl.getAttribute('data-target'));
+              const startTime = performance.now();
+              const duration = 1500;
+              function countPct(now) {
+                const elapsed = now - startTime;
+                const p = Math.min(elapsed / duration, 1);
+                const ease = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+                pctEl.textContent = (target * ease).toFixed(1) + '%';
+                if (p < 1) requestAnimationFrame(countPct);
+              }
+              requestAnimationFrame(countPct);
+            }
+          }, idx * 120);
         });
       }
     });
-  }, { threshold: 0.2 });
-  observer.observe(capBox);
+  }, { threshold: 0.25 });
+  observer.observe(showcase);
+
+  // Cross-Highlighting Interaction between Cards & Master Bar
+  function highlightIndex(idx) {
+    barSegments.forEach((seg, i) => {
+      if (idx === null) {
+        seg.classList.remove('highlight', 'dimmed');
+      } else if (i === idx) {
+        seg.classList.add('highlight');
+        seg.classList.remove('dimmed');
+      } else {
+        seg.classList.remove('highlight');
+        seg.classList.add('dimmed');
+      }
+    });
+
+    capCards.forEach((card, i) => {
+      if (idx === null) {
+        card.classList.remove('active');
+      } else if (i === idx) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+    });
+  }
+
+  // Card Hover & Touch
+  capCards.forEach((card, idx) => {
+    card.addEventListener('mouseenter', () => highlightIndex(idx));
+    card.addEventListener('mouseleave', () => highlightIndex(null));
+    card.addEventListener('click', () => highlightIndex(idx));
+  });
+
+  // Bar Segments Hover
+  barSegments.forEach((seg, idx) => {
+    seg.addEventListener('mouseenter', () => highlightIndex(idx));
+    seg.addEventListener('mouseleave', () => highlightIndex(null));
+  });
 }
 
 // ── 4. Mobile Navigation Drawer & Hamburger ──
@@ -2333,7 +2815,6 @@ function initMobileNav() {
     toggle();
   });
 
-  // Close drawer on click outside
   document.addEventListener('click', (e) => {
     if (drawer.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
       closeMobileNav();
@@ -2380,10 +2861,7 @@ function initCleanNav() {
         const headerH = document.getElementById('siteHeader')?.offsetHeight || 72;
         const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 8;
 
-        window.scrollTo({
-          top: targetTop,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
 
         try {
           const cleanPath = '/' + sectionName;
@@ -2399,27 +2877,21 @@ function initCleanNav() {
       const targetEl = document.getElementById(sectionName);
       if (targetEl) {
         const headerH = document.getElementById('siteHeader')?.offsetHeight || 72;
-        window.scrollTo({
-          top: targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 8,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 8, behavior: 'smooth' });
       }
     }
   });
 }
 
-// ── 6. Header Scroll Shadow (Passive Throttle) ──
+// ── 6. Header Scroll Shadow ──
 let ticking = false;
 window.addEventListener('scroll', () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       const header = document.getElementById('siteHeader');
       if (header) {
-        if (window.scrollY > 15) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
+        if (window.scrollY > 15) { header.classList.add('scrolled'); }
+        else { header.classList.remove('scrolled'); }
       }
       ticking = false;
     });
@@ -2427,7 +2899,7 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// ── 7. Ultra-Attractive Hero Carousel Engine ──
+// ── 7. Hero Carousel Engine ──
 (function initCarousel(){
   const slides = document.querySelectorAll('.hero-slide');
   const tabs = document.querySelectorAll('.carousel-tab');
@@ -2437,21 +2909,16 @@ window.addEventListener('scroll', () => {
   const navBox = document.querySelector('.carousel-nav-bar');
   let cur = 0;
   let timer = null;
-  const DUR = 5000; // 5.0s rotation
+  const DUR = 5000;
 
   function updateSlide(newIdx){
     if (!slides.length) return;
-
-    // Deactivate previous
     slides[cur].classList.remove('active');
     slides[cur].setAttribute('aria-hidden', 'true');
-    if (tabs[cur]) {
-      tabs[cur].classList.remove('active');
-    }
+    if (tabs[cur]) { tabs[cur].classList.remove('active'); }
 
     cur = (newIdx + slides.length) % slides.length;
 
-    // Activate new
     slides[cur].classList.add('active');
     slides[cur].setAttribute('aria-hidden', 'false');
     if (tabs[cur]) {
@@ -2459,52 +2926,28 @@ window.addEventListener('scroll', () => {
       const fillEl = tabs[cur].querySelector('.tab-progress-fill');
       if (fillEl) {
         fillEl.style.animation = 'none';
-        void fillEl.offsetWidth; // trigger reflow
+        void fillEl.offsetWidth;
         fillEl.style.animation = '';
       }
     }
 
-    // Update Counter (01, 02, 03, 04)
-    if (counterEl) {
-      counterEl.textContent = '0' + (cur + 1);
-    }
+    if (counterEl) { counterEl.textContent = '0' + (cur + 1); }
   }
 
   function start(){
     stop();
-    timer = setInterval(() => {
-      updateSlide(cur + 1);
-    }, DUR);
+    timer = setInterval(() => { updateSlide(cur + 1); }, DUR);
   }
 
   function stop(){
-    if (timer) {
-      clearInterval(timer);
-      timer = null;
-    }
+    if (timer) { clearInterval(timer); timer = null; }
   }
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      updateSlide(cur - 1);
-      start();
-    });
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      updateSlide(cur + 1);
-      start();
-    });
-  }
+  if (prevBtn) { prevBtn.addEventListener('click', (e) => { e.stopPropagation(); updateSlide(cur - 1); start(); }); }
+  if (nextBtn) { nextBtn.addEventListener('click', (e) => { e.stopPropagation(); updateSlide(cur + 1); start(); }); }
 
   tabs.forEach((tab, idx) => {
-    tab.addEventListener('click', (e) => {
-      e.stopPropagation();
-      updateSlide(idx);
-      start();
-    });
+    tab.addEventListener('click', (e) => { e.stopPropagation(); updateSlide(idx); start(); });
   });
 
   if (navBox) {
@@ -2513,14 +2956,10 @@ window.addEventListener('scroll', () => {
   }
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      stop();
-    } else {
-      start();
-    }
+    if (document.hidden) stop();
+    else start();
   });
 
-  // Touch Swipe for Mobile & Tablet
   const carouselEl = document.getElementById('heroCarousel');
   if (carouselEl) {
     let touchStartX = 0;
@@ -2532,24 +2971,15 @@ window.addEventListener('scroll', () => {
     carouselEl.addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].screenX;
       const diff = touchStartX - touchEndX;
-      if (diff > 45) {
-        updateSlide(cur + 1);
-      } else if (diff < -45) {
-        updateSlide(cur - 1);
-      }
+      if (diff > 45) updateSlide(cur + 1);
+      else if (diff < -45) updateSlide(cur - 1);
       start();
     }, { passive: true });
 
-    // Keyboard navigation
     carouselEl.tabIndex = 0;
     carouselEl.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') {
-        updateSlide(cur + 1);
-        start();
-      } else if (e.key === 'ArrowLeft') {
-        updateSlide(cur - 1);
-        start();
-      }
+      if (e.key === 'ArrowRight') { updateSlide(cur + 1); start(); }
+      else if (e.key === 'ArrowLeft') { updateSlide(cur - 1); start(); }
     });
   }
 
@@ -2569,41 +2999,125 @@ const RIVER=[
 ];
 document.getElementById('riverStream').innerHTML=RIVER.map(r=>`<div class="river-row reveal"><div class="river-cat">${r.cat}</div><div class="river-src">${r.src}</div><a href="#stories" data-section="stories" class="river-headline">${r.h}</a></div>`).join('');
 
-// ── 9. Subscribe ──
-document.getElementById('subForm').onsubmit=function(e){
+// ── 9. Interactive Subscribe System with Window Popup ──
+const interestPills = document.querySelectorAll('#subInterestPills .sub-pill');
+interestPills.forEach(p => {
+  p.addEventListener('click', () => { p.classList.toggle('active'); });
+});
+
+document.getElementById('subForm').onsubmit = function(e) {
   e.preventDefault();
-  const em=document.getElementById('subEmail').value.trim();
-  const fb=document.getElementById('subFeedback');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){fb.className='sub-feedback error';fb.textContent='Please enter a valid institutional email.';return}
-  fb.className='sub-feedback success';fb.textContent='✓ Subscribed to the Tuesday 08:00 IST Executive Briefing.';
-  document.getElementById('subEmail').value='';
+  const emailInput = document.getElementById('subEmail');
+  const email = emailInput.value.trim();
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailInput.style.borderColor = 'var(--down)';
+    emailInput.focus();
+    return;
+  }
+
+  // Set user email in popup
+  document.getElementById('subSuccessEmailDisplay').textContent = email;
+
+  // Open Attractive Subscription Window Popup
+  const subModal = document.getElementById('subSuccessModal');
+  if (subModal) {
+    subModal.classList.add('open');
+  }
+
+  emailInput.value = '';
+  emailInput.style.borderColor = 'var(--warm-200)';
+};
+
+function closeSubModal() {
+  const subModal = document.getElementById('subSuccessModal');
+  if (subModal) {
+    subModal.classList.remove('open');
+  }
+}
+document.getElementById('subSuccessModal').onclick = function(e) {
+  if (e.target === this) closeSubModal();
 };
 
 // ── 10. Audio ──
 function simulateAudio(){document.getElementById('audioToast').classList.add('show')}
 function closeAudio(){document.getElementById('audioToast').classList.remove('show')}
 
-// ── 11. Modal ──
-function openModal(){document.getElementById('advisoryModal').classList.add('open')}
-function closeModal(){document.getElementById('advisoryModal').classList.remove('open')}
-document.getElementById('advisoryModal').onclick=function(e){if(e.target===this)closeModal()};
-function handleModalSubmit(e){
+// ── 11. Advisory Modal with Animated Card & 5s Auto-Close ──
+let modalAutoCloseTimeout = null;
+let modalCountdownInterval = null;
+
+function openModal() {
+  // Ensure form is fresh and visible
+  document.getElementById('modalFormView').style.display = 'block';
+  document.getElementById('modalSuccessCard').style.display = 'none';
+  document.getElementById('advisoryModal').classList.add('open');
+}
+
+function closeModal() {
+  if (modalAutoCloseTimeout) clearTimeout(modalAutoCloseTimeout);
+  if (modalCountdownInterval) clearInterval(modalCountdownInterval);
+  document.getElementById('advisoryModal').classList.remove('open');
+}
+
+document.getElementById('advisoryModal').onclick = function(e) {
+  if (e.target === this) closeModal();
+};
+
+function handleModalSubmit(e) {
   e.preventDefault();
-  document.getElementById('modalSuccess').style.display='block';
-  setTimeout(()=>{closeModal();document.getElementById('modalSuccess').style.display='none';document.getElementById('modalForm').reset()},2500);
+  const name = document.getElementById('modalName').value.trim() || 'Partner';
+
+  // 1. Transition inside the SAME window: Remove form, show Animated Success Card
+  document.getElementById('modalFormView').style.display = 'none';
+  const successCard = document.getElementById('modalSuccessCard');
+  successCard.style.display = 'block';
+
+  // Set personalized details
+  document.getElementById('successUserName').textContent = name;
+  const randRef = 'GCC-ADV-2026-' + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById('successRefNumber').textContent = randRef;
+
+  // 2. Start animated progress bar & 5s countdown
+  const progressBar = document.getElementById('autoCloseProgress');
+  const timerDisplay = document.getElementById('countdownTimer');
+  progressBar.classList.remove('animate');
+  void progressBar.offsetWidth; // trigger reflow
+  progressBar.classList.add('animate');
+
+  let secondsLeft = 5;
+  timerDisplay.textContent = secondsLeft;
+
+  if (modalCountdownInterval) clearInterval(modalCountdownInterval);
+  modalCountdownInterval = setInterval(() => {
+    secondsLeft -= 1;
+    if (secondsLeft >= 0) {
+      timerDisplay.textContent = secondsLeft;
+    }
+    if (secondsLeft <= 0) {
+      clearInterval(modalCountdownInterval);
+    }
+  }, 1000);
+
+  // 3. Auto-close exactly after 5 seconds
+  if (modalAutoCloseTimeout) clearTimeout(modalAutoCloseTimeout);
+  modalAutoCloseTimeout = setTimeout(() => {
+    closeModal();
+    document.getElementById('modalForm').reset();
+  }, 5000);
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initStatsCounter();
-  initCapabilityBar();
+  initCapabilityShowcase();
   initMobileNav();
   initCleanNav();
 });
 initScrollReveal();
 initStatsCounter();
-initCapabilityBar();
+initCapabilityShowcase();
 initMobileNav();
 initCleanNav();
 </script>
