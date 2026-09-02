@@ -1327,7 +1327,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .shift-text b {{ color: var(--ink-900); }}
 
-/* ── Institutional Capability Distribution Console (Clean, Flat & Curved) ── */
+/* ── Institutional Capability Distribution Console (Site-Matched Typography) ── */
 .cap-editorial-box {{
   background: var(--white);
   border: 1px solid var(--warm-200);
@@ -1356,27 +1356,39 @@ button {{ cursor: pointer; font: inherit; }}
   padding-bottom: 18px;
 }}
 .cap-eyebrow-tag {{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
+  font-size: 11.5px;
   letter-spacing: .12em;
-  color: var(--emerald-800);
-  font-weight: 700;
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  color: var(--emerald-700);
+  font-weight: 600;
+  margin-bottom: 8px;
+}}
+.cap-eyebrow-tag::before {{
+  content: "";
+  width: 20px;
+  height: 2px;
+  background: var(--emerald-600);
+  border-radius: 1px;
 }}
 .cap-title {{
   font-family: var(--serif);
-  font-size: clamp(24px, 2.8vw, 32px);
+  font-size: clamp(24px, 2.8vw, 36px);
   font-weight: 700;
   color: var(--ink-900);
-  letter-spacing: -.02em;
-  line-height: 1.18;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  margin-bottom: 6px;
 }}
 .cap-desc {{
-  font-size: 14.5px;
+  font-family: var(--sans);
+  font-size: clamp(14px, 1.1vw, 15.5px);
   color: var(--ink-500);
-  margin-top: 4px;
-  line-height: 1.45;
+  line-height: 1.6;
+  max-width: 65ch;
 }}
 .cap-audit-pill {{
   display: inline-flex;
@@ -1431,23 +1443,25 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .hud-active-name {{
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 14.5px;
+  font-weight: 600;
   color: var(--ink-900);
+  letter-spacing: -.01em;
 }}
 .hud-stats-compact {{
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11.5px;
+  letter-spacing: .02em;
 }}
 .hud-metric-main {{
   font-weight: 700;
   color: var(--ink-900);
 }}
 .hud-metric-sub {{
-  color: var(--ink-600);
+  color: var(--ink-500);
 }}
 .hud-metric-sub.text-emerald {{
   color: var(--emerald-700);
@@ -1457,7 +1471,7 @@ button {{ cursor: pointer; font: inherit; }}
   color: var(--ink-300);
 }}
 
-/* Flat Clean Segmented Spectrum Bar */
+/* Segmented Spectrum Bar */
 .cap-precision-strip {{
   display: flex;
   align-items: center;
@@ -1490,8 +1504,9 @@ button {{ cursor: pointer; font: inherit; }}
   margin-top: 6px;
   font-family: var(--mono);
   font-size: 10px;
+  letter-spacing: .08em;
   color: var(--ink-400);
-  letter-spacing: .04em;
+  text-transform: uppercase;
 }}
 
 /* ── Split Architecture: Left Cards & Right Strategic Dossier ── */
@@ -1508,7 +1523,7 @@ button {{ cursor: pointer; font: inherit; }}
   }}
 }}
 
-/* Left Column: Clean, Curved Flat Capability Cards */
+/* Left Column: Clean, Curved Capability Cards */
 .cap-cards-stack {{
   display: flex;
   flex-direction: column;
@@ -1548,11 +1563,12 @@ button {{ cursor: pointer; font: inherit; }}
 .domain-num {{
   font-family: var(--mono);
   font-size: 11px;
-  font-weight: 700;
-  color: var(--ink-500);
-  background: var(--warm-50);
-  border: 1px solid var(--warm-200);
-  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--emerald-700);
+  background: var(--emerald-50);
+  border: 1px solid rgba(5,150,105,0.2);
+  border-radius: 4px;
   padding: 2px 7px;
   transition: all .2s;
 }}
@@ -1563,9 +1579,10 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .domain-title {{
   font-family: var(--sans);
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--ink-900);
+  letter-spacing: -.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1579,13 +1596,16 @@ button {{ cursor: pointer; font: inherit; }}
 .domain-talent {{
   font-family: var(--mono);
   font-size: 11.5px;
-  color: var(--ink-500);
+  color: var(--ink-400);
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
 }}
 .domain-share {{
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--ink-900);
+  letter-spacing: -.02em;
   font-variant-numeric: tabular-nums;
 }}
 .card-gauge-track {{
@@ -1603,7 +1623,7 @@ button {{ cursor: pointer; font: inherit; }}
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 
-/* ── Right Column: Strategic Intelligence Dossier (Clean & Flat) ── */
+/* ── Right Column: Strategic Intelligence Dossier (Site-Matched Typography) ── */
 .cap-dossier-panel {{
   background: var(--white);
   border: 1px solid var(--warm-200);
@@ -1632,13 +1652,13 @@ button {{ cursor: pointer; font: inherit; }}
 .dossier-tag-badge {{
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--ink-600);
-  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--emerald-700);
   margin-bottom: 8px;
 }}
 .dossier-live-dot {{
@@ -1650,10 +1670,11 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .dossier-headline {{
   font-family: var(--serif);
-  font-size: 22px;
-  color: var(--ink-900);
+  font-size: clamp(20px, 2.2vw, 26px);
   font-weight: 700;
-  line-height: 1.2;
+  color: var(--ink-900);
+  line-height: 1.22;
+  letter-spacing: -.02em;
   margin: 0;
 }}
 .dossier-stats-grid {{
@@ -1670,39 +1691,45 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .stat-box-label {{
   font-family: var(--mono);
-  font-size: 9.5px;
-  color: var(--ink-400);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--emerald-700);
   text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-bottom: 3px;
+  letter-spacing: .1em;
+  margin-bottom: 4px;
 }}
 .stat-box-value {{
-  font-family: var(--mono);
-  font-size: 14.5px;
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.8vw, 21px);
   font-weight: 700;
   color: var(--ink-900);
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
 }}
 .stat-box-value.text-emerald {{
   color: var(--emerald-700);
 }}
 .stat-box-sub {{
-  font-size: 10px;
+  font-family: var(--sans);
+  font-size: 12px;
   color: var(--ink-400);
   margin-top: 3px;
+  line-height: 1.4;
 }}
 .dossier-quote-wrapper {{
   border-left: 3px solid #C48B1B;
   background: var(--warm-50);
-  padding: 12px 14px;
+  padding: 14px 16px;
   border-radius: 0 10px 10px 0;
   margin-bottom: 16px;
   transition: border-left-color .3s ease;
 }}
 .dossier-quote-text {{
-  font-size: 13.5px;
-  color: var(--ink-700);
-  line-height: 1.55;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-600);
+  line-height: 1.62;
   margin: 0;
 }}
 .dossier-chips-wrap {{
@@ -1714,18 +1741,22 @@ button {{ cursor: pointer; font: inherit; }}
 .dossier-chip {{
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   font-family: var(--mono);
-  font-size: 10.5px;
-  padding: 3.5px 10px;
-  border-radius: 100px;
-  background: var(--white);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--warm-50);
   border: 1px solid var(--warm-200);
   color: var(--ink-700);
-  transition: border-color .2s;
+  transition: all .2s;
 }}
 .dossier-chip:hover {{
   border-color: var(--emerald-600);
+  background: var(--white);
 }}
 .chip-pip {{
   width: 5px;
@@ -1739,8 +1770,9 @@ button {{ cursor: pointer; font: inherit; }}
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-600);
+  font-size: 11.5px;
+  color: var(--ink-500);
+  letter-spacing: .02em;
   border-top: 1px solid var(--warm-200);
   padding-top: 12px;
   margin-top: auto;
@@ -1769,7 +1801,7 @@ button {{ cursor: pointer; font: inherit; }}
     font-size: 20px;
   }}
   .cap-desc {{
-    font-size: 13px;
+    font-size: 13.5px;
   }}
   .cap-audit-pill {{
     font-size: 10px;
@@ -1799,13 +1831,13 @@ button {{ cursor: pointer; font: inherit; }}
     border-radius: 14px;
   }}
   .domain-title {{
-    font-size: 13px;
+    font-size: 13.5px;
   }}
   .domain-talent {{
     display: none;
   }}
   .domain-share {{
-    font-size: 15.5px;
+    font-size: 16px;
   }}
   .cap-dossier-panel {{
     border-radius: 16px;
@@ -1818,7 +1850,7 @@ button {{ cursor: pointer; font: inherit; }}
     border-radius: 10px;
   }}
   .stat-box-value {{
-    font-size: 13px;
+    font-size: 15px;
   }}
   .dossier-quote-wrapper {{
     border-radius: 0 10px 10px 0;
@@ -3435,7 +3467,7 @@ button {{ cursor: pointer; font: inherit; }}
       <!-- Console Header -->
       <div class="cap-header-row">
         <div>
-          <div class="cap-eyebrow-tag">✦ AUDITED INSTITUTIONAL BENCHMARK · FY2026</div>
+          <div class="cap-eyebrow-tag">Audited Institutional Benchmark · FY2026</div>
           <h3 class="cap-title">Ecosystem Functional Capability Distribution</h3>
           <p class="cap-desc">Audited structural talent allocation &amp; functional mandate depth across India's 2,117 active GCCs</p>
         </div>
