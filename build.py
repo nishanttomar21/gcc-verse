@@ -55,7 +55,7 @@ def get_html(is_standalone=False):
 
 <style>
 /* ════════════════════════════════════════════════════════
-   GCCVERSE v3.3 — INSTITUTIONAL TERMINAL DESIGN SYSTEM
+   GCCVERSE v3.4 — INSTITUTIONAL TERMINAL DESIGN SYSTEM
    ════════════════════════════════════════════════════════ */
 
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
@@ -160,55 +160,75 @@ button {{ cursor: pointer; font: inherit; }}
 .delay-300 {{ transition-delay: 300ms; }}
 
 /* ════════════════════════════════════
-   HEADER — Clean 1-Line Navigation
+   HEADER — Transparent by Default, White & Sticky on Scroll
    ════════════════════════════════════ */
 .site-header {{
-  background: rgba(255,255,255,0.98);
-  border-bottom: 1px solid var(--warm-200);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: box-shadow 0.3s ease;
   width: 100%;
+  height: 72px;
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  transition: background 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.32s ease,
+              box-shadow 0.32s ease,
+              backdrop-filter 0.32s ease;
 }}
 .site-header.scrolled {{
+  background: rgba(255,255,255,0.98);
+  border-bottom: 1px solid var(--warm-200);
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }}
 .header-inner {{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: 100%;
   gap: 16px;
 }}
+
+/* Header Logo transitions */
 .logo {{
   font-family: var(--serif);
   font-size: clamp(22px, 3.5vw, 27px);
   font-weight: 700;
-  color: var(--ink-900);
   letter-spacing: -.03em;
   display: flex;
   align-items: baseline;
   gap: 2px;
   flex-shrink: 0;
-  transition: opacity .2s;
+  transition: color .3s ease;
+  color: #FFFFFF;
 }}
-.logo:hover {{ opacity: .85; }}
+.site-header.scrolled .logo {{
+  color: var(--ink-900);
+}}
 .logo em {{
-  color: var(--emerald-700);
   font-style: italic;
   font-weight: 400;
+  color: var(--gold-400);
+  transition: color .3s ease;
+}}
+.site-header.scrolled .logo em {{
+  color: var(--emerald-700);
 }}
 .logo-sub {{
   font-family: var(--mono);
   font-size: 10px;
-  color: var(--ink-400);
+  color: rgba(255,255,255,0.65);
   text-transform: uppercase;
   letter-spacing: .12em;
   margin-left: 12px;
   display: none;
+  transition: color .3s ease;
+}}
+.site-header.scrolled .logo-sub {{
+  color: var(--ink-400);
 }}
 @media(min-width:1200px){{ .logo-sub {{ display: inline; }} }}
 
@@ -222,9 +242,13 @@ button {{ cursor: pointer; font: inherit; }}
   align-items: center;
   font-size: clamp(13px, 1.1vw, 14px);
   font-weight: 500;
-  color: var(--ink-600);
+  color: rgba(255,255,255,0.9);
   margin: 0;
   padding: 0;
+  transition: color .3s ease;
+}}
+.site-header.scrolled .nav-list {{
+  color: var(--ink-600);
 }}
 .nav-list a {{
   position: relative;
@@ -239,10 +263,18 @@ button {{ cursor: pointer; font: inherit; }}
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--emerald-700);
-  transition: width .25s ease;
+  background: var(--gold-400);
+  transition: width .25s ease, background .25s ease;
 }}
-.nav-list a:hover {{ color: var(--emerald-700); }}
+.site-header.scrolled .nav-list a::after {{
+  background: var(--emerald-700);
+}}
+.nav-list a:hover {{
+  color: var(--gold-400);
+}}
+.site-header.scrolled .nav-list a:hover {{
+  color: var(--emerald-700);
+}}
 .nav-list a:hover::after {{ width: 100%; }}
 
 /* Header CTA Buttons */
@@ -255,34 +287,52 @@ button {{ cursor: pointer; font: inherit; }}
 .btn-outline {{
   font-size: 13px;
   font-weight: 600;
-  color: var(--ink-700);
-  border: 1.5px solid var(--warm-200);
+  color: #FFFFFF;
+  border: 1.5px solid rgba(255,255,255,0.38);
   padding: 8px 16px;
   border-radius: 100px;
-  background: transparent;
+  background: rgba(255,255,255,0.08);
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  backdrop-filter: blur(8px);
 }}
 .btn-outline:hover {{
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.7);
+  color: #FFF;
+  transform: translateY(-1px);
+}}
+.site-header.scrolled .btn-outline {{
+  color: var(--ink-700);
+  border-color: var(--warm-200);
+  background: transparent;
+}}
+.site-header.scrolled .btn-outline:hover {{
   border-color: var(--emerald-700);
   color: var(--emerald-700);
   background: var(--emerald-50);
-  transform: translateY(-1px);
 }}
 .btn-primary {{
   font-size: 13px;
   font-weight: 600;
-  color: #FFF;
-  background: var(--emerald-800);
+  color: #1A1200;
+  background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
   padding: 9px 18px;
   border-radius: 100px;
   border: none;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }}
+.site-header.scrolled .btn-primary {{
+  background: var(--emerald-800);
+  color: #FFF;
+}}
 .btn-primary:hover {{
-  background: var(--emerald-700);
   transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(212,160,23,.35);
+}}
+.site-header.scrolled .btn-primary:hover {{
+  background: var(--emerald-700);
   box-shadow: 0 6px 18px rgba(4,77,58,.28);
 }}
 .btn-primary:active, .btn-outline:active {{ transform: scale(0.98); }}
@@ -290,8 +340,8 @@ button {{ cursor: pointer; font: inherit; }}
 /* Mobile Hamburger Button */
 .mobile-menu-btn {{
   display: none;
-  background: transparent;
-  border: 1.5px solid var(--warm-200);
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.35);
   border-radius: 8px;
   width: 40px;
   height: 40px;
@@ -301,7 +351,10 @@ button {{ cursor: pointer; font: inherit; }}
   cursor: pointer;
   transition: all .2s;
 }}
-.mobile-menu-btn:hover {{ border-color: var(--emerald-700); background: var(--warm-50); }}
+.site-header.scrolled .mobile-menu-btn {{
+  background: transparent;
+  border-color: var(--warm-200);
+}}
 @media(max-width:959px){{
   .mobile-menu-btn {{ display: flex; }}
   .header-cta-desktop {{ display: none; }}
@@ -318,9 +371,12 @@ button {{ cursor: pointer; font: inherit; }}
   display: block;
   height: 2px;
   width: 100%;
-  background: var(--ink-800);
+  background: #FFFFFF;
   border-radius: 2px;
   transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+.site-header.scrolled .hamburger-icon span {{
+  background: var(--ink-800);
 }}
 .mobile-menu-btn.active .hamburger-icon span:nth-child(1) {{ transform: translateY(6px) rotate(45deg); }}
 .mobile-menu-btn.active .hamburger-icon span:nth-child(2) {{ opacity: 0; transform: scaleX(0); }}
@@ -387,9 +443,10 @@ button {{ cursor: pointer; font: inherit; }}
 .hero-carousel {{
   position: relative;
   width: 100%;
-  height: clamp(480px, 76vh, 740px);
+  height: clamp(520px, 84vh, 780px);
   overflow: hidden;
   background: #061815;
+  padding-top: 72px; /* Accommodate transparent fixed header */
 }}
 .hero-slide {{
   position: absolute;
@@ -429,14 +486,14 @@ button {{ cursor: pointer; font: inherit; }}
   inset: 0;
   background: radial-gradient(
     circle at 75% 30%,
-    rgba(6, 115, 82, 0.22) 0%,
+    rgba(6, 115, 82, 0.24) 0%,
     transparent 65%
   ),
   linear-gradient(
     180deg,
-    rgba(4, 24, 21, 0.2) 0%,
-    rgba(4, 24, 21, 0.42) 40%,
-    rgba(4, 24, 21, 0.92) 100%
+    rgba(4, 24, 21, 0.35) 0%,
+    rgba(4, 24, 21, 0.46) 35%,
+    rgba(4, 24, 21, 0.94) 100%
   );
   pointer-events: none;
 }}
@@ -900,8 +957,20 @@ button {{ cursor: pointer; font: inherit; }}
   border-radius: 4px;
 }}
 .chip-gold {{ background: var(--gold-50); color: var(--gold-600); border: 1px solid rgba(184,134,11,.2); }}
-.chip-emerald {{ background: var(--emerald-50); color: var(--emerald-700); border: 1px solid rgba(5,150,105,.15); transition: all .2s; }}
-.chip-emerald:hover {{ background: var(--emerald-700); color: #FFF; }}
+.chip-emerald {{
+  background: var(--emerald-50);
+  color: var(--emerald-700);
+  border: 1px solid rgba(5,150,105,.2);
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}}
+.chip-emerald:hover {{
+  background: var(--emerald-700);
+  color: #FFF;
+  border-color: var(--emerald-700);
+}}
 .story-title {{
   font-family: var(--serif);
   font-size: clamp(20px, 2.3vw, 28px);
@@ -1075,7 +1144,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 
 /* ════════════════════════════════════
-   DATA INDEX & ADVANCED CAPABILITY VISUALIZATION
+   DATA INDEX & MCKINSEY/FT EDITORIAL CAPABILITY BENCHMARK
    ════════════════════════════════════ */
 .data-section {{
   padding: clamp(52px, 7vw, 96px) 0;
@@ -1086,7 +1155,7 @@ button {{ cursor: pointer; font: inherit; }}
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }}
 .shift-item {{
   display: flex;
@@ -1127,176 +1196,232 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .shift-text b {{ color: var(--ink-900); }}
 
-/* ── Upgraded Interactive Capability Showcase ── */
-.cap-showcase {{
+/* ── Swiss Financial Ledger & Editorial Dossier ── */
+.cap-editorial-box {{
   background: var(--cream);
   border: 1px solid var(--warm-200);
   border-radius: var(--radius-lg);
-  padding: clamp(24px, 3.5vw, 36px);
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-  transition: all .3s ease;
+  padding: clamp(24px, 3.5vw, 40px);
+  box-shadow: 0 8px 30px -10px rgba(0,0,0,0.05);
 }}
-.cap-showcase:hover {{
-  border-color: var(--warm-300);
-  box-shadow: 0 16px 40px -12px rgba(0,0,0,0.08);
-}}
-.cap-top-bar {{
+.cap-editorial-top {{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--warm-200);
+  padding-bottom: 16px;
 }}
-.cap-title-wrap h3 {{
+.cap-editorial-title {{
   font-family: var(--serif);
-  font-size: clamp(20px, 2.2vw, 24px);
+  font-size: clamp(22px, 2.6vw, 28px);
   font-weight: 700;
   color: var(--ink-900);
-  margin-bottom: 4px;
+  letter-spacing: -.02em;
 }}
-.cap-title-wrap p {{
-  font-size: 13.5px;
+.cap-editorial-meta {{
+  font-family: var(--mono);
+  font-size: 11.5px;
   color: var(--ink-500);
-}}
-.cap-audit-pill {{
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--emerald-800);
-  background: var(--emerald-50);
-  border: 1px solid rgba(5,150,105,0.25);
-  padding: 6px 14px;
-  border-radius: 100px;
-  font-weight: 600;
 }}
+.cap-editorial-meta b {{ color: var(--emerald-800); }}
 
-/* Master Multi-Segment Visual Bar */
-.master-bar-container {{
-  position: relative;
-  margin-bottom: 28px;
-}}
-.master-cap-bar {{
+/* Ultra-thin Precision Master Allocation Strip */
+.cap-precision-strip {{
   display: flex;
-  height: 26px;
-  border-radius: 13px;
+  height: 8px;
+  border-radius: 4px;
   overflow: hidden;
   background: var(--warm-100);
-  border: 2px solid var(--white);
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 4px 14px rgba(0,0,0,0.04);
-  cursor: pointer;
+  margin-bottom: 32px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
 }}
-.bar-seg {{
+.strip-segment {{
   height: 100%;
   width: 0%;
-  position: relative;
-  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, filter 0.3s ease;
-  overflow: hidden;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity .3s, filter .3s;
 }}
-.bar-seg.highlight {{
-  filter: brightness(1.15) drop-shadow(0 0 6px rgba(0,0,0,0.2));
-  z-index: 2;
-}}
-.bar-seg.dimmed {{
-  opacity: 0.35;
-}}
-.bar-seg span {{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--mono);
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #FFF;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  white-space: nowrap;
-  display: none;
-}}
-@media(min-width:640px){{ .bar-seg span {{ display: block; }} }}
 
-/* Responsive Capability Domain Cards Grid */
-.cap-cards-grid {{
+/* Split Architecture: Ledger Rows (Left) & Detailed Dossier (Right) */
+.cap-ledger-grid {{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 28px;
 }}
-.cap-card {{
+@media(min-width:960px){{
+  .cap-ledger-grid {{
+    grid-template-columns: 1.25fr 1fr;
+    gap: 36px;
+    align-items: start;
+  }}
+}}
+
+/* Ledger Rows Table */
+.cap-ledger-table {{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}}
+.ledger-row {{
+  display: grid;
+  grid-template-columns: 32px 1.4fr 90px 70px;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
   background: var(--white);
-  border: 1.5px solid var(--warm-200);
-  border-radius: var(--radius);
-  padding: 18px 16px;
-  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--warm-200);
+  border-radius: 10px;
   cursor: pointer;
-  position: relative;
+  transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-.cap-card:hover, .cap-card.active {{
-  transform: translateY(-4px);
-  border-color: var(--domain-color, var(--emerald-600));
-  box-shadow: 0 12px 28px -6px rgba(0,0,0,0.09);
+@media(max-width:540px){{
+  .ledger-row {{
+    grid-template-columns: 24px 1fr 60px;
+    gap: 10px;
+    padding: 12px 14px;
+  }}
+  .ledger-talent {{ display: none; }}
 }}
-.cap-card-top {{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
+.ledger-row:hover, .ledger-row.active {{
+  border-color: var(--row-color, var(--emerald-600));
+  background: #FFF;
+  box-shadow: 0 6px 20px -4px rgba(0,0,0,0.07);
+  transform: translateX(3px);
 }}
-.cap-dot-label {{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}}
-.cap-dot {{
-  width: 12px;
-  height: 12px;
-  border-radius: 4px;
-  background: var(--domain-color);
-  box-shadow: 0 0 8px var(--domain-color);
-  flex-shrink: 0;
-}}
-.cap-pct {{
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink-900);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}}
-.cap-name {{
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink-800);
-  margin-bottom: 4px;
-  line-height: 1.35;
-}}
-.cap-metric {{
+.ledger-num {{
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-500);
-  margin-bottom: 10px;
+  font-size: 11.5px;
+  color: var(--row-color, var(--ink-400));
+  font-weight: 700;
 }}
-.cap-card-track {{
+.ledger-info {{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}}
+.ledger-name {{
+  font-family: var(--sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}}
+.ledger-gauge {{
   width: 100%;
   height: 4px;
   background: var(--warm-100);
   border-radius: 2px;
   overflow: hidden;
-  margin-bottom: 10px;
 }}
-.cap-card-fill {{
+.ledger-gauge-fill {{
   height: 100%;
   width: 0%;
-  background: var(--domain-color);
+  background: var(--row-color, var(--gold-500));
   border-radius: 2px;
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-.cap-tags {{
+.ledger-talent {{
+  font-family: var(--mono);
   font-size: 11.5px;
+  color: var(--ink-500);
+  text-align: right;
+  white-space: nowrap;
+}}
+.ledger-share {{
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink-900);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}}
+
+/* Right Deep Editorial Dossier Card */
+.cap-dossier-card {{
+  background: var(--white);
+  border: 1.5px solid var(--warm-200);
+  border-radius: var(--radius);
+  padding: clamp(20px, 2.8vw, 30px);
+  box-shadow: 0 8px 24px -6px rgba(0,0,0,0.06);
+  position: relative;
+  transition: all .28s ease;
+}}
+.dossier-domain-tag {{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--emerald-800);
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}}
+.dossier-domain-tag::before {{
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dossier-accent, #D4A017);
+}}
+.dossier-h4 {{
+  font-family: var(--serif);
+  font-size: 21px;
+  color: var(--ink-900);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}}
+.dossier-stat-row {{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  background: var(--cream);
+  border: 1px solid var(--warm-200);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}}
+.dossier-stat-label {{
+  font-family: var(--mono);
+  font-size: 10px;
   color: var(--ink-400);
-  line-height: 1.4;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}}
+.dossier-stat-val {{
+  font-family: var(--mono);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink-900);
+}}
+.dossier-p {{
+  font-size: 14px;
+  color: var(--ink-600);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}}
+.dossier-chips {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}}
+.dossier-chip {{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  color: var(--ink-600);
 }}
 
 /* ════════════════════════════════════
@@ -1466,7 +1591,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 
 /* ════════════════════════════════════
-   UPGRADED HIGH-CONVERTING SUBSCRIBE SECTION
+   SUBSCRIBE SECTION
    ════════════════════════════════════ */
 .subscribe-section {{
   padding: clamp(60px, 8vw, 108px) 0;
@@ -1621,9 +1746,7 @@ button {{ cursor: pointer; font: inherit; }}
   flex-direction: column;
   gap: 14px;
 }}
-.sub-input-box {{
-  position: relative;
-}}
+.sub-input-box {{ position: relative; }}
 .sub-input-vip {{
   width: 100%;
   padding: 16px 20px 16px 46px;
@@ -1715,6 +1838,57 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .sub-or-line::before, .sub-or-line::after {{ content: ""; flex: 1; height: 1px; background: var(--warm-200); }}
 
+/* ── Upgraded High-End Animated LinkedIn Button ── */
+.btn-linkedin-vip {{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+  color: #FFFFFF !important;
+  font-size: 14.5px;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(10, 102, 194, 0.28);
+  position: relative;
+  overflow: hidden;
+  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}}
+.btn-linkedin-vip::after {{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: btnSheen 3.8s infinite;
+}}
+@keyframes btnSheen {{
+  0% {{ left: -100%; }}
+  35%, 100% {{ left: 160%; }}
+}}
+.btn-linkedin-vip:hover {{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(10, 102, 194, 0.42);
+  filter: brightness(1.06);
+}}
+.btn-linkedin-vip:active {{
+  transform: scale(0.98);
+}}
+.linkedin-beacon {{
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #34D399;
+  box-shadow: 0 0 8px #34D399;
+  animation: beaconPulse 1.8s infinite;
+}}
+
 /* ════════════════════════════════════
    FOOTER
    ════════════════════════════════════ */
@@ -1758,12 +1932,12 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 
 /* ════════════════════════════════════
-   MODALS (Advisory & Subscribe Popups)
+   MODALS (Contact & Subscribe Popups)
    ════════════════════════════════════ */
 .modal-bg {{
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.68);
+  background: rgba(0,0,0,.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 200;
@@ -1781,7 +1955,7 @@ button {{ cursor: pointer; font: inherit; }}
   background: var(--white);
   border-radius: var(--radius-lg);
   padding: clamp(24px, 4vw, 40px);
-  max-width: 540px;
+  max-width: 560px;
   width: 100%;
   max-height: 92vh;
   overflow-y: auto;
@@ -1808,6 +1982,20 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .modal-close:hover {{ background: var(--warm-100); color: var(--ink-900); }}
 
+.contact-meta-strip {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--cream);
+  border: 1px solid var(--warm-200);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-600);
+}}
+
 .form-group {{ margin-bottom: 14px; }}
 .form-label {{
   display: block;
@@ -1821,7 +2009,7 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .form-input, .form-select, .form-textarea {{
   width: 100%;
-  padding: 11px 14px;
+  padding: 12px 14px;
   border: 1.5px solid var(--warm-200);
   border-radius: 8px;
   font-size: 14.5px;
@@ -1830,10 +2018,10 @@ button {{ cursor: pointer; font: inherit; }}
   outline: none;
   transition: border .2s;
 }}
-.form-input:focus, .form-textarea:focus {{ border-color: var(--emerald-600); }}
+.form-input:focus, .form-textarea:focus {{ border-color: var(--emerald-600); background: #FFF; }}
 .form-textarea {{ resize: none; min-height: 75px; }}
 
-/* ── Animated Success Card Components ── */
+/* ── Animated Success Card ── */
 .success-card {{
   text-align: center;
   padding: 10px 4px;
@@ -1935,33 +2123,133 @@ button {{ cursor: pointer; font: inherit; }}
   100% {{ transform: scaleX(0); }}
 }}
 
-/* Audio toast */
-.audio-toast {{
+/* ════════════════════════════════════
+   FUNCTIONAL AUDIO BRIEF PLAYER DOCK
+   ════════════════════════════════════ */
+.audio-dock {{
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   left: auto;
-  background: var(--white);
-  border: 1px solid var(--warm-200);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  box-shadow: 0 14px 40px rgba(0,0,0,.14);
-  z-index: 90;
+  background: rgba(2, 43, 34, 0.96);
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 16px 44px rgba(0,0,0,0.38);
+  z-index: 150;
   display: none;
+  flex-direction: column;
+  gap: 12px;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  color: #FFF;
+  animation: dockSlideUp .38s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+.audio-dock.active {{ display: flex; }}
+@keyframes dockSlideUp {{
+  from {{ transform: translateY(32px); opacity: 0; }}
+  to {{ transform: translateY(0); opacity: 1; }}
+}}
+.dock-header {{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}}
+.dock-tag {{
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}}
+.dock-close-btn {{
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color .2s;
+}}
+.dock-close-btn:hover {{ color: #FFF; }}
+.dock-title {{
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFF;
+  line-height: 1.35;
+}}
+.dock-controls {{
+  display: flex;
   align-items: center;
   gap: 12px;
-  max-width: calc(100vw - 40px);
-  width: 340px;
-  animation: toastUp .35s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-.audio-toast.show {{ display: flex; }}
-@keyframes toastUp {{ from {{ transform: translateY(24px); opacity: 0; }} to {{ transform: translateY(0); opacity: 1; }} }}
-.wave-bars {{ display: flex; align-items: center; gap: 3px; height: 18px; }}
-.wave-bar {{ width: 3px; height: 100%; background: var(--emerald-600); border-radius: 2px; animation: waveUp 1s infinite ease-in-out; }}
-.wave-bar:nth-child(2) {{ animation-delay: .12s; height: 70%; }}
-.wave-bar:nth-child(3) {{ animation-delay: .24s; height: 45%; }}
-.wave-bar:nth-child(4) {{ animation-delay: .36s; height: 85%; }}
-@keyframes waveUp {{ 0%,100% {{ transform: scaleY(.35); }} 50% {{ transform: scaleY(1); }} }}
+.dock-play-btn {{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  border: none;
+  color: #1A1200;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform .2s, background .2s;
+}}
+.dock-play-btn:hover {{ transform: scale(1.06); background: var(--gold-400); }}
+.dock-progress-wrap {{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}}
+.dock-scrub-track {{
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}}
+.dock-scrub-fill {{
+  height: 100%;
+  width: 0%;
+  background: var(--emerald-500);
+  border-radius: 2px;
+}}
+.dock-time {{
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.7);
+}}
+.dock-wave {{
+  display: flex;
+  align-items: center;
+  gap: 2.5px;
+  height: 14px;
+}}
+.dock-wave-bar {{
+  width: 2.5px;
+  height: 100%;
+  background: var(--gold-400);
+  border-radius: 1px;
+}}
+.audio-dock.playing .dock-wave-bar {{
+  animation: wavePulse 1s infinite ease-in-out;
+}}
+.dock-wave-bar:nth-child(2) {{ animation-delay: .15s; height: 75%; }}
+.dock-wave-bar:nth-child(3) {{ animation-delay: .3s; height: 50%; }}
+.dock-wave-bar:nth-child(4) {{ animation-delay: .45s; height: 90%; }}
+@keyframes wavePulse {{ 0%, 100% {{ transform: scaleY(.3); }} 50% {{ transform: scaleY(1); }} }}
 
 /* Focus states */
 :focus-visible {{ outline: 2px solid var(--emerald-600); outline-offset: 2px; border-radius: 4px; }}
@@ -1992,7 +2280,7 @@ button {{ cursor: pointer; font: inherit; }}
 </head>
 <body>
 
-<!-- ═══ HEADER — 1-Line Navigation ═══ -->
+<!-- ═══ HEADER — Transparent by Default, White & Sticky on Scroll ═══ -->
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="GCCVerse Home">
@@ -2010,7 +2298,7 @@ button {{ cursor: pointer; font: inherit; }}
       </ul>
     </nav>
     <div class="header-cta">
-      <button class="btn-outline header-cta-desktop" type="button" onclick="openModal()">Commission Brief</button>
+      <button class="btn-outline header-cta-desktop" type="button" onclick="openContactModal()">Contact Us</button>
       <a href="#subscribe" data-section="subscribe" class="btn-primary">Subscribe Free</a>
       <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
         <span class="hamburger-icon">
@@ -2034,7 +2322,7 @@ button {{ cursor: pointer; font: inherit; }}
         <li><a href="#advisory" data-section="advisory">Advisory</a></li>
       </ul>
       <div class="mobile-drawer-cta">
-        <button class="btn-outline" type="button" onclick="openModal(); closeMobileNav();" style="width:100%; text-align:center;">Commission Brief</button>
+        <button class="btn-outline" type="button" onclick="openContactModal(); closeMobileNav();" style="width:100%; text-align:center;">Contact Us</button>
         <a href="#subscribe" data-section="subscribe" class="btn-primary" style="width:100%; text-align:center; display:block;" onclick="closeMobileNav()">Subscribe Free</a>
       </div>
     </div>
@@ -2139,7 +2427,6 @@ button {{ cursor: pointer; font: inherit; }}
   <!-- Modern Interactive Carousel Nav Bar -->
   <div class="carousel-nav-bar">
     <div class="carousel-nav-inner">
-      <!-- Interactive Segmented Tabs -->
       <div class="carousel-tabs" id="heroTabs">
         <button class="carousel-tab active" data-slide="0" aria-label="Slide 1: Footprint">
           <div class="tab-top">
@@ -2171,7 +2458,6 @@ button {{ cursor: pointer; font: inherit; }}
         </button>
       </div>
 
-      <!-- Controls Right: Counter & Arrows -->
       <div class="carousel-controls-right">
         <div class="slide-counter" aria-live="polite">
           <b id="currSlideDisplay">01</b><span>/</span><span>04</span>
@@ -2231,7 +2517,10 @@ button {{ cursor: pointer; font: inherit; }}
         <div class="story-body">
           <div class="story-meta">
             <span class="chip chip-gold">GCC Launch · Hyderabad</span>
-            <button class="chip chip-emerald" type="button" onclick="simulateAudio()" style="cursor:pointer;border:none;">🎧 Audio Brief</button>
+            <button class="chip chip-emerald" type="button" onclick="startAudioBrief()" style="cursor:pointer;" aria-label="Play Audio Brief">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Play Audio Brief (0:48)</span>
+            </button>
           </div>
           <h3 class="story-title">Syneos Health Inaugurates Asia's Largest Capability Centre in Hyderabad</h3>
           <p class="story-excerpt">The global biopharmaceutical solutions giant opened its flagship facility at Phoenix Equinox, Gachibowli — its largest in Asia and third-largest globally, serving as the elite hub for production AI, clinical data architecture, and pharmacovigilance.</p>
@@ -2327,7 +2616,7 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 </section>
 
-<!-- ═══ DATA INDEX & UPGRADED CAPABILITY DISTRIBUTION ═══ -->
+<!-- ═══ DATA INDEX & ELEGANT EDITORIAL CAPABILITY DISTRIBUTION ═══ -->
 <section class="data-section" id="data" aria-label="Ecosystem Data Index">
   <div class="container">
     <div class="section-header reveal">
@@ -2351,90 +2640,110 @@ button {{ cursor: pointer; font: inherit; }}
       </div>
     </div>
 
-    <!-- ── Elevating Ecosystem Functional Capability Distribution ── -->
-    <div class="cap-showcase reveal" id="capShowcase">
-      <div class="cap-top-bar">
-        <div class="cap-title-wrap">
-          <h3>Ecosystem Functional Capability Distribution</h3>
-          <p>Structural talent allocation &amp; IP ownership across India's 2,117 active GCCs</p>
+    <!-- ── Swiss Financial Ledger & Editorial Capability Dossier ── -->
+    <div class="cap-editorial-box reveal" id="capBox">
+      <div class="cap-editorial-top">
+        <div>
+          <h3 class="cap-editorial-title">Ecosystem Functional Capability Distribution</h3>
+          <div style="font-size:14px; color:var(--ink-500); margin-top:2px;">Audited structural talent allocation &amp; functional mandate depth across India's 2,117 active GCCs</div>
         </div>
-        <div class="cap-audit-pill">
-          <span class="telemetry-pulse" style="width:6px;height:6px;"></span>
-          FY2026 · nasscom–Zinnov Baseline Audit
-        </div>
-      </div>
-
-      <!-- Master Multi-Segment Distribution Bar -->
-      <div class="master-bar-container">
-        <div class="master-cap-bar" id="masterCapBar">
-          <div class="bar-seg" id="seg-0" data-index="0" data-width="35.4%" style="background:#D4A017" title="Engineering R&D & AI: 35.4%"><span>35.4%</span></div>
-          <div class="bar-seg" id="seg-1" data-index="1" data-width="28.1%" style="background:#059669" title="Software & Cloud: 28.1%"><span>28.1%</span></div>
-          <div class="bar-seg" id="seg-2" data-index="2" data-width="19.5%" style="background:#2563EB" title="BFSI & Risk: 19.5%"><span>19.5%</span></div>
-          <div class="bar-seg" id="seg-3" data-index="3" data-width="10.2%" style="background:#DB2777" title="Life Sciences: 10.2%"><span>10.2%</span></div>
-          <div class="bar-seg" id="seg-4" data-index="4" data-width="6.8%" style="background:#7C3AED" title="Strategic Ops: 6.8%"><span>6.8%</span></div>
+        <div class="cap-editorial-meta">
+          <span>Source: <b>nasscom–Zinnov Baseline Audit</b></span> · <span>Total Pool: <b>2.36M FTEs</b></span>
         </div>
       </div>
 
-      <!-- Capability Domain Cards Grid -->
-      <div class="cap-cards-grid" id="capCardsGrid">
-        <!-- 01: Engineering R&D & AI -->
-        <div class="cap-card" data-index="0" style="--domain-color:#D4A017;">
-          <div class="cap-card-top">
-            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#D4A017;">01 · CORE</span></div>
-            <div class="cap-pct" data-target="35.4">0.0%</div>
+      <!-- Precision Master Allocation Bar -->
+      <div class="cap-precision-strip" id="masterStrip" title="Functional Capability Allocation Track">
+        <div class="strip-segment" id="strip-0" style="background:#B8860B" data-width="35.4%"></div>
+        <div class="strip-segment" id="strip-1" style="background:#067352" data-width="28.1%"></div>
+        <div class="strip-segment" id="strip-2" style="background:#1D4ED8" data-width="19.5%"></div>
+        <div class="strip-segment" id="strip-3" style="background:#BE185D" data-width="10.2%"></div>
+        <div class="strip-segment" id="strip-4" style="background:#6D28D9" data-width="6.8%"></div>
+      </div>
+
+      <!-- Split Ledger & Deep Dossier -->
+      <div class="cap-ledger-grid">
+        <!-- Left: Interactive Financial Ledger Table -->
+        <div class="cap-ledger-table" id="ledgerTable">
+          <!-- Row 01 -->
+          <div class="ledger-row active" data-index="0" style="--row-color:#B8860B;">
+            <div class="ledger-num">01</div>
+            <div class="ledger-info">
+              <div class="ledger-name">Engineering R&amp;D &amp; Frontier AI</div>
+              <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="35.4%"></div></div>
+            </div>
+            <div class="ledger-talent">~835,000 FTEs</div>
+            <div class="ledger-share">35.4%</div>
           </div>
-          <h4 class="cap-name">Engineering R&D &amp; AI</h4>
-          <div class="cap-metric">~835,000 Talent · +4.8% YoY</div>
-          <div class="cap-card-track"><div class="cap-card-fill" data-width="35.4%"></div></div>
-          <div class="cap-tags">Generative AI Labs · Semiconductor VLSI · Autonomous Tech</div>
+
+          <!-- Row 02 -->
+          <div class="ledger-row" data-index="1" style="--row-color:#067352;">
+            <div class="ledger-num">02</div>
+            <div class="ledger-info">
+              <div class="ledger-name">Software &amp; Cloud Platforms</div>
+              <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="28.1%"></div></div>
+            </div>
+            <div class="ledger-talent">~663,000 FTEs</div>
+            <div class="ledger-share">28.1%</div>
+          </div>
+
+          <!-- Row 03 -->
+          <div class="ledger-row" data-index="2" style="--row-color:#1D4ED8;">
+            <div class="ledger-num">03</div>
+            <div class="ledger-info">
+              <div class="ledger-name">BFSI, FinTech &amp; Risk Quant</div>
+              <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="19.5%"></div></div>
+            </div>
+            <div class="ledger-talent">~460,000 FTEs</div>
+            <div class="ledger-share">19.5%</div>
+          </div>
+
+          <!-- Row 04 -->
+          <div class="ledger-row" data-index="3" style="--row-color:#BE185D;">
+            <div class="ledger-num">04</div>
+            <div class="ledger-info">
+              <div class="ledger-name">Life Sciences &amp; Clinical Tech</div>
+              <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="10.2%"></div></div>
+            </div>
+            <div class="ledger-talent">~240,000 FTEs</div>
+            <div class="ledger-share">10.2%</div>
+          </div>
+
+          <!-- Row 05 -->
+          <div class="ledger-row" data-index="4" style="--row-color:#6D28D9;">
+            <div class="ledger-num">05</div>
+            <div class="ledger-info">
+              <div class="ledger-name">Strategic Operations &amp; Supply</div>
+              <div class="ledger-gauge"><div class="ledger-gauge-fill" data-width="6.8%"></div></div>
+            </div>
+            <div class="ledger-talent">~160,000 FTEs</div>
+            <div class="ledger-share">6.8%</div>
+          </div>
         </div>
 
-        <!-- 02: Software & Cloud -->
-        <div class="cap-card" data-index="1" style="--domain-color:#059669;">
-          <div class="cap-card-top">
-            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#059669;">02 · CLOUD</span></div>
-            <div class="cap-pct" data-target="28.1">0.0%</div>
+        <!-- Right: Detailed Editorial Dossier Card -->
+        <div class="cap-dossier-card" id="dossierCard">
+          <div class="dossier-domain-tag" id="dossierTag">Domain 01 of 05 · Global IP Leadership</div>
+          <h4 class="dossier-h4" id="dossierTitle">Engineering R&amp;D &amp; Frontier AI</h4>
+          <div class="dossier-stat-row">
+            <div>
+              <div class="dossier-stat-label">Total Specialized Talent</div>
+              <div class="dossier-stat-val" id="dossierTalent">~835,000 Engineers</div>
+            </div>
+            <div>
+              <div class="dossier-stat-label">Annual Growth Rate</div>
+              <div class="dossier-stat-val" id="dossierGrowth">+4.8% YoY Expansion</div>
+            </div>
           </div>
-          <h4 class="cap-name">Software &amp; Cloud</h4>
-          <div class="cap-metric">~663,000 Talent · +3.2% YoY</div>
-          <div class="cap-card-track"><div class="cap-card-fill" data-width="28.1%"></div></div>
-          <div class="cap-tags">Enterprise Platforms · Cyber Defense · Microservices Core</div>
-        </div>
-
-        <!-- 03: BFSI & Risk -->
-        <div class="cap-card" data-index="2" style="--domain-color:#2563EB;">
-          <div class="cap-card-top">
-            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#2563EB;">03 · QUANT</span></div>
-            <div class="cap-pct" data-target="19.5">0.0%</div>
+          <p class="dossier-p" id="dossierText">
+            Over 42% of Fortune 500 GCCs now anchor primary patent filings and core algorithmic product development in India. The capability focus has transitioned from software maintenance to generative AI model tuning, chip design (VLSI), and autonomous aerospace systems.
+          </p>
+          <div class="dossier-chips" id="dossierChips">
+            <span class="dossier-chip">Semiconductor VLSI</span>
+            <span class="dossier-chip">Generative AI Labs</span>
+            <span class="dossier-chip">Autonomous Systems</span>
+            <span class="dossier-chip">Embedded Firmware</span>
           </div>
-          <h4 class="cap-name">BFSI &amp; Risk Analytics</h4>
-          <div class="cap-metric">~460,000 Talent · +2.4% YoY</div>
-          <div class="cap-card-track"><div class="cap-card-fill" data-width="19.5%"></div></div>
-          <div class="cap-tags">Algorithmic Trading · Compliance AI · Actuarial Modeling</div>
-        </div>
-
-        <!-- 04: Life Sciences -->
-        <div class="cap-card" data-index="3" style="--domain-color:#DB2777;">
-          <div class="cap-card-top">
-            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#DB2777;">04 · HEALTH</span></div>
-            <div class="cap-pct" data-target="10.2">0.0%</div>
-          </div>
-          <h4 class="cap-name">Life Sciences &amp; Pharma</h4>
-          <div class="cap-metric">~240,000 Talent · +5.6% YoY</div>
-          <div class="cap-card-track"><div class="cap-card-fill" data-width="10.2%"></div></div>
-          <div class="cap-tags">Clinical Protocol AI · Pharmacovigilance · Genomics</div>
-        </div>
-
-        <!-- 05: Strategic Ops -->
-        <div class="cap-card" data-index="4" style="--domain-color:#7C3AED;">
-          <div class="cap-card-top">
-            <div class="cap-dot-label"><span class="cap-dot"></span><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:#7C3AED;">05 · OPS</span></div>
-            <div class="cap-pct" data-target="6.8">0.0%</div>
-          </div>
-          <h4 class="cap-name">Strategic Operations</h4>
-          <div class="cap-metric">~160,000 Talent · +1.8% YoY</div>
-          <div class="cap-card-track"><div class="cap-card-fill" data-width="6.8%"></div></div>
-          <div class="cap-tags">Supply Chain Twins · Global Treasury · Procurement Labs</div>
         </div>
       </div>
     </div>
@@ -2488,7 +2797,7 @@ button {{ cursor: pointer; font: inherit; }}
     </div>
     <div class="advisory-cta reveal">
       <div><h4>Commission a Confidential Research Brief</h4><p>Engage our Gurugram research desk for custom intelligence and peer benchmarking.</p></div>
-      <button class="btn-gold-solid" type="button" onclick="openModal()">Request Advisory Consultation →</button>
+      <button class="btn-gold-solid" type="button" onclick="openContactModal()">Contact Us / Advisory Inquiry →</button>
     </div>
   </div>
 </section>
@@ -2545,9 +2854,13 @@ button {{ cursor: pointer; font: inherit; }}
           </div>
         </form>
         <div class="sub-or-line">or connect on LinkedIn</div>
-        <a class="btn-linkedin" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-          Follow GCCVerse on LinkedIn (1,600+ Members)
+        <!-- Upgraded Animated LinkedIn Button -->
+        <a class="btn-linkedin-vip" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          <span>Follow GCCVerse on LinkedIn</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.18);padding:3px 8px;border-radius:100px;font-size:12px;">
+            <span class="linkedin-beacon"></span> 1,600+ Members
+          </span>
         </a>
       </div>
     </div>
@@ -2576,26 +2889,42 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 </footer>
 
-<!-- ═══ ADVISORY INQUIRY MODAL (WITH ANIMATED SUCCESS CARD) ═══ -->
-<div class="modal-bg" id="advisoryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<!-- ═══ CONTACT US MODAL (WITH ANIMATED SUCCESS CARD) ═══ -->
+<div class="modal-bg" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
   <div class="modal-box">
-    <!-- View 1: Form Inputs -->
-    <div id="modalFormView">
-      <button class="modal-close" type="button" onclick="closeModal()" aria-label="Close dialog">×</button>
-      <div class="section-tag" style="margin-bottom:8px">Confidential Inquiry</div>
-      <h3 id="modalTitle" style="font-family:var(--serif);font-size:24px;color:var(--ink-900);margin-bottom:6px">Commission an Advisory Brief</h3>
-      <p style="font-size:14px;color:var(--ink-500);margin-bottom:24px">Share your requirements. We respond within 12 business hours.</p>
-      <form id="modalForm" onsubmit="handleModalSubmit(event)">
-        <div class="form-group"><label class="form-label" for="modalName">Your Name</label><input class="form-input" id="modalName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
-        <div class="form-group"><label class="form-label" for="modalEmail">Corporate Email</label><input class="form-input" id="modalEmail" type="email" placeholder="rajiv@fortune500.com" required/></div>
-        <div class="form-group"><label class="form-label" for="modalArea">Advisory Area</label><select class="form-select" id="modalArea"><option>GCC City Intelligence &amp; Feasibility</option><option>Peer Benchmarking &amp; Compensation</option><option>Commercial Real Estate (CRE) Audit</option><option>State Incentives &amp; Policy</option><option>Greenfield Setup / In-Sourcing</option><option>Custom Board Advisory Brief</option></select></div>
-        <div class="form-group"><label class="form-label" for="modalScope">Scope or City</label><textarea class="form-textarea" id="modalScope" placeholder="e.g. Evaluating Hyderabad vs Bengaluru for a 1,500-seat AI R&amp;D center."></textarea></div>
-        <button type="submit" class="sub-btn" style="width:100%;padding:14px;font-size:15px;">Submit Confidential Brief →</button>
+    <!-- View 1: Contact Form -->
+    <div id="contactFormView">
+      <button class="modal-close" type="button" onclick="closeContactModal()" aria-label="Close dialog">×</button>
+      <div class="section-tag" style="margin-bottom:8px">Institutional Desk</div>
+      <h3 id="contactModalTitle" style="font-family:var(--serif);font-size:24px;color:var(--ink-900);margin-bottom:6px">Contact GCCVerse</h3>
+      <p style="font-size:14px;color:var(--ink-500);margin-bottom:16px">Connect directly with our Gurugram research desk for confidential advisory, site evaluation, or research inquiries.</p>
+
+      <div class="contact-meta-strip">
+        <span>📍 DLF Cyber City, Gurugram 122001</span>
+        <span>✉️ intelligence@gccverse.in</span>
+        <span>⚡ 12h SLA</span>
+      </div>
+
+      <form id="contactForm" onsubmit="handleContactSubmit(event)">
+        <div class="form-group"><label class="form-label" for="contactName">Your Name</label><input class="form-input" id="contactName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
+        <div class="form-group"><label class="form-label" for="contactEmail">Corporate Email</label><input class="form-input" id="contactEmail" type="email" placeholder="rajiv@enterprise.com" required/></div>
+        <div class="form-group"><label class="form-label" for="contactInquiryType">Inquiry Classification</label>
+          <select class="form-select" id="contactInquiryType">
+            <option>Institutional Advisory &amp; Site Feasibility</option>
+            <option>Bespoke Benchmark Research &amp; Comp Audit</option>
+            <option>Commercial Real Estate (CRE) Campus Audit</option>
+            <option>State Incentives &amp; FDI Policy Advisory</option>
+            <option>Partnership &amp; Data Syndication</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="contactScope">Inquiry Parameters / Message</label><textarea class="form-textarea" id="contactScope" placeholder="Describe your mandate, geographic scope, or questions..."></textarea></div>
+        <button type="submit" class="sub-btn-vip" style="width:100%;padding:14px;font-size:15px;margin-top:8px;">Send Message to Research Desk →</button>
       </form>
     </div>
 
-    <!-- View 2: Animated Success Card (Clean Transition on Same Window) -->
-    <div class="success-card" id="modalSuccessCard" style="display:none;">
+    <!-- View 2: Animated Success Confirmation Card -->
+    <div class="success-card" id="contactSuccessCard" style="display:none;">
       <div class="success-icon-wrap">
         <svg class="success-checkmark" viewBox="0 0 52 52">
           <circle class="checkmark-circle" cx="26" cy="26" r="24" fill="none"/>
@@ -2603,20 +2932,20 @@ button {{ cursor: pointer; font: inherit; }}
         </svg>
       </div>
       <div class="chip chip-emerald" style="display:inline-block; margin-bottom:12px;">Inquiry Dispatched Successfully</div>
-      <h3 style="font-family:var(--serif); font-size:clamp(22px, 3vw, 26px); color:var(--ink-900); margin-bottom:8px;">Your Mandate is Logged</h3>
+      <h3 style="font-family:var(--serif); font-size:clamp(22px, 3vw, 26px); color:var(--ink-900); margin-bottom:8px;">Your Message Has Been Received</h3>
       <p style="font-size:14.5px; color:var(--ink-600); line-height:1.55; max-width:440px; margin:0 auto 20px;">
-        Thank you, <b id="successUserName" style="color:var(--ink-900);">Partner</b>. Our Gurugram senior research desk has received your scoping parameters and will deliver an executive response.
+        Thank you, <b id="contactSuccessUserName" style="color:var(--ink-900);">Partner</b>. Our Gurugram advisory practice has received your parameters and will respond promptly.
       </p>
       <div class="success-telemetry-box">
-        <div class="telemetry-row"><span>Tracking Reference:</span><b id="successRefNumber">GCC-ADV-2026-8942</b></div>
+        <div class="telemetry-row"><span>Tracking Reference:</span><b id="contactSuccessRef">GCC-CONT-2026-8942</b></div>
         <div class="telemetry-row"><span>SLA Commitment:</span><b>Within 12 Business Hours</b></div>
         <div class="telemetry-row"><span>Assigned Desk:</span><b>Senior Advisory Practice · Gurugram</b></div>
       </div>
       <div class="auto-close-bar-wrap">
-        <div class="auto-close-text">Closing window in <b id="countdownTimer">5</b> seconds...</div>
-        <div class="auto-close-track"><div class="auto-close-progress" id="autoCloseProgress"></div></div>
+        <div class="auto-close-text">Closing window in <b id="contactCountdownTimer">5</b> seconds...</div>
+        <div class="auto-close-track"><div class="auto-close-progress" id="contactAutoCloseProgress"></div></div>
       </div>
-      <button type="button" class="btn-outline" onclick="closeModal()" style="margin-top:20px;">Close Window Now</button>
+      <button type="button" class="btn-outline" onclick="closeContactModal()" style="margin-top:20px;color:var(--ink-800);border-color:var(--warm-300);">Close Window Now</button>
     </div>
   </div>
 </div>
@@ -2634,7 +2963,7 @@ button {{ cursor: pointer; font: inherit; }}
     <div class="chip chip-gold" style="display:inline-block; margin-bottom:12px;">✦ VIP Access Confirmed</div>
     <h3 id="subSuccessTitle" style="font-family:var(--serif); font-size:clamp(24px, 3.2vw, 28px); color:var(--ink-900); margin-bottom:10px;">Welcome to the Executive Circle</h3>
     <p style="font-size:15px; color:var(--ink-600); line-height:1.6; max-width:440px; margin:0 auto 20px;">
-      You have been successfully added to the dispatch list for <b id="subSuccessEmailDisplay" style="color:var(--ink-900);">your email</b>.
+      You have been successfully registered with <b id="subSuccessEmailDisplay" style="color:var(--ink-900);">your email</b> for the Tuesday 08:00 AM IST dispatch.
     </p>
 
     <!-- Benchmark Gift Card inside Popup -->
@@ -2642,27 +2971,53 @@ button {{ cursor: pointer; font: inherit; }}
       <div style="display:flex; align-items:center; gap:12px;">
         <div style="width:40px;height:40px;border-radius:8px;background:var(--emerald-50);color:var(--emerald-700);display:grid;place-items:center;font-size:20px;flex-shrink:0;">📑</div>
         <div>
-          <div style="font-weight:700; font-size:14px; color:var(--ink-900);">FY2026 India GCC Executive Memo</div>
+          <div style="font-weight:700; font-size:14px; color:var(--ink-900);">FY2026 India GCC Executive Benchmark Memo</div>
           <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-500);">Scheduled for dispatch: Tuesday 08:00 AM IST</div>
         </div>
       </div>
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <a class="btn-linkedin" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener" style="padding:14px; font-size:14.5px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-        Follow GCCVerse on LinkedIn (1,600+ Members)
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <a class="btn-linkedin-vip" href="https://www.linkedin.com/company/gccverse/" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        <span>Follow on LinkedIn (1,600+ Members)</span>
       </a>
-      <button class="btn-outline" type="button" onclick="closeSubModal()" style="width:100%; padding:12px;">Back to Terminal</button>
+      <button class="btn-outline" type="button" onclick="closeSubModal()" style="width:100%; padding:12px; color:var(--ink-800); border-color:var(--warm-300);">Back to Terminal</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ AUDIO TOAST ═══ -->
-<div class="audio-toast" id="audioToast" role="status">
-  <div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
-  <div style="flex:1"><div style="font-family:var(--mono);font-size:10px;color:var(--emerald-700);font-weight:600;text-transform:uppercase">Now Playing</div><div style="font-size:13px;font-weight:600;color:var(--ink-800)">Syneos Health Flagship (3:14)</div></div>
-  <button onclick="closeAudio()" type="button" style="background:none;border:none;color:var(--ink-400);font-size:18px;cursor:pointer;" aria-label="Dismiss audio brief">×</button>
+<!-- ═══ FUNCTIONAL INTERACTIVE AUDIO PLAYER DOCK ═══ -->
+<div class="audio-dock" id="audioDock" role="region" aria-label="Executive Audio Dispatch Player">
+  <div class="dock-header">
+    <div class="dock-tag">
+      <span class="telemetry-pulse"></span> Executive Audio Dispatch
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="dock-wave" id="dockWave">
+        <div class="dock-wave-bar"></div>
+        <div class="dock-wave-bar"></div>
+        <div class="dock-wave-bar"></div>
+        <div class="dock-wave-bar"></div>
+      </div>
+      <button class="dock-close-btn" onclick="stopAudioBrief()" type="button" aria-label="Close audio player">×</button>
+    </div>
+  </div>
+  <div class="dock-title">Syneos Health Flagship Asia Launch (Hyderabad)</div>
+  <div class="dock-controls">
+    <button class="dock-play-btn" id="dockPlayBtn" onclick="toggleAudioPlayback()" type="button" aria-label="Play/Pause audio">
+      <svg id="dockPlayIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+    <div class="dock-progress-wrap">
+      <div class="dock-scrub-track" id="dockScrubTrack">
+        <div class="dock-scrub-fill" id="dockScrubFill"></div>
+      </div>
+      <div class="dock-time">
+        <span id="dockCurrentTime">0:00</span>
+        <span>0:48 · Primary Briefing</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -2730,90 +3085,136 @@ function initStatsCounter() {{
   observer.observe(statsSection);
 }}
 
-// ── 3. High-End Interactive Capability Distribution Engine ──
-function initCapabilityShowcase() {{
-  const showcase = document.getElementById('capShowcase');
-  if (!showcase) return;
+// ── 3. Elegant Swiss Financial Ledger & Capability Dossier ──
+const CAP_DATA = [
+  {{
+    tag: "Domain 01 of 05 · Global IP Leadership",
+    title: "Engineering R&D & Frontier AI",
+    talent: "~835,000 Engineers",
+    growth: "+4.8% YoY Expansion",
+    desc: "Over 42% of Fortune 500 GCCs now anchor primary patent filings and core algorithmic product development in India. The capability focus has transitioned from software maintenance to generative AI model tuning, chip design (VLSI), and autonomous aerospace systems.",
+    chips: ["Semiconductor VLSI", "Generative AI Labs", "Autonomous Systems", "Embedded Firmware"],
+    color: "#B8860B"
+  }},
+  {{
+    tag: "Domain 02 of 05 · Platform Architecture",
+    title: "Software & Cloud Platforms",
+    talent: "~663,000 Engineers",
+    growth: "+3.2% YoY Expansion",
+    desc: "Indian captive centres build and operate mission-critical core microservices, multi-cloud SaaS platforms, and enterprise cybersecurity systems that power global multinational infrastructure 24 hours a day.",
+    chips: ["Multi-Cloud Orchestration", "Zero-Trust Cybersecurity", "Distributed Microservices", "SaaS Infrastructure"],
+    color: "#067352"
+  }},
+  {{
+    tag: "Domain 03 of 05 · Capital Markets & Analytics",
+    title: "BFSI, FinTech & Risk Quant",
+    talent: "~460,000 Professionals",
+    growth: "+2.4% YoY Expansion",
+    desc: "Global investment banks, asset managers, and insurance giants deploy quantitative research, algorithmic trading models, compliance AI, and actuarial analytics across Bengaluru, Mumbai, and Chennai.",
+    chips: ["Algorithmic Trading", "Regulatory Compliance AI", "Actuarial Science", "Fraud Intelligence"],
+    color: "#1D4ED8"
+  }},
+  {{
+    tag: "Domain 04 of 05 · Biopharmaceutical Innovation",
+    title: "Life Sciences & Clinical Tech",
+    talent: "~240,000 Specialists",
+    growth: "+5.6% YoY Expansion",
+    desc: "The fastest growing capability domain in India. Centred primarily in Hyderabad's Genome Valley and Gachibowli, operations encompass full clinical trial automation, pharmacovigilance, and genomic bio-informatics.",
+    chips: ["Clinical Data Pipelines", "Pharmacovigilance AI", "Genomic Analytics", "Regulatory Dossiers"],
+    color: "#BE185D"
+  }},
+  {{
+    tag: "Domain 05 of 05 · Enterprise Command",
+    title: "Strategic Operations & Supply",
+    talent: "~160,000 Leaders",
+    growth: "+1.8% YoY Expansion",
+    desc: "Centralized operational nerve centres managing global digital supply chain twins, multi-billion-dollar direct procurement, and treasury operations for multinational conglomerates.",
+    chips: ["Supply Chain Digital Twins", "Central Treasury", "Strategic Sourcing", "Global Procurement"],
+    color: "#6D28D9"
+  }}
+];
 
-  const barSegments = document.querySelectorAll('.bar-seg');
-  const capCards = document.querySelectorAll('.cap-card');
+function initCapabilityLedger() {{
+  const capBox = document.getElementById('capBox');
+  if (!capBox) return;
+
+  const stripSegments = document.querySelectorAll('.strip-segment');
+  const ledgerRows = document.querySelectorAll('.ledger-row');
   let hasAnimated = false;
 
-  // Animate elements on scroll
   const observer = new IntersectionObserver((entries, obs) => {{
     entries.forEach(entry => {{
       if (entry.isIntersecting && !hasAnimated) {{
         hasAnimated = true;
         obs.unobserve(entry.target);
 
-        // 1. Animate Master Bar
-        barSegments.forEach(seg => {{
+        // Animate precision allocation strip
+        stripSegments.forEach(seg => {{
           seg.style.width = seg.getAttribute('data-width');
         }});
 
-        // 2. Animate Cards Progress & Counters
-        capCards.forEach((card, idx) => {{
+        // Animate gauge fills in ledger
+        ledgerRows.forEach((row, idx) => {{
           setTimeout(() => {{
-            const fill = card.querySelector('.cap-card-fill');
+            const fill = row.querySelector('.ledger-gauge-fill');
             if (fill) fill.style.width = fill.getAttribute('data-width');
-
-            const pctEl = card.querySelector('.cap-pct');
-            if (pctEl) {{
-              const target = parseFloat(pctEl.getAttribute('data-target'));
-              const startTime = performance.now();
-              const duration = 1500;
-              function countPct(now) {{
-                const elapsed = now - startTime;
-                const p = Math.min(elapsed / duration, 1);
-                const ease = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
-                pctEl.textContent = (target * ease).toFixed(1) + '%';
-                if (p < 1) requestAnimationFrame(countPct);
-              }}
-              requestAnimationFrame(countPct);
-            }}
-          }}, idx * 120);
+          }}, idx * 100);
         }});
       }}
     }});
   }}, {{ threshold: 0.25 }});
-  observer.observe(showcase);
+  observer.observe(capBox);
 
-  // Cross-Highlighting Interaction between Cards & Master Bar
-  function highlightIndex(idx) {{
-    barSegments.forEach((seg, i) => {{
-      if (idx === null) {{
-        seg.classList.remove('highlight', 'dimmed');
-      }} else if (i === idx) {{
-        seg.classList.add('highlight');
-        seg.classList.remove('dimmed');
+  // Update Dossier on hover or click
+  function selectDomain(idx) {{
+    ledgerRows.forEach((r, i) => {{
+      if (i === idx) {{
+        r.classList.add('active');
       }} else {{
-        seg.classList.remove('highlight');
-        seg.classList.add('dimmed');
+        r.classList.remove('active');
       }}
     }});
 
-    capCards.forEach((card, i) => {{
-      if (idx === null) {{
-        card.classList.remove('active');
-      }} else if (i === idx) {{
-        card.classList.add('active');
+    // Highlight strip
+    stripSegments.forEach((seg, i) => {{
+      if (i === idx) {{
+        seg.style.filter = 'brightness(1.25) drop-shadow(0 0 4px rgba(0,0,0,0.3))';
+        seg.style.opacity = '1';
       }} else {{
-        card.classList.remove('active');
+        seg.style.filter = 'none';
+        seg.style.opacity = '0.45';
       }}
     }});
+
+    // Update Dossier content smoothly
+    const d = CAP_DATA[idx];
+    if (!d) return;
+
+    const dossier = document.getElementById('dossierCard');
+    if (dossier) {{
+      dossier.style.setProperty('--dossier-accent', d.color);
+    }}
+
+    document.getElementById('dossierTag').textContent = d.tag;
+    document.getElementById('dossierTitle').textContent = d.title;
+    document.getElementById('dossierTalent').textContent = d.talent;
+    document.getElementById('dossierGrowth').textContent = d.growth;
+    document.getElementById('dossierText').textContent = d.desc;
+
+    const chipsEl = document.getElementById('dossierChips');
+    if (chipsEl) {{
+      chipsEl.innerHTML = d.chips.map(c => `<span class="dossier-chip">${{c}}</span>`).join('');
+    }}
   }}
 
-  // Card Hover & Touch
-  capCards.forEach((card, idx) => {{
-    card.addEventListener('mouseenter', () => highlightIndex(idx));
-    card.addEventListener('mouseleave', () => highlightIndex(null));
-    card.addEventListener('click', () => highlightIndex(idx));
+  ledgerRows.forEach((row, idx) => {{
+    row.addEventListener('mouseenter', () => selectDomain(idx));
+    row.addEventListener('click', () => selectDomain(idx));
   }});
 
-  // Bar Segments Hover
-  barSegments.forEach((seg, idx) => {{
-    seg.addEventListener('mouseenter', () => highlightIndex(idx));
-    seg.addEventListener('mouseleave', () => highlightIndex(null));
+  stripSegments.forEach((seg, idx) => {{
+    seg.addEventListener('mouseenter', () => selectDomain(idx));
+    seg.addEventListener('click', () => selectDomain(idx));
   }});
 }}
 
@@ -2825,11 +3226,8 @@ function initMobileNav() {{
 
   function toggle() {{
     const isOpen = drawer.classList.contains('open');
-    if (isOpen) {{
-      closeMobileNav();
-    }} else {{
-      openMobileNav();
-    }}
+    if (isOpen) closeMobileNav();
+    else openMobileNav();
   }}
 
   btn.addEventListener('click', (e) => {{
@@ -2866,7 +3264,7 @@ function closeMobileNav() {{
   }}
 }}
 
-// ── 5. Smooth Navigation WITHOUT '#' in URL ──
+// ── 5. Clean Navigation & Routing (Fix for /subscribe and deep links on Vercel) ──
 function initCleanNav() {{
   const links = document.querySelectorAll('a[href^="#"], a[data-section]');
   links.forEach(link => {{
@@ -2893,6 +3291,21 @@ function initCleanNav() {{
     }});
   }});
 
+  // Check URL pathname on initial load (e.g. /subscribe, /stories on Vercel)
+  const initialPath = window.location.pathname.replace(/^\\/+|\\/+$/g, '');
+  if (initialPath && initialPath !== 'index.html') {{
+    setTimeout(() => {{
+      const targetEl = document.getElementById(initialPath);
+      if (targetEl) {{
+        const headerH = document.getElementById('siteHeader')?.offsetHeight || 72;
+        window.scrollTo({{
+          top: targetEl.getBoundingClientRect().top + window.pageYOffset - headerH - 8,
+          behavior: 'smooth'
+        }});
+      }}
+    }}, 250);
+  }}
+
   window.addEventListener('popstate', function(e) {{
     const sectionName = e.state?.section || window.location.pathname.replace(/^\\/+|\\/+$/g, '');
     if (sectionName) {{
@@ -2905,15 +3318,18 @@ function initCleanNav() {{
   }});
 }}
 
-// ── 6. Header Scroll Shadow ──
+// ── 6. Header Scroll Shadow & Transparent Blending ──
 let ticking = false;
 window.addEventListener('scroll', () => {{
   if (!ticking) {{
     window.requestAnimationFrame(() => {{
       const header = document.getElementById('siteHeader');
       if (header) {{
-        if (window.scrollY > 15) {{ header.classList.add('scrolled'); }}
-        else {{ header.classList.remove('scrolled'); }}
+        if (window.scrollY > 25) {{
+          header.classList.add('scrolled');
+        }} else {{
+          header.classList.remove('scrolled');
+        }}
       }}
       ticking = false;
     }});
@@ -3038,10 +3454,8 @@ document.getElementById('subForm').onsubmit = function(e) {{
     return;
   }}
 
-  // Set user email in popup
   document.getElementById('subSuccessEmailDisplay').textContent = email;
 
-  // Open Attractive Subscription Window Popup
   const subModal = document.getElementById('subSuccessModal');
   if (subModal) {{
     subModal.classList.add('open');
@@ -3053,79 +3467,184 @@ document.getElementById('subForm').onsubmit = function(e) {{
 
 function closeSubModal() {{
   const subModal = document.getElementById('subSuccessModal');
-  if (subModal) {{
-    subModal.classList.remove('open');
-  }}
+  if (subModal) subModal.classList.remove('open');
 }}
 document.getElementById('subSuccessModal').onclick = function(e) {{
   if (e.target === this) closeSubModal();
 }};
 
-// ── 10. Audio ──
-function simulateAudio(){{document.getElementById('audioToast').classList.add('show')}}
-function closeAudio(){{document.getElementById('audioToast').classList.remove('show')}}
+// ── 10. Real Functional Executive Audio Brief Player ──
+let isAudioPlaying = false;
+let audioProgressTimer = null;
+let audioSecondsElapsed = 0;
+const AUDIO_TOTAL_SECONDS = 48;
+let speechUtterance = null;
 
-// ── 11. Advisory Modal with Animated Card & 5s Auto-Close ──
-let modalAutoCloseTimeout = null;
-let modalCountdownInterval = null;
+const BRIEF_TEXT = "Welcome to the GCCVerse Executive Audio Dispatch. Syneos Health has officially inaugurated Asia's largest capability centre in Hyderabad at Phoenix Equinox, Gachibowli. Spanning over 350,000 square feet, this flagship hub serves as the elite nexus for production AI, clinical protocol automation, and global pharmacovigilance operations. With over 2,000 biopharmaceutical and clinical data scientists, this milestone underscores Hyderabad's emergence as India's primary Life Sciences technology powerhouse.";
 
-function openModal() {{
-  // Ensure form is fresh and visible
-  document.getElementById('modalFormView').style.display = 'block';
-  document.getElementById('modalSuccessCard').style.display = 'none';
-  document.getElementById('advisoryModal').classList.add('open');
+function startAudioBrief() {{
+  const dock = document.getElementById('audioDock');
+  if (!dock) return;
+  dock.classList.add('active');
+
+  // If already playing, continue
+  if (!isAudioPlaying) {{
+    playSpeech();
+  }}
 }}
 
-function closeModal() {{
-  if (modalAutoCloseTimeout) clearTimeout(modalAutoCloseTimeout);
-  if (modalCountdownInterval) clearInterval(modalCountdownInterval);
-  document.getElementById('advisoryModal').classList.remove('open');
+function playSpeech() {{
+  isAudioPlaying = true;
+  const dock = document.getElementById('audioDock');
+  const playIcon = document.getElementById('dockPlayIcon');
+  if (dock) dock.classList.add('playing');
+
+  // Change to Pause icon
+  if (playIcon) {{
+    playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  }}
+
+  // Browser Speech Synthesis
+  if ('speechSynthesis' in window) {{
+    window.speechSynthesis.cancel(); // Stop any pending
+    speechUtterance = new SpeechSynthesisUtterance(BRIEF_TEXT);
+    speechUtterance.rate = 1.0;
+    speechUtterance.pitch = 1.0;
+
+    // Pick English executive voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const engVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Natural') || v.name.includes('Premium') || v.name.includes('Google') || v.name.includes('Samantha')));
+    if (engVoice) speechUtterance.voice = engVoice;
+
+    speechUtterance.onend = function() {{
+      pauseSpeech();
+      audioSecondsElapsed = 0;
+      updateAudioDisplay();
+    }};
+
+    window.speechSynthesis.speak(speechUtterance);
+  }}
+
+  // Start progress counter
+  if (audioProgressTimer) clearInterval(audioProgressTimer);
+  audioProgressTimer = setInterval(() => {{
+    audioSecondsElapsed += 1;
+    if (audioSecondsElapsed >= AUDIO_TOTAL_SECONDS) {{
+      pauseSpeech();
+      audioSecondsElapsed = 0;
+    }}
+    updateAudioDisplay();
+  }}, 1000);
 }}
 
-document.getElementById('advisoryModal').onclick = function(e) {{
-  if (e.target === this) closeModal();
+function pauseSpeech() {{
+  isAudioPlaying = false;
+  const dock = document.getElementById('audioDock');
+  const playIcon = document.getElementById('dockPlayIcon');
+  if (dock) dock.classList.remove('playing');
+
+  if (playIcon) {{
+    playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+  }}
+
+  if ('speechSynthesis' in window) {{
+    window.speechSynthesis.cancel();
+  }}
+
+  if (audioProgressTimer) {{
+    clearInterval(audioProgressTimer);
+    audioProgressTimer = null;
+  }}
+}}
+
+function toggleAudioPlayback() {{
+  if (isAudioPlaying) {{
+    pauseSpeech();
+  }} else {{
+    playSpeech();
+  }}
+}}
+
+function updateAudioDisplay() {{
+  const scrub = document.getElementById('dockScrubFill');
+  const timeDisplay = document.getElementById('dockCurrentTime');
+  const pct = Math.min((audioSecondsElapsed / AUDIO_TOTAL_SECONDS) * 100, 100);
+
+  if (scrub) scrub.style.width = pct + '%';
+
+  const mins = Math.floor(audioSecondsElapsed / 60);
+  const secs = audioSecondsElapsed % 60;
+  if (timeDisplay) {{
+    timeDisplay.textContent = `${{mins}}:${{secs < 10 ? '0' : ''}}${{secs}}`;
+  }}
+}}
+
+function stopAudioBrief() {{
+  pauseSpeech();
+  audioSecondsElapsed = 0;
+  updateAudioDisplay();
+  const dock = document.getElementById('audioDock');
+  if (dock) dock.classList.remove('active');
+}}
+
+// ── 11. Contact Us Modal with In-Window Confirmation & 5s Auto-Close ──
+let contactAutoCloseTimeout = null;
+let contactCountdownInterval = null;
+
+function openContactModal() {{
+  document.getElementById('contactFormView').style.display = 'block';
+  document.getElementById('contactSuccessCard').style.display = 'none';
+  document.getElementById('contactModal').classList.add('open');
+}}
+
+function closeContactModal() {{
+  if (contactAutoCloseTimeout) clearTimeout(contactAutoCloseTimeout);
+  if (contactCountdownInterval) clearInterval(contactCountdownInterval);
+  document.getElementById('contactModal').classList.remove('open');
+}}
+
+document.getElementById('contactModal').onclick = function(e) {{
+  if (e.target === this) closeContactModal();
 }};
 
-function handleModalSubmit(e) {{
+function handleContactSubmit(e) {{
   e.preventDefault();
-  const name = document.getElementById('modalName').value.trim() || 'Partner';
+  const name = document.getElementById('contactName').value.trim() || 'Partner';
 
-  // 1. Transition inside the SAME window: Remove form, show Animated Success Card
-  document.getElementById('modalFormView').style.display = 'none';
-  const successCard = document.getElementById('modalSuccessCard');
+  // In-window transition: remove inputs, display animated card
+  document.getElementById('contactFormView').style.display = 'none';
+  const successCard = document.getElementById('contactSuccessCard');
   successCard.style.display = 'block';
 
-  // Set personalized details
-  document.getElementById('successUserName').textContent = name;
-  const randRef = 'GCC-ADV-2026-' + Math.floor(1000 + Math.random() * 9000);
-  document.getElementById('successRefNumber').textContent = randRef;
+  document.getElementById('contactSuccessUserName').textContent = name;
+  const randRef = 'GCC-CONT-2026-' + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById('contactSuccessRef').textContent = randRef;
 
-  // 2. Start animated progress bar & 5s countdown
-  const progressBar = document.getElementById('autoCloseProgress');
-  const timerDisplay = document.getElementById('countdownTimer');
+  // Animated progress bar and 5s countdown
+  const progressBar = document.getElementById('contactAutoCloseProgress');
+  const timerDisplay = document.getElementById('contactCountdownTimer');
   progressBar.classList.remove('animate');
-  void progressBar.offsetWidth; // trigger reflow
+  void progressBar.offsetWidth;
   progressBar.classList.add('animate');
 
   let secondsLeft = 5;
   timerDisplay.textContent = secondsLeft;
 
-  if (modalCountdownInterval) clearInterval(modalCountdownInterval);
-  modalCountdownInterval = setInterval(() => {{
+  if (contactCountdownInterval) clearInterval(contactCountdownInterval);
+  contactCountdownInterval = setInterval(() => {{
     secondsLeft -= 1;
     if (secondsLeft >= 0) {{
       timerDisplay.textContent = secondsLeft;
     }}
     if (secondsLeft <= 0) {{
-      clearInterval(modalCountdownInterval);
+      clearInterval(contactCountdownInterval);
     }}
   }}, 1000);
 
-  // 3. Auto-close exactly after 5 seconds
-  if (modalAutoCloseTimeout) clearTimeout(modalAutoCloseTimeout);
-  modalAutoCloseTimeout = setTimeout(() => {{
-    closeModal();
-    document.getElementById('modalForm').reset();
+  if (contactAutoCloseTimeout) clearTimeout(contactAutoCloseTimeout);
+  contactAutoCloseTimeout = setTimeout(() => {{
+    closeContactModal();
+    document.getElementById('contactForm').reset();
   }}, 5000);
 }}
 
@@ -3133,13 +3652,13 @@ function handleModalSubmit(e) {{
 document.addEventListener('DOMContentLoaded', () => {{
   initScrollReveal();
   initStatsCounter();
-  initCapabilityShowcase();
+  initCapabilityLedger();
   initMobileNav();
   initCleanNav();
 }});
 initScrollReveal();
 initStatsCounter();
-initCapabilityShowcase();
+initCapabilityLedger();
 initMobileNav();
 initCleanNav();
 </script>
@@ -3150,10 +3669,10 @@ initCleanNav();
 # Write index.html (modular)
 with open(os.path.join(BASE_DIR, "index.html"), "w") as f:
     f.write(get_html(is_standalone=False))
-print("Generated index.html (Enhanced UX & Animations)")
+print("Generated index.html (Updated & Tested)")
 
 # Write gccverse_enterprise.html (embedded standalone)
 with open(os.path.join(BASE_DIR, "gccverse_enterprise.html"), "w") as f:
     f.write(get_html(is_standalone=True))
-print("Generated gccverse_enterprise.html (Enhanced UX & Animations)")
+print("Generated gccverse_enterprise.html (Updated & Tested)")
 
