@@ -288,18 +288,39 @@ button {{ cursor: pointer; font: inherit; }}
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1.3s cubic-bezier(.4,0,.2,1);
+  transition: opacity 1.2s cubic-bezier(.4, 0, .2, 1);
   pointer-events: none;
+  overflow: hidden;
 }}
-.hero-slide.active {{ opacity: 1; pointer-events: auto; }}
+.hero-slide.active {{
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}}
+
+/* Continuous cinematic Ken Burns camera motion */
+@keyframes kenBurnsSlide {{
+  0% {{
+    transform: scale(1.0) translate(0, 0);
+  }}
+  50% {{
+    transform: scale(1.07) translate(-1%, -0.6%);
+  }}
+  100% {{
+    transform: scale(1.0) translate(0, 0);
+  }}
+}}
+
 .hero-slide img {{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.08);
-  transition: transform 9s ease-out;
+  will-change: transform;
 }}
-.hero-slide.active img {{ transform: scale(1); }}
+.hero-slide.active img {{
+  animation: kenBurnsSlide 14s ease-in-out infinite alternate;
+}}
+
 .hero-scrim {{
   position: absolute;
   inset: 0;
@@ -395,18 +416,18 @@ button {{ cursor: pointer; font: inherit; }}
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,.15);
+  background: rgba(255,255,255,.18);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,.28);
+  border: 1px solid rgba(255,255,255,.32);
   color: #FFF;
   display: grid;
   place-items: center;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 .hero-nav-btn:hover {{
-  background: rgba(255,255,255,.35);
-  border-color: rgba(255,255,255,.6);
+  background: rgba(255,255,255,.4);
+  border-color: rgba(255,255,255,.7);
   transform: scale(1.08);
 }}
 .hero-dots {{
@@ -428,7 +449,10 @@ button {{ cursor: pointer; font: inherit; }}
   overflow: hidden;
   padding: 0;
   position: relative;
-  transition: background .2s;
+  transition: background .2s, transform .2s;
+}}
+.hero-dot:hover {{
+  background: rgba(255,255,255,.5);
 }}
 .hero-dot::after {{
   content: "";
@@ -438,7 +462,13 @@ button {{ cursor: pointer; font: inherit; }}
   width: 0%;
   border-radius: inherit;
 }}
-.hero-dot.active::after {{ width: 100%; transition: width 6s linear; }}
+@keyframes dotProgress {{
+  0% {{ width: 0%; }}
+  100% {{ width: 100%; }}
+}}
+.hero-dot.active::after {{
+  animation: dotProgress 4.8s linear forwards;
+}}
 
 /* ════════════════════════════════════
    MACRO STATS RIBBON (ANIMATED NUMBERS)
@@ -1656,7 +1686,7 @@ button {{ cursor: pointer; font: inherit; }}
       <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="persona-title">Corporate Real Estate</div><p class="persona-desc">Anticipate mega-leasing transactions, spatial density, and micro-market rental shifts.</p></div></div>
       <div class="persona-card reveal"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="persona-title">Policymakers & State Boards</div><p class="persona-desc">Evaluate competitive state incentive frameworks and infrastructure readiness.</p></div></div>
       <div class="persona-card reveal delay-100"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="persona-title">Talent & HR Directors</div><p class="persona-desc">Monitor executive mobility, specialty compensation benchmarks, and attrition trends.</p></div></div>
-      <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="persona-title">Consultants & Advisory Firms</div><p class="persona-desc">Arm client teams with market sizing, peer landscapes, and location feasibility models.</p></div></div>
+      <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="persona-title">Consultants & Advisory Firms</div><p class="persona-desc">Arm client teams with market sizing, peer landscapes, and location feasibility models.</p></div></div>
     </div>
   </div>
 </section>
@@ -1906,47 +1936,122 @@ window.addEventListener('scroll', () => {{
   }}
 }}, {{ passive: true }});
 
-// ── 6. Hero Carousel ──
-(function(){{
-  const slides=document.querySelectorAll('.hero-slide');
-  const dots=document.querySelectorAll('.hero-dot');
-  let cur=0, timer;
-  const DUR=6000;
+// ── 6. Robust Hero Carousel with Continuous Ken Burns Motion & Auto-Advance ──
+(function initCarousel(){{
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  const prevBtn = document.getElementById('heroPrev');
+  const nextBtn = document.getElementById('heroNext');
+  const navBox = document.querySelector('.hero-nav');
+  const dotsBox = document.getElementById('heroDots');
+  let cur = 0;
+  let timer = null;
+  const DUR = 4800; // 4.8s rotation
 
   function go(i){{
+    if (!slides.length) return;
     slides[cur].classList.remove('active');
     dots[cur].classList.remove('active');
-    cur=(i+slides.length)%slides.length;
+
+    // Reset progress animation on dot
+    void dots[cur].offsetWidth;
+
+    cur = (i + slides.length) % slides.length;
+
     slides[cur].classList.add('active');
     dots[cur].classList.add('active');
   }}
-  function start(){{stop();timer=setInterval(()=>go(cur+1),DUR)}}
-  function stop(){{clearInterval(timer)}}
 
-  document.getElementById('heroPrev').onclick=()=>{{go(cur-1);start()}};
-  document.getElementById('heroNext').onclick=()=>{{go(cur+1);start()}};
-  dots.forEach((d,i)=>d.onclick=()=>{{go(i);start()}});
+  function start(){{
+    stop();
+    timer = setInterval(() => {{
+      go(cur + 1);
+    }}, DUR);
+  }}
 
-  const c=document.getElementById('heroCarousel');
-  c.onmouseenter=stop;
-  c.onmouseleave=start;
+  function stop(){{
+    if (timer) {{
+      clearInterval(timer);
+      timer = null;
+    }}
+  }}
 
-  // Swipe
-  let sx=0;
-  c.addEventListener('touchstart',e=>{{sx=e.changedTouches[0].screenX;stop()}},{{passive:true}});
-  c.addEventListener('touchend',e=>{{
-    const dx=e.changedTouches[0].screenX-sx;
-    if(dx<-50)go(cur+1);else if(dx>50)go(cur-1);
-    start();
-  }},{{passive:true}});
+  if (prevBtn) {{
+    prevBtn.addEventListener('click', (e) => {{
+      e.stopPropagation();
+      go(cur - 1);
+      start();
+    }});
+  }}
+  if (nextBtn) {{
+    nextBtn.addEventListener('click', (e) => {{
+      e.stopPropagation();
+      go(cur + 1);
+      start();
+    }});
+  }}
 
-  // Keyboard
-  c.tabIndex=0;
-  c.addEventListener('keydown',e=>{{
-    if(e.key==='ArrowRight'){{go(cur+1);start()}}
-    if(e.key==='ArrowLeft'){{go(cur-1);start()}}
+  dots.forEach((dot, idx) => {{
+    dot.addEventListener('click', (e) => {{
+      e.stopPropagation();
+      go(idx);
+      start();
+    }});
   }});
 
+  // Only pause when hovering the active navigation controls, NOT the entire screen!
+  if (navBox) {{
+    navBox.addEventListener('mouseenter', stop);
+    navBox.addEventListener('mouseleave', start);
+  }}
+  if (dotsBox) {{
+    dotsBox.addEventListener('mouseenter', stop);
+    dotsBox.addEventListener('mouseleave', start);
+  }}
+
+  // Pause when browser tab is inactive, resume when focused
+  document.addEventListener('visibilitychange', () => {{
+    if (document.hidden) {{
+      stop();
+    }} else {{
+      start();
+    }}
+  }});
+
+  // Touch Swipe
+  const carouselEl = document.getElementById('heroCarousel');
+  if (carouselEl) {{
+    let touchStartX = 0;
+    carouselEl.addEventListener('touchstart', (e) => {{
+      touchStartX = e.changedTouches[0].screenX;
+      stop();
+    }}, {{ passive: true }});
+
+    carouselEl.addEventListener('touchend', (e) => {{
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (diff > 45) {{
+        go(cur + 1);
+      }} else if (diff < -45) {{
+        go(cur - 1);
+      }}
+      start();
+    }}, {{ passive: true }});
+
+    // Keyboard navigation
+    carouselEl.tabIndex = 0;
+    carouselEl.addEventListener('keydown', (e) => {{
+      if (e.key === 'ArrowRight') {{
+        go(cur + 1);
+        start();
+      }} else if (e.key === 'ArrowLeft') {{
+        go(cur - 1);
+        start();
+      }}
+    }});
+  }}
+
+  // Start rotation immediately
   start();
 }})();
 
