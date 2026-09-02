@@ -2056,16 +2056,34 @@ button {{ cursor: pointer; font: inherit; }}
     padding: 5px 9px;
   }}
   .sub-btn-vip {{
-    padding: 14px 20px;
-    font-size: 14px;
-    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 100px;
     gap: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(2,43,34,0.18);
+    height: 44px;
+  }}
+  .sub-btn-vip svg {{
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
   }}
   .btn-linkedin-vip {{
-    padding: 13px 16px;
-    font-size: 13.5px;
-    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-radius: 100px;
     gap: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(10,102,194,0.2);
+    height: 42px;
+  }}
+  .btn-linkedin-vip svg {{
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }}
   .sub-or-line {{
     margin: 14px 0;
@@ -2333,6 +2351,19 @@ button {{ cursor: pointer; font: inherit; }}
   animation: beaconPulse 1.8s infinite;
 }}
 
+@media(max-width:390px){{
+  .sub-btn-vip {{
+    font-size: 12px !important;
+    padding: 10px 12px !important;
+    height: 42px !important;
+  }}
+  .btn-linkedin-vip {{
+    font-size: 11.5px !important;
+    padding: 9px 12px !important;
+    height: 40px !important;
+    gap: 6px !important;
+  }}
+}}
 /* ════════════════════════════════════
    FOOTER
    ════════════════════════════════════ */
@@ -2370,8 +2401,10 @@ button {{ cursor: pointer; font: inherit; }}
   justify-content: center;
   text-align: center;
   font-family: var(--mono);
-  font-size: 11px;
-  color: rgba(255,255,255,.38);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.65);
 }}
 
 /* ════════════════════════════════════
@@ -3537,7 +3570,7 @@ button {{ cursor: pointer; font: inherit; }}
       <form id="contactForm" onsubmit="handleContactSubmit(event)">
         <div class="form-group"><label class="form-label" for="contactName">Your Name</label><input class="form-input" id="contactName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
         <div class="form-group"><label class="form-label" for="contactEmail">Corporate Email</label><input class="form-input" id="contactEmail" type="email" placeholder="rajiv@enterprise.com" required/></div>
-        <div class="form-group"><label class="form-label" for="contactPhone">Contact Number <span style="font-size:10px;color:var(--ink-400);font-weight:400;text-transform:none;">(Optional)</span></label><input class="form-input" id="contactPhone" type="tel" placeholder="e.g. +91 98765 43210"/></div>
+        <div class="form-group"><label class="form-label" for="contactPhone">Contact Number <span style="font-size:10px;color:var(--ink-400);font-weight:400;text-transform:none;">(Optional)</span></label><input class="form-input" id="contactPhone" type="tel" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="e.g. 9876543210"/></div>
         <div class="form-group"><label class="form-label" for="contactInquiryType">Inquiry Classification</label>
           <select class="form-select" id="contactInquiryType">
             <option>Institutional Advisory &amp; Site Feasibility</option>
@@ -3548,7 +3581,7 @@ button {{ cursor: pointer; font: inherit; }}
             <option>General Inquiry</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label" for="contactScope">Inquiry Parameters / Message</label><textarea class="form-textarea" id="contactScope" placeholder="Describe your mandate, geographic scope, or questions..."></textarea></div>
+        <div class="form-group"><label class="form-label" for="contactScope">Message / Requirements</label><textarea class="form-textarea" id="contactScope" placeholder="Describe your mandate, geographic scope, or requirements..."></textarea></div>
         <button type="submit" class="sub-btn-vip" style="width:100%;padding:14px;font-size:15px;margin-top:8px;">Send Message to Research Desk</button>
       </form>
     </div>
@@ -3584,13 +3617,13 @@ button {{ cursor: pointer; font: inherit; }}
 <div class="modal-bg" id="subSuccessModal" role="dialog" aria-modal="true" aria-labelledby="subSuccessTitle">
   <div class="modal-box" style="text-align:center; padding:clamp(28px, 4vw, 44px);">
     <button class="modal-close" type="button" onclick="closeSubModal()" aria-label="Close dialog">×</button>
-    <div class="success-icon-wrap" style="background:var(--gold-50); box-shadow:0 0 0 10px rgba(212,160,23,0.15);">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-        <polyline points="22 4 12 14.01 9 11.01"/>
+    <div class="success-icon-wrap" id="subSuccessIconWrap">
+      <svg class="success-checkmark" id="subSuccessCheckmark" viewBox="0 0 52 52">
+        <circle class="checkmark-circle" cx="26" cy="26" r="24" fill="none"/>
+        <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
       </svg>
     </div>
-    <div class="chip chip-gold" style="display:inline-block; margin-bottom:12px;">✦ VIP Access Confirmed</div>
+    <div class="chip chip-emerald" style="display:inline-block; margin-bottom:12px;">✦ VIP Access Confirmed</div>
     <h3 id="subSuccessTitle" style="font-family:var(--serif); font-size:clamp(24px, 3.2vw, 28px); color:var(--ink-900); margin-bottom:10px;">Welcome to the Executive Circle</h3>
     <p style="font-size:15px; color:var(--ink-600); line-height:1.6; max-width:440px; margin:0 auto 20px;">
       You have been successfully registered with <b id="subSuccessEmailDisplay" style="color:var(--ink-900);">your email</b> for the Tuesday 08:00 AM IST dispatch.
@@ -4118,6 +4151,10 @@ document.getElementById('subForm').onsubmit = function(e) {{
   const subModal = document.getElementById('subSuccessModal');
   if (subModal) {{
     subModal.classList.add('open');
+    const circle = subModal.querySelector('.checkmark-circle');
+    const check = subModal.querySelector('.checkmark-check');
+    if (circle) {{ circle.style.animation = 'none'; void circle.offsetWidth; circle.style.animation = ''; }}
+    if (check) {{ check.style.animation = 'none'; void check.offsetWidth; check.style.animation = ''; }}
   }}
 
   emailInput.value = '';
