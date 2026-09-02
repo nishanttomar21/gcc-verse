@@ -343,12 +343,16 @@ button {{ cursor: pointer; font: inherit; }}
   background: rgba(255,255,255,0.12);
   border: 1.5px solid rgba(255,255,255,0.35);
   border-radius: 8px;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   padding: 0;
   cursor: pointer;
+  position: relative;
+  z-index: 102;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: all .2s;
 }}
 .site-header.scrolled .mobile-menu-btn {{
@@ -360,12 +364,13 @@ button {{ cursor: pointer; font: inherit; }}
   .header-cta-desktop {{ display: none; }}
 }}
 .hamburger-icon {{
-  width: 18px;
-  height: 14px;
+  width: 20px;
+  height: 15px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  pointer-events: none;
 }}
 .hamburger-icon span {{
   display: block;
@@ -378,9 +383,9 @@ button {{ cursor: pointer; font: inherit; }}
 .site-header.scrolled .hamburger-icon span {{
   background: var(--ink-800);
 }}
-.mobile-menu-btn.active .hamburger-icon span:nth-child(1) {{ transform: translateY(6px) rotate(45deg); }}
+.mobile-menu-btn.active .hamburger-icon span:nth-child(1) {{ transform: translateY(6.5px) rotate(45deg); }}
 .mobile-menu-btn.active .hamburger-icon span:nth-child(2) {{ opacity: 0; transform: scaleX(0); }}
-.mobile-menu-btn.active .hamburger-icon span:nth-child(3) {{ transform: translateY(-6px) rotate(-45deg); }}
+.mobile-menu-btn.active .hamburger-icon span:nth-child(3) {{ transform: translateY(-6.5px) rotate(-45deg); }}
 
 /* Mobile Navigation Drawer */
 .mobile-nav-drawer {{
@@ -393,16 +398,16 @@ button {{ cursor: pointer; font: inherit; }}
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--warm-200);
-  box-shadow: 0 16px 36px rgba(0,0,0,0.1);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.14);
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
   opacity: 0;
   pointer-events: none;
-  z-index: 99;
+  z-index: 101;
 }}
 .mobile-nav-drawer.open {{
-  max-height: 480px;
+  max-height: 520px;
   opacity: 1;
   pointer-events: auto;
 }}
@@ -1245,20 +1250,82 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .cap-editorial-meta b {{ color: var(--emerald-800); }}
 
-/* Ultra-thin Precision Master Allocation Strip */
+/* 3D Elevated Master Allocation Strip */
 .cap-precision-strip {{
   display: flex;
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
+  align-items: center;
+  height: 18px;
+  border-radius: 100px;
+  overflow: visible;
   background: var(--warm-100);
-  margin-bottom: 32px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+  margin-bottom: 36px;
+  padding: 3px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.14), 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+  perspective: 800px;
 }}
 .strip-segment {{
   height: 100%;
   width: 0%;
-  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity .3s, filter .3s;
+  position: relative;
+  cursor: pointer;
+  border-radius: 100px;
+  margin: 0 1.5px;
+  transform-origin: center center;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              filter 0.28s ease,
+              opacity 0.28s ease,
+              box-shadow 0.28s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}}
+.strip-segment::after {{
+  content: attr(data-percent);
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+  background: var(--ink-900);
+  color: #FFFFFF;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 30;
+}}
+.strip-segment::before {{
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--ink-900);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  z-index: 30;
+}}
+.strip-segment:hover, .strip-segment.active {{
+  transform: translateY(-6px) scaleY(1.45) scaleX(1.02) rotateX(6deg);
+  filter: brightness(1.3) contrast(1.15) saturate(1.25);
+  box-shadow: 0 12px 24px -4px rgba(0,0,0,0.32), 0 0 16px var(--seg-glow, rgba(184,134,11,0.6));
+  z-index: 20;
+  opacity: 1 !important;
+}}
+.strip-segment:hover::after, .strip-segment.active::after,
+.strip-segment:hover::before, .strip-segment.active::before {{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
 }}
 
 /* Split Architecture: Ledger Rows (Left) & Detailed Dossier (Right) */
@@ -1453,11 +1520,21 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 @media(min-width:960px){{ .river-list {{ grid-template-columns: 1fr 1fr; column-gap: 48px; }} }}
 .river-row {{
-  padding: 18px 0;
+  padding: 18px 20px;
   border-bottom: 1px solid var(--warm-200);
-  transition: background .2s ease;
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  transition: all .28s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  cursor: pointer;
 }}
 .river-row:first-child {{ border-top: 1px solid var(--warm-200); }}
+.river-row:hover {{
+  background: var(--white);
+  border-left-color: var(--emerald-600);
+  transform: translateX(6px);
+  box-shadow: 0 10px 28px -6px rgba(4,77,58,0.1);
+}}
 .river-cat {{
   font-family: var(--mono);
   font-size: 10.5px;
@@ -1466,6 +1543,13 @@ button {{ cursor: pointer; font: inherit; }}
   color: var(--emerald-700);
   font-weight: 600;
   margin-bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform .25s ease;
+}}
+.river-row:hover .river-cat {{
+  transform: translateX(2px);
 }}
 .river-src {{
   font-family: var(--mono);
@@ -1478,10 +1562,26 @@ button {{ cursor: pointer; font: inherit; }}
   font-weight: 600;
   color: var(--ink-800);
   line-height: 1.4;
-  transition: color .18s;
-  display: block;
+  transition: color .2s ease;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
 }}
-.river-headline:hover {{ color: var(--emerald-700); }}
+.river-row:hover .river-headline {{ color: var(--emerald-800); }}
+.river-arrow {{
+  font-family: var(--sans);
+  font-size: 17px;
+  color: var(--emerald-600);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all .25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}}
+.river-row:hover .river-arrow {{
+  opacity: 1;
+  transform: translateX(0);
+}}
 
 /* ════════════════════════════════════
    PERSONAS — Who We Serve (Executive Mandates)
@@ -2062,15 +2162,24 @@ button {{ cursor: pointer; font: inherit; }}
 .contact-meta-strip {{
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 8px;
+  padding: 10px 12px;
   background: var(--cream);
   border: 1px solid var(--warm-200);
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 20px;
+}}
+.contact-meta-item {{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--mono);
   font-size: 11.5px;
-  color: var(--ink-600);
+  color: var(--ink-700);
+  background: var(--white);
+  border: 1px solid var(--warm-200);
+  padding: 6px 11px;
+  border-radius: 6px;
 }}
 
 .form-group {{ margin-bottom: 14px; }}
@@ -2386,25 +2495,25 @@ button {{ cursor: pointer; font: inherit; }}
       </button>
     </div>
   </div>
+</header>
 
-  <!-- Mobile Drawer -->
-  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
-    <div class="mobile-nav-inner">
-      <ul class="mobile-nav-list">
-        <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
-        <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
-        <li><a href="#cities" data-section="cities">Cities</a></li>
-        <li><a href="#data" data-section="data">The Index</a></li>
-        <li><a href="#river" data-section="river">Live River</a></li>
-        <li><a href="#advisory" data-section="advisory">Advisory</a></li>
-      </ul>
-      <div class="mobile-drawer-cta">
-        <button class="btn-outline" type="button" onclick="openContactModal(); closeMobileNav();" style="width:100%; text-align:center;">Contact Us</button>
-        <a href="#subscribe" data-section="subscribe" class="btn-primary" style="width:100%; text-align:center; display:block;" onclick="closeMobileNav()">Subscribe Free</a>
-      </div>
+<!-- Mobile Drawer Sibling -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+  <div class="mobile-nav-inner">
+    <ul class="mobile-nav-list">
+      <li><a href="#stories" data-section="stories">Weekly Brief</a></li>
+      <li><a href="#pillars" data-section="pillars">Six Pillars</a></li>
+      <li><a href="#cities" data-section="cities">Cities</a></li>
+      <li><a href="#data" data-section="data">The Index</a></li>
+      <li><a href="#river" data-section="river">Live River</a></li>
+      <li><a href="#advisory" data-section="advisory">Advisory</a></li>
+    </ul>
+    <div class="mobile-drawer-cta">
+      <button class="btn-outline" type="button" onclick="openContactModal(); closeMobileNav();" style="width:100%; text-align:center;">Contact Us</button>
+      <a href="#subscribe" data-section="subscribe" class="btn-primary" style="width:100%; text-align:center; display:block;" onclick="closeMobileNav()">Subscribe Free</a>
     </div>
   </div>
-</header>
+</div>
 
 <main>
 <!-- ═══ FULL-WIDTH HERO CINEMATIC CAROUSEL ═══ -->
@@ -2765,13 +2874,13 @@ button {{ cursor: pointer; font: inherit; }}
         </div>
       </div>
 
-      <!-- Precision Master Allocation Bar -->
+      <!-- 3D Elevated Master Allocation Strip -->
       <div class="cap-precision-strip" id="masterStrip" title="Functional Capability Allocation Track">
-        <div class="strip-segment" id="strip-0" style="background:#B8860B" data-width="35.4%"></div>
-        <div class="strip-segment" id="strip-1" style="background:#067352" data-width="28.1%"></div>
-        <div class="strip-segment" id="strip-2" style="background:#1D4ED8" data-width="19.5%"></div>
-        <div class="strip-segment" id="strip-3" style="background:#BE185D" data-width="10.2%"></div>
-        <div class="strip-segment" id="strip-4" style="background:#6D28D9" data-width="6.8%"></div>
+        <div class="strip-segment" id="strip-0" style="background:#B8860B; --seg-color:#B8860B; --seg-glow:rgba(184,134,11,0.6);" data-width="35.4%" data-percent="35.4% · Engineering R&amp;D &amp; AI"></div>
+        <div class="strip-segment" id="strip-1" style="background:#067352; --seg-color:#067352; --seg-glow:rgba(6,115,82,0.6);" data-width="28.1%" data-percent="28.1% · Software &amp; Cloud"></div>
+        <div class="strip-segment" id="strip-2" style="background:#1D4ED8; --seg-color:#1D4ED8; --seg-glow:rgba(29,78,216,0.6);" data-width="19.5%" data-percent="19.5% · BFSI &amp; Risk Quant"></div>
+        <div class="strip-segment" id="strip-3" style="background:#BE185D; --seg-color:#BE185D; --seg-glow:rgba(190,24,93,0.6);" data-width="10.2%" data-percent="10.2% · Life Sciences"></div>
+        <div class="strip-segment" id="strip-4" style="background:#6D28D9; --seg-color:#6D28D9; --seg-glow:rgba(109,40,217,0.6);" data-width="6.8%" data-percent="6.8% · Strategic Ops"></div>
       </div>
 
       <!-- Split Ledger & Deep Dossier -->
@@ -3135,9 +3244,18 @@ button {{ cursor: pointer; font: inherit; }}
       <p style="font-size:14px;color:var(--ink-500);margin-bottom:16px">Connect directly with our Gurugram research desk for confidential advisory, site evaluation, or research inquiries.</p>
 
       <div class="contact-meta-strip">
-        <span>📍 DLF Cyber City, Gurugram 122001</span>
-        <span>✉️ intelligence@gccverse.in</span>
-        <span>⚡ 12h SLA</span>
+        <div class="contact-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-700)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>DLF Cyber City, Gurugram 122001</span>
+        </div>
+        <div class="contact-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-700)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <a href="mailto:intelligence@gccverse.in" style="color:var(--emerald-800);font-weight:600;">intelligence@gccverse.in</a>
+        </div>
+        <div class="contact-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-600)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span style="color:var(--ink-900);font-weight:600;">12h SLA Guaranteed</span>
+        </div>
       </div>
 
       <form id="contactForm" onsubmit="handleContactSubmit(event)">
@@ -3415,14 +3533,14 @@ function initCapabilityLedger() {{
       }}
     }});
 
-    // Highlight strip
+    // Highlight strip in 3D
     stripSegments.forEach((seg, i) => {{
       if (i === idx) {{
-        seg.style.filter = 'brightness(1.25) drop-shadow(0 0 4px rgba(0,0,0,0.3))';
+        seg.classList.add('active');
         seg.style.opacity = '1';
       }} else {{
-        seg.style.filter = 'none';
-        seg.style.opacity = '0.45';
+        seg.classList.remove('active');
+        seg.style.opacity = '0.38';
       }}
     }});
 
@@ -3458,22 +3576,30 @@ function initCapabilityLedger() {{
   }});
 }}
 
-// ── 4. Mobile Navigation Drawer & Hamburger ──
+// ── 4. Mobile Navigation Drawer & Hamburger (Guarded & Touch-Optimized) ──
+let mobileNavInitialized = false;
 function initMobileNav() {{
+  if (mobileNavInitialized) return;
+  mobileNavInitialized = true;
+
   const btn = document.getElementById('mobileMenuBtn');
   const drawer = document.getElementById('mobileNavDrawer');
   if (!btn || !drawer) return;
 
-  function toggle() {{
+  function toggle(e) {{
+    if (e) {{
+      e.preventDefault();
+      e.stopPropagation();
+    }}
     const isOpen = drawer.classList.contains('open');
-    if (isOpen) closeMobileNav();
-    else openMobileNav();
+    if (isOpen) {{
+      closeMobileNav();
+    }} else {{
+      openMobileNav();
+    }}
   }}
 
-  btn.addEventListener('click', (e) => {{
-    e.stopPropagation();
-    toggle();
-  }});
+  btn.onclick = toggle;
 
   document.addEventListener('click', (e) => {{
     if (drawer.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {{
@@ -3675,7 +3801,7 @@ const RIVER=[
   {{cat:"Tier-2 Expansion",src:"GIFT City Disclosures",h:"Global FinTech entities establish exploratory satellite pods in GIFT City, Gujarat."}},
   {{cat:"Aerospace",src:"Ministry of Commerce",h:"Boeing and Airbus expand Bengaluru centres, shifting global structural design workloads."}}
 ];
-document.getElementById('riverStream').innerHTML=RIVER.map(r=>`<div class="river-row reveal"><div class="river-cat">${{r.cat}}</div><div class="river-src">${{r.src}}</div><a href="#stories" data-section="stories" class="river-headline">${{r.h}}</a></div>`).join('');
+document.getElementById('riverStream').innerHTML=RIVER.map(r=>`<div class="river-row reveal"><div class="river-cat">${{r.cat}}</div><div class="river-src">${{r.src}}</div><a href="#stories" data-section="stories" class="river-headline"><span>${{r.h}}</span><span class="river-arrow">→</span></a></div>`).join('');
 
 // ── 9. Interactive Subscribe System with Window Popup & 5s Auto-Close ──
 const interestPills = document.querySelectorAll('#subInterestPills .sub-pill');
@@ -3922,19 +4048,22 @@ function handleContactSubmit(e) {{
   }}, 5000);
 }}
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {{
+// Initialize cleanly on load
+if (document.readyState === 'loading') {{
+  document.addEventListener('DOMContentLoaded', () => {{
+    initScrollReveal();
+    initStatsCounter();
+    initCapabilityLedger();
+    initMobileNav();
+    initCleanNav();
+  }});
+}} else {{
   initScrollReveal();
   initStatsCounter();
   initCapabilityLedger();
   initMobileNav();
   initCleanNav();
-}});
-initScrollReveal();
-initStatsCounter();
-initCapabilityLedger();
-initMobileNav();
-initCleanNav();
+}}
 </script>
 </body>
 </html>
