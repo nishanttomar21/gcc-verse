@@ -273,27 +273,29 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 
 /* ════════════════════════════════════
-   FULL-WIDTH HERO IMAGE CAROUSEL
+   FULL-WIDTH HERO CINEMATIC CAROUSEL
    ════════════════════════════════════ */
 .hero-carousel {{
   position: relative;
   width: 100%;
-  height: 75vh;
-  min-height: 500px;
-  max-height: 740px;
+  height: 78vh;
+  min-height: 520px;
+  max-height: 760px;
   overflow: hidden;
-  background: var(--ink-900);
+  background: #061815;
 }}
 .hero-slide {{
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1.2s cubic-bezier(.4, 0, .2, 1);
+  visibility: hidden;
+  transition: opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.1s;
   pointer-events: none;
   overflow: hidden;
 }}
 .hero-slide.active {{
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   z-index: 2;
 }}
@@ -304,7 +306,7 @@ button {{ cursor: pointer; font: inherit; }}
     transform: scale(1.0) translate(0, 0);
   }}
   50% {{
-    transform: scale(1.07) translate(-1%, -0.6%);
+    transform: scale(1.07) translate(-1.2%, -0.8%);
   }}
   100% {{
     transform: scale(1.0) translate(0, 0);
@@ -316,47 +318,93 @@ button {{ cursor: pointer; font: inherit; }}
   height: 100%;
   object-fit: cover;
   will-change: transform;
+  transform-origin: center center;
 }}
 .hero-slide.active img {{
-  animation: kenBurnsSlide 14s ease-in-out infinite alternate;
+  animation: kenBurnsSlide 16s ease-in-out infinite alternate;
 }}
 
+/* Multi-layered cinematic gradient scrim */
 .hero-scrim {{
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  background: radial-gradient(
+    circle at 75% 30%,
+    rgba(6, 115, 82, 0.22) 0%,
+    transparent 65%
+  ),
+  linear-gradient(
     180deg,
-    rgba(0,0,0,.15) 0%,
-    rgba(0,0,0,.28) 40%,
-    rgba(0,0,0,.78) 100%
+    rgba(4, 24, 21, 0.2) 0%,
+    rgba(4, 24, 21, 0.42) 40%,
+    rgba(4, 24, 21, 0.9) 100%
   );
+  pointer-events: none;
 }}
+
+/* Content wrapper */
 .hero-content {{
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0 var(--gutter) 56px;
+  padding: 0 var(--gutter) 74px;
   z-index: 5;
 }}
 .hero-content-inner {{
   max-width: var(--max-w);
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}}
+.hero-text-col {{
+  max-width: 800px;
 }}
 
-/* Slide Text Stagger Animations */
-.hero-overline {{
+/* Shimmering Badge / Pill */
+.hero-chip-wrap {{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}}
+.hero-chip {{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: .14em;
+  font-size: 11.5px;
+  letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--gold-400);
-  margin-bottom: 14px;
+  background: rgba(212, 160, 23, 0.14);
+  border: 1px solid rgba(212, 160, 23, 0.38);
+  padding: 6px 14px;
+  border-radius: 100px;
   font-weight: 600;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .8s cubic-bezier(0.16, 1, 0.3, 1), transform .8s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
 }}
+.hero-chip::after {{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: chipSheen 3.5s infinite;
+}}
+@keyframes chipSheen {{
+  0% {{ left: -100%; }}
+  35%, 100% {{ left: 160%; }}
+}}
+
+/* Slide Headlines with Staggered Transitions */
 .hero-headline {{
   font-family: var(--serif);
   font-size: clamp(34px, 5.2vw, 62px);
@@ -366,108 +414,230 @@ button {{ cursor: pointer; font: inherit; }}
   letter-spacing: -.03em;
   margin-bottom: 16px;
   max-width: 19ch;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(28px);
   transition: opacity .85s cubic-bezier(0.16, 1, 0.3, 1), transform .85s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-.hero-headline em {{ font-style: italic; font-weight: 400; color: var(--gold-400); }}
+.hero-headline em {{
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-400);
+  text-shadow: 0 0 24px rgba(212, 160, 23, 0.45);
+}}
 .hero-excerpt {{
   font-size: 18px;
-  color: rgba(255,255,255,.86);
-  max-width: 52ch;
+  color: rgba(255,255,255,.88);
+  max-width: 54ch;
   line-height: 1.6;
-  margin-bottom: 24px;
   font-weight: 350;
   opacity: 0;
   transform: translateY(24px);
   transition: opacity .9s cubic-bezier(0.16, 1, 0.3, 1), transform .9s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
 }}
 
-.hero-slide.active .hero-overline {{
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .2s;
-}}
 .hero-slide.active .hero-headline {{
   opacity: 1;
   transform: translateY(0);
-  transition-delay: .35s;
+  transition-delay: .25s;
 }}
 .hero-slide.active .hero-excerpt {{
   opacity: 1;
   transform: translateY(0);
-  transition-delay: .5s;
+  transition-delay: .4s;
 }}
 
-/* Carousel Navigation */
-.hero-nav {{
-  position: absolute;
-  bottom: 56px;
-  right: var(--gutter);
-  z-index: 10;
+/* Floating Live Telemetry Card */
+.hero-telemetry-card {{
+  display: none;
+  background: rgba(4, 32, 26, 0.76);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  border-radius: 14px;
+  padding: 18px 22px;
+  max-width: 320px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  color: #FFF;
+  transition: all .35s ease;
+}}
+@media(min-width:1024px){{ .hero-telemetry-card {{ display: block; }} }}
+.hero-telemetry-card:hover {{
+  border-color: var(--gold-400);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}}
+.telemetry-tag {{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
+  margin-bottom: 6px;
 }}
-@media(min-width:768px){{
-  .hero-nav {{ right: calc((100% - var(--max-w))/2 + var(--gutter)); }}
+.telemetry-pulse {{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: beaconPulse 1.8s infinite;
 }}
-.hero-nav-btn {{
+.telemetry-title {{
+  font-family: var(--sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #F3F7F5;
+  margin-bottom: 4px;
+}}
+.telemetry-meta {{
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+}}
+
+/* Modern Segmented Interactive Tab Bar */
+.carousel-nav-bar {{
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}}
+.carousel-nav-inner {{
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}}
+.carousel-tabs {{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 820px;
+}}
+.carousel-tab {{
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-align: left;
+  backdrop-filter: blur(12px);
+  transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}}
+.carousel-tab:hover {{
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.35);
+  transform: translateY(-2px);
+}}
+.carousel-tab.active {{
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(212, 160, 23, 0.6);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}}
+.tab-top {{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}}
+.tab-idx {{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--gold-400);
+  font-weight: 700;
+  letter-spacing: .08em;
+}}
+.tab-title {{
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.94);
+  white-space: nowrap;
+}}
+.tab-progress-track {{
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}}
+.tab-progress-fill {{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+  border-radius: 2px;
+}}
+.carousel-tab.active .tab-progress-fill {{
+  animation: tabFillProgress 4.8s linear forwards;
+}}
+@keyframes tabFillProgress {{
+  0% {{ width: 0%; }}
+  100% {{ width: 100%; }}
+}}
+
+/* Slide Counter & Arrow Buttons */
+.carousel-controls-right {{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}}
+.slide-counter {{
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 8px 14px;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  display: none;
+}}
+@media(min-width:640px){{ .slide-counter {{ display: inline-flex; align-items: center; gap: 6px; }} }}
+.slide-counter b {{ color: var(--gold-400); }}
+
+.carousel-arrow-btn {{
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,.18);
+  background: rgba(255,255,255,0.18);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,.32);
+  border: 1px solid rgba(255,255,255,0.32);
   color: #FFF;
   display: grid;
   place-items: center;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }}
-.hero-nav-btn:hover {{
-  background: rgba(255,255,255,.4);
-  border-color: rgba(255,255,255,.7);
+.carousel-arrow-btn:hover {{
+  background: rgba(255,255,255,0.38);
+  border-color: rgba(255,255,255,0.7);
   transform: scale(1.08);
 }}
-.hero-dots {{
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  gap: 8px;
-}}
-.hero-dot {{
-  width: 44px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255,255,255,.32);
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  padding: 0;
-  position: relative;
-  transition: background .2s, transform .2s;
-}}
-.hero-dot:hover {{
-  background: rgba(255,255,255,.5);
-}}
-.hero-dot::after {{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--gold-400);
-  width: 0%;
-  border-radius: inherit;
-}}
-@keyframes dotProgress {{
-  0% {{ width: 0%; }}
-  100% {{ width: 100%; }}
-}}
-.hero-dot.active::after {{
-  animation: dotProgress 4.8s linear forwards;
+.carousel-arrow-btn:active {{
+  transform: scale(0.95);
 }}
 
 /* ════════════════════════════════════
@@ -1377,9 +1547,16 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 
 /* Responsive tweaks */
+@media(max-width:768px) {{
+  .hero-carousel {{ height: 70vh; min-height: 460px; }}
+  .hero-content {{ padding-bottom: 84px; }}
+  .carousel-tabs {{ display: none; }}
+  .tab-title {{ display: none; }}
+}}
 @media(max-width:480px) {{
-  .hero-carousel {{ height: 60vh; min-height: 380px; }}
-  .hero-headline {{ font-size: 32px; }}
+  .hero-carousel {{ height: 65vh; min-height: 420px; }}
+  .hero-headline {{ font-size: 30px; }}
+  .hero-content {{ padding-bottom: 80px; }}
 }}
 </style>
 </head>
@@ -1414,64 +1591,148 @@ button {{ cursor: pointer; font: inherit; }}
   </div>
 </header>
 
-<!-- ═══ FULL-WIDTH HERO IMAGE CAROUSEL ═══ -->
+<!-- ═══ FULL-WIDTH HERO CINEMATIC CAROUSEL ═══ -->
 <section class="hero-carousel" id="heroCarousel">
   <!-- Slide 1 -->
-  <div class="hero-slide active">
+  <div class="hero-slide active" data-slide="0">
     <img src="{img_src('gcc_campus_exterior')}" alt="Modern corporate tech park campus in India at twilight" loading="eager"/>
     <div class="hero-scrim"></div>
-    <div class="hero-content"><div class="hero-content-inner">
-      <div class="hero-overline">01 · GCC Footprint</div>
-      <h1 class="hero-headline">2,117 Centres. The world's largest capability network.</h1>
-      <p class="hero-excerpt">India's Global Capability Centres house 3,728 operating units across 24 cities, commanding $98.4B in aggregate revenue and 38.4% of all Grade-A office absorption.</p>
-    </div></div>
-  </div>
-  <!-- Slide 2 -->
-  <div class="hero-slide">
-    <img src="{img_src('gcc_talent_hub')}" alt="Indian engineers and data scientists collaborating in a modern GCC workspace" loading="lazy"/>
-    <div class="hero-scrim"></div>
-    <div class="hero-content"><div class="hero-content-inner">
-      <div class="hero-overline">02 · Talent Architecture</div>
-      <h1 class="hero-headline">2.36 Million <em>deep-domain</em> professionals.</h1>
-      <p class="hero-excerpt">Over 35% are now engaged in engineering R&D, generative AI, and algorithmic product development — the fastest transformation in India's technology history.</p>
-    </div></div>
-  </div>
-  <!-- Slide 3 -->
-  <div class="hero-slide">
-    <img src="{img_src('gcc_office_space')}" alt="Grade-A biophilic corporate office interior with natural light" loading="lazy"/>
-    <div class="hero-scrim"></div>
-    <div class="hero-content"><div class="hero-content-inner">
-      <div class="hero-overline">03 · Commercial Real Estate</div>
-      <h1 class="hero-headline">31.3 Million sq ft <em>absorbed.</em></h1>
-      <p class="hero-excerpt">GCCs now anchor 38.4% of all Grade-A office leasing in India's top 7 cities, reshaping skylines and rental economics from Bengaluru to Gurugram.</p>
-    </div></div>
-  </div>
-  <!-- Slide 4 -->
-  <div class="hero-slide">
-    <img src="{img_src('gcc_executive_board')}" alt="Executive boardroom meeting with global corporate leaders" loading="lazy"/>
-    <div class="hero-scrim"></div>
-    <div class="hero-content"><div class="hero-content-inner">
-      <div class="hero-overline">04 · Economic Scale</div>
-      <h1 class="hero-headline">$98.4 Billion <em>in aggregate revenue.</em></h1>
-      <p class="hero-excerpt">Approaching the landmark $100B threshold with 9.8% compound growth, centres transition from cost arbitrage to global IP ownership and profit leadership.</p>
-    </div></div>
+    <div class="hero-content">
+      <div class="hero-content-inner">
+        <div class="hero-text-col">
+          <div class="hero-chip-wrap">
+            <span class="hero-chip">01 · Ecosystem Footprint</span>
+            <span class="hero-chip" style="background:rgba(16,185,129,.14);border-color:rgba(16,185,129,.35);color:#34D399;">✨ +140 Net Centres in FY26</span>
+          </div>
+          <h1 class="hero-headline">2,117 Centres. The world's largest capability network.</h1>
+          <p class="hero-excerpt">India's Global Capability Centres house 3,728 operating units across 24 cities, commanding $98.4B in aggregate revenue and 38.4% of all Grade-A office absorption.</p>
+        </div>
+        <div class="hero-telemetry-card">
+          <div class="telemetry-tag"><span class="telemetry-pulse"></span> Macro Index Signal</div>
+          <div class="telemetry-title">Bengaluru &amp; Hyderabad Anchor 51.4% of Total Units</div>
+          <div class="telemetry-meta">Source: nasscom–Zinnov FY2026 Audit</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Nav Arrows -->
-  <div class="hero-nav">
-    <button class="hero-nav-btn" id="heroPrev" aria-label="Previous slide">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
-    </button>
-    <button class="hero-nav-btn" id="heroNext" aria-label="Next slide">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
-    </button>
+  <!-- Slide 2 -->
+  <div class="hero-slide" data-slide="1">
+    <img src="{img_src('gcc_talent_hub')}" alt="Indian engineers and data scientists collaborating in a modern GCC workspace" loading="lazy"/>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="hero-content-inner">
+        <div class="hero-text-col">
+          <div class="hero-chip-wrap">
+            <span class="hero-chip">02 · Talent Architecture</span>
+            <span class="hero-chip" style="background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.35);color:#60A5FA;">⚡ 35.4% in Core R&amp;D &amp; AI</span>
+          </div>
+          <h1 class="hero-headline">2.36 Million <em>deep-domain</em> professionals.</h1>
+          <p class="hero-excerpt">Over 35% are now engaged in engineering R&D, generative AI, and algorithmic product development — the fastest transformation in India's technology history.</p>
+        </div>
+        <div class="hero-telemetry-card">
+          <div class="telemetry-tag"><span class="telemetry-pulse"></span> Talent Metric</div>
+          <div class="telemetry-title">Direct Captive In-Sourcing Rose 28% in 2025</div>
+          <div class="telemetry-meta">Transitioning IT Vendor Staff to Full GCC Payroll</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- Dots -->
-  <div class="hero-dots" id="heroDots">
-    <button class="hero-dot active" aria-label="Slide 1"></button>
-    <button class="hero-dot" aria-label="Slide 2"></button>
-    <button class="hero-dot" aria-label="Slide 3"></button>
-    <button class="hero-dot" aria-label="Slide 4"></button>
+
+  <!-- Slide 3 -->
+  <div class="hero-slide" data-slide="2">
+    <img src="{img_src('gcc_office_space')}" alt="Grade-A biophilic corporate office interior with natural light" loading="lazy"/>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="hero-content-inner">
+        <div class="hero-text-col">
+          <div class="hero-chip-wrap">
+            <span class="hero-chip">03 · Commercial Real Estate</span>
+            <span class="hero-chip" style="background:rgba(236,72,153,.14);border-color:rgba(236,72,153,.35);color:#F472B6;">🏢 38.4% of All Metro Office Leasing</span>
+          </div>
+          <h1 class="hero-headline">31.3 Million sq ft <em>absorbed.</em></h1>
+          <p class="hero-excerpt">GCCs now anchor 38.4% of all Grade-A office leasing in India's top 7 cities, reshaping skylines and rental economics from Bengaluru to Gurugram.</p>
+        </div>
+        <div class="hero-telemetry-card">
+          <div class="telemetry-tag"><span class="telemetry-pulse"></span> Real Estate Signal</div>
+          <div class="telemetry-title">Hyderabad Captured 75% of H1 Campus Deals</div>
+          <div class="telemetry-meta">JLL India 2025 Office Absorption Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="hero-slide" data-slide="3">
+    <img src="{img_src('gcc_executive_board')}" alt="Executive boardroom meeting with global corporate leaders" loading="lazy"/>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="hero-content-inner">
+        <div class="hero-text-col">
+          <div class="hero-chip-wrap">
+            <span class="hero-chip">04 · Economic Weight</span>
+            <span class="hero-chip" style="background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.35);color:#A78BFA;">📊 $98.4B Sector Valuation</span>
+          </div>
+          <h1 class="hero-headline">$98.4 Billion <em>in aggregate revenue.</em></h1>
+          <p class="hero-excerpt">Approaching the landmark $100B threshold with 9.8% compound growth, centres transition from cost arbitrage to global IP ownership and profit leadership.</p>
+        </div>
+        <div class="hero-telemetry-card">
+          <div class="telemetry-tag"><span class="telemetry-pulse"></span> Economic Mandate</div>
+          <div class="telemetry-title">Global Board Mandates Up 42% for India Sites</div>
+          <div class="telemetry-meta">Executive Leadership &amp; Governance Benchmark</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern Interactive Carousel Nav Bar -->
+  <div class="carousel-nav-bar">
+    <div class="carousel-nav-inner">
+      <!-- Interactive Segmented Tabs -->
+      <div class="carousel-tabs" id="heroTabs">
+        <button class="carousel-tab active" data-slide="0" aria-label="Slide 1: Footprint">
+          <div class="tab-top">
+            <span class="tab-idx">01</span>
+            <span class="tab-title">2,117 Centres</span>
+          </div>
+          <div class="tab-progress-track"><div class="tab-progress-fill"></div></div>
+        </button>
+        <button class="carousel-tab" data-slide="1" aria-label="Slide 2: Talent">
+          <div class="tab-top">
+            <span class="tab-idx">02</span>
+            <span class="tab-title">2.36M Talent</span>
+          </div>
+          <div class="tab-progress-track"><div class="tab-progress-fill"></div></div>
+        </button>
+        <button class="carousel-tab" data-slide="2" aria-label="Slide 3: Real Estate">
+          <div class="tab-top">
+            <span class="tab-idx">03</span>
+            <span class="tab-title">31.3M Sq Ft</span>
+          </div>
+          <div class="tab-progress-track"><div class="tab-progress-fill"></div></div>
+        </button>
+        <button class="carousel-tab" data-slide="3" aria-label="Slide 4: Revenue">
+          <div class="tab-top">
+            <span class="tab-idx">04</span>
+            <span class="tab-title">$98.4B Scale</span>
+          </div>
+          <div class="tab-progress-track"><div class="tab-progress-fill"></div></div>
+        </button>
+      </div>
+
+      <!-- Controls Right: Counter & Arrows -->
+      <div class="carousel-controls-right">
+        <div class="slide-counter">
+          <b id="currSlideDisplay">01</b><span>/</span><span>04</span>
+        </div>
+        <button class="carousel-arrow-btn" id="heroPrev" aria-label="Previous slide">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+        </button>
+        <button class="carousel-arrow-btn" id="heroNext" aria-label="Next slide">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1686,7 +1947,7 @@ button {{ cursor: pointer; font: inherit; }}
       <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="persona-title">Corporate Real Estate</div><p class="persona-desc">Anticipate mega-leasing transactions, spatial density, and micro-market rental shifts.</p></div></div>
       <div class="persona-card reveal"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="persona-title">Policymakers & State Boards</div><p class="persona-desc">Evaluate competitive state incentive frameworks and infrastructure readiness.</p></div></div>
       <div class="persona-card reveal delay-100"><div class="persona-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="persona-title">Talent & HR Directors</div><p class="persona-desc">Monitor executive mobility, specialty compensation benchmarks, and attrition trends.</p></div></div>
-      <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="persona-title">Consultants & Advisory Firms</div><p class="persona-desc">Arm client teams with market sizing, peer landscapes, and location feasibility models.</p></div></div>
+      <div class="persona-card reveal delay-200"><div class="persona-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="persona-title">Consultants & Advisory Firms</div><p class="persona-desc">Arm client teams with market sizing, peer landscapes, and location feasibility models.</p></div></div>
     </div>
   </div>
 </section>
@@ -1936,36 +2197,52 @@ window.addEventListener('scroll', () => {{
   }}
 }}, {{ passive: true }});
 
-// ── 6. Robust Hero Carousel with Continuous Ken Burns Motion & Auto-Advance ──
+// ── 6. Ultra-Attractive Hero Carousel Engine ──
 (function initCarousel(){{
   const slides = document.querySelectorAll('.hero-slide');
-  const dots = document.querySelectorAll('.hero-dot');
+  const tabs = document.querySelectorAll('.carousel-tab');
+  const counterEl = document.getElementById('currSlideDisplay');
   const prevBtn = document.getElementById('heroPrev');
   const nextBtn = document.getElementById('heroNext');
-  const navBox = document.querySelector('.hero-nav');
-  const dotsBox = document.getElementById('heroDots');
+  const navBox = document.querySelector('.carousel-nav-bar');
   let cur = 0;
   let timer = null;
-  const DUR = 4800; // 4.8s rotation
+  const DUR = 5000; // 5.0s rotation
 
-  function go(i){{
+  function updateSlide(newIdx){{
     if (!slides.length) return;
+
+    // Deactivate previous
     slides[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
+    if (tabs[cur]) {{
+      tabs[cur].classList.remove('active');
+    }}
 
-    // Reset progress animation on dot
-    void dots[cur].offsetWidth;
+    cur = (newIdx + slides.length) % slides.length;
 
-    cur = (i + slides.length) % slides.length;
-
+    // Activate new
     slides[cur].classList.add('active');
-    dots[cur].classList.add('active');
+    if (tabs[cur]) {{
+      tabs[cur].classList.add('active');
+      // Restart CSS animation on progress bar
+      const fillEl = tabs[cur].querySelector('.tab-progress-fill');
+      if (fillEl) {{
+        fillEl.style.animation = 'none';
+        void fillEl.offsetWidth; // trigger reflow
+        fillEl.style.animation = '';
+      }}
+    }}
+
+    // Update Counter (01, 02, 03, 04)
+    if (counterEl) {{
+      counterEl.textContent = '0' + (cur + 1);
+    }}
   }}
 
   function start(){{
     stop();
     timer = setInterval(() => {{
-      go(cur + 1);
+      updateSlide(cur + 1);
     }}, DUR);
   }}
 
@@ -1979,34 +2256,31 @@ window.addEventListener('scroll', () => {{
   if (prevBtn) {{
     prevBtn.addEventListener('click', (e) => {{
       e.stopPropagation();
-      go(cur - 1);
+      updateSlide(cur - 1);
       start();
     }});
   }}
   if (nextBtn) {{
     nextBtn.addEventListener('click', (e) => {{
       e.stopPropagation();
-      go(cur + 1);
+      updateSlide(cur + 1);
       start();
     }});
   }}
 
-  dots.forEach((dot, idx) => {{
-    dot.addEventListener('click', (e) => {{
+  // Interactive Tab Clicks
+  tabs.forEach((tab, idx) => {{
+    tab.addEventListener('click', (e) => {{
       e.stopPropagation();
-      go(idx);
+      updateSlide(idx);
       start();
     }});
   }});
 
-  // Only pause when hovering the active navigation controls, NOT the entire screen!
+  // Pause only when hovering over the navigation controls
   if (navBox) {{
     navBox.addEventListener('mouseenter', stop);
     navBox.addEventListener('mouseleave', start);
-  }}
-  if (dotsBox) {{
-    dotsBox.addEventListener('mouseenter', stop);
-    dotsBox.addEventListener('mouseleave', start);
   }}
 
   // Pause when browser tab is inactive, resume when focused
@@ -2018,7 +2292,7 @@ window.addEventListener('scroll', () => {{
     }}
   }});
 
-  // Touch Swipe
+  // Touch Swipe on Carousel Container
   const carouselEl = document.getElementById('heroCarousel');
   if (carouselEl) {{
     let touchStartX = 0;
@@ -2031,9 +2305,9 @@ window.addEventListener('scroll', () => {{
       const touchEndX = e.changedTouches[0].screenX;
       const diff = touchStartX - touchEndX;
       if (diff > 45) {{
-        go(cur + 1);
+        updateSlide(cur + 1);
       }} else if (diff < -45) {{
-        go(cur - 1);
+        updateSlide(cur - 1);
       }}
       start();
     }}, {{ passive: true }});
@@ -2042,10 +2316,10 @@ window.addEventListener('scroll', () => {{
     carouselEl.tabIndex = 0;
     carouselEl.addEventListener('keydown', (e) => {{
       if (e.key === 'ArrowRight') {{
-        go(cur + 1);
+        updateSlide(cur + 1);
         start();
       }} else if (e.key === 'ArrowLeft') {{
-        go(cur - 1);
+        updateSlide(cur - 1);
         start();
       }}
     }});
