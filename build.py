@@ -1278,19 +1278,67 @@ button {{ cursor: pointer; font: inherit; }}
 }}
 .cap-editorial-meta b {{ color: var(--emerald-800); }}
 
-/* 3D Elevated Master Allocation Strip */
+/* Modern Live Readout & Refined Allocation Strip */
+.cap-live-readout {{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--white);
+  border: 1px solid var(--warm-200);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  transition: all .24s ease;
+}}
+.readout-domain {{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+}}
+.readout-dot {{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background .25s ease;
+}}
+.readout-metrics {{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+}}
+.readout-badge {{
+  font-weight: 700;
+  color: var(--ink-900);
+  background: var(--warm-50);
+  border: 1px solid var(--warm-200);
+  padding: 3px 8px;
+  border-radius: 4px;
+}}
+.readout-meta {{
+  color: var(--ink-500);
+}}
+
 .cap-precision-strip {{
   display: flex;
   align-items: center;
-  height: 18px;
+  height: 14px;
   border-radius: 100px;
-  overflow: visible;
+  overflow: hidden;
   background: var(--warm-100);
-  margin-bottom: 36px;
-  padding: 3px;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.14), 0 1px 0 rgba(255,255,255,0.9);
+  margin-bottom: 32px;
+  padding: 2px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.9);
   position: relative;
-  perspective: 800px;
 }}
 .strip-segment {{
   height: 100%;
@@ -1298,62 +1346,19 @@ button {{ cursor: pointer; font: inherit; }}
   position: relative;
   cursor: pointer;
   border-radius: 100px;
-  margin: 0 1.5px;
-  transform-origin: center center;
+  margin: 0 1px;
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-              filter 0.28s ease,
-              opacity 0.28s ease,
-              box-shadow 0.28s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}}
-.strip-segment::after {{
-  content: attr(data-percent);
-  position: absolute;
-  bottom: calc(100% + 9px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px) scale(0.9);
-  opacity: 0;
-  pointer-events: none;
-  background: var(--ink-900);
-  color: #FFFFFF;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 5px 9px;
-  border-radius: 6px;
-  white-space: nowrap;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 30;
-}}
-.strip-segment::before {{
-  content: "";
-  position: absolute;
-  bottom: calc(100% + 3px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid var(--ink-900);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.22s ease;
-  z-index: 30;
+              filter 0.24s ease,
+              opacity 0.24s ease,
+              box-shadow 0.24s ease,
+              transform 0.24s ease;
 }}
 .strip-segment:hover, .strip-segment.active {{
-  transform: translateY(-6px) scaleY(1.45) scaleX(1.02) rotateX(6deg);
-  filter: brightness(1.3) contrast(1.15) saturate(1.25);
-  box-shadow: 0 12px 24px -4px rgba(0,0,0,0.32), 0 0 16px var(--seg-glow, rgba(184,134,11,0.6));
-  z-index: 20;
+  transform: translateY(-1.5px);
+  filter: brightness(1.22) saturate(1.2);
+  box-shadow: 0 4px 12px var(--seg-glow, rgba(0,0,0,0.25));
+  z-index: 5;
   opacity: 1 !important;
-}}
-.strip-segment:hover::after, .strip-segment.active::after,
-.strip-segment:hover::before, .strip-segment.active::before {{
-  opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
 }}
 
 /* Split Architecture: Ledger Rows (Left) & Detailed Dossier (Right) */
@@ -1388,13 +1393,105 @@ button {{ cursor: pointer; font: inherit; }}
   cursor: pointer;
   transition: all .24s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-@media(max-width:540px){{
-  .ledger-row {{
-    grid-template-columns: 24px 1fr 60px;
-    gap: 10px;
-    padding: 12px 14px;
+@media(max-width:640px){{
+  .cap-editorial-box {{
+    padding: 16px 12px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
   }}
-  .ledger-talent {{ display: none; }}
+  .cap-editorial-top {{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+  }}
+  .cap-editorial-title {{
+    font-size: 19px;
+    line-height: 1.2;
+  }}
+  .cap-editorial-meta {{
+    font-size: 10.5px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }}
+  .cap-live-readout {{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+  }}
+  .readout-domain {{
+    font-size: 12.5px;
+  }}
+  .readout-metrics {{
+    gap: 8px;
+    font-size: 10.5px;
+  }}
+  .cap-precision-strip {{
+    height: 10px;
+    margin-bottom: 16px;
+    padding: 1.5px;
+  }}
+  .cap-ledger-grid {{
+    gap: 18px;
+    width: 100%;
+    box-sizing: border-box;
+  }}
+  .cap-ledger-table {{
+    width: 100%;
+    box-sizing: border-box;
+  }}
+  .ledger-row {{
+    grid-template-columns: 20px minmax(0, 1fr) 50px;
+    gap: 8px;
+    padding: 10px 8px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }}
+  .ledger-num {{
+    font-size: 10.5px;
+  }}
+  .ledger-name {{
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }}
+  .ledger-gauge {{
+    height: 3px;
+  }}
+  .ledger-share {{
+    font-size: 15.5px;
+    text-align: right;
+  }}
+  .ledger-talent {{
+    display: none;
+  }}
+  .cap-dossier-card {{
+    padding: 16px 12px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }}
+  .dossier-h4 {{
+    font-size: 18px;
+  }}
+  .dossier-stat-row {{
+    padding: 10px 10px;
+    gap: 6px;
+  }}
+  .dossier-stat-val {{
+    font-size: 13px;
+  }}
+  .dossier-p {{
+    font-size: 13.5px;
+  }}
 }}
 .ledger-row:hover, .ledger-row.active {{
   border-color: var(--row-color, var(--emerald-600));
@@ -1408,10 +1505,18 @@ button {{ cursor: pointer; font: inherit; }}
   color: var(--row-color, var(--ink-400));
   font-weight: 700;
 }}
+.ledger-row {{
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}}
 .ledger-info {{
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
+  overflow: hidden;
 }}
 .ledger-name {{
   font-family: var(--sans);
@@ -2905,13 +3010,25 @@ button {{ cursor: pointer; font: inherit; }}
         </div>
       </div>
 
-      <!-- 3D Elevated Master Allocation Strip -->
-      <div class="cap-precision-strip" id="masterStrip" title="Functional Capability Allocation Track">
-        <div class="strip-segment" id="strip-0" style="background:#B8860B; --seg-color:#B8860B; --seg-glow:rgba(184,134,11,0.6);" data-width="35.4%" data-percent="35.4% · Engineering R&amp;D &amp; AI"></div>
-        <div class="strip-segment" id="strip-1" style="background:#067352; --seg-color:#067352; --seg-glow:rgba(6,115,82,0.6);" data-width="28.1%" data-percent="28.1% · Software &amp; Cloud"></div>
-        <div class="strip-segment" id="strip-2" style="background:#1D4ED8; --seg-color:#1D4ED8; --seg-glow:rgba(29,78,216,0.6);" data-width="19.5%" data-percent="19.5% · BFSI &amp; Risk Quant"></div>
-        <div class="strip-segment" id="strip-3" style="background:#BE185D; --seg-color:#BE185D; --seg-glow:rgba(190,24,93,0.6);" data-width="10.2%" data-percent="10.2% · Life Sciences"></div>
-        <div class="strip-segment" id="strip-4" style="background:#6D28D9; --seg-color:#6D28D9; --seg-glow:rgba(109,40,217,0.6);" data-width="6.8%" data-percent="6.8% · Strategic Ops"></div>
+      <!-- Modern Integrated Readout & Refined Master Allocation Strip -->
+      <div class="cap-live-readout" id="capLiveReadout">
+        <div class="readout-domain">
+          <span class="readout-dot" id="readoutDot" style="background:#B8860B;"></span>
+          <b id="readoutTitle">Engineering R&amp;D &amp; Frontier AI</b>
+        </div>
+        <div class="readout-metrics">
+          <span class="readout-badge" id="readoutShare">35.4% Share</span>
+          <span class="readout-meta" id="readoutTalent">~835,000 FTEs</span>
+          <span class="readout-meta" id="readoutGrowth">+4.8% YoY</span>
+        </div>
+      </div>
+
+      <div class="cap-precision-strip" id="masterStrip">
+        <div class="strip-segment active" id="strip-0" style="background:#B8860B; --seg-color:#B8860B; --seg-glow:rgba(184,134,11,0.5);" data-width="35.4%"></div>
+        <div class="strip-segment" id="strip-1" style="background:#067352; --seg-color:#067352; --seg-glow:rgba(6,115,82,0.5);" data-width="28.1%"></div>
+        <div class="strip-segment" id="strip-2" style="background:#1D4ED8; --seg-color:#1D4ED8; --seg-glow:rgba(29,78,216,0.5);" data-width="19.5%"></div>
+        <div class="strip-segment" id="strip-3" style="background:#BE185D; --seg-color:#BE185D; --seg-glow:rgba(190,24,93,0.5);" data-width="10.2%"></div>
+        <div class="strip-segment" id="strip-4" style="background:#6D28D9; --seg-color:#6D28D9; --seg-glow:rgba(109,40,217,0.5);" data-width="6.8%"></div>
       </div>
 
       <!-- Split Ledger & Deep Dossier -->
@@ -3292,6 +3409,7 @@ button {{ cursor: pointer; font: inherit; }}
       <form id="contactForm" onsubmit="handleContactSubmit(event)">
         <div class="form-group"><label class="form-label" for="contactName">Your Name</label><input class="form-input" id="contactName" type="text" placeholder="e.g. Rajiv Sharma" required/></div>
         <div class="form-group"><label class="form-label" for="contactEmail">Corporate Email</label><input class="form-input" id="contactEmail" type="email" placeholder="rajiv@enterprise.com" required/></div>
+        <div class="form-group"><label class="form-label" for="contactPhone">Contact Number <span style="font-size:10px;color:var(--ink-400);font-weight:400;text-transform:none;">(Optional)</span></label><input class="form-input" id="contactPhone" type="tel" placeholder="e.g. +91 98765 43210"/></div>
         <div class="form-group"><label class="form-label" for="contactInquiryType">Inquiry Classification</label>
           <select class="form-select" id="contactInquiryType">
             <option>Institutional Advisory &amp; Site Feasibility</option>
@@ -3589,6 +3707,19 @@ function initCapabilityLedger() {{
     document.getElementById('dossierTalent').textContent = d.talent;
     document.getElementById('dossierGrowth').textContent = d.growth;
     document.getElementById('dossierText').textContent = d.desc;
+
+    // Update live readout banner above bar
+    const shares = ["35.4%", "28.1%", "19.5%", "10.2%", "6.8%"];
+    const rDot = document.getElementById('readoutDot');
+    const rTitle = document.getElementById('readoutTitle');
+    const rShare = document.getElementById('readoutShare');
+    const rTalent = document.getElementById('readoutTalent');
+    const rGrowth = document.getElementById('readoutGrowth');
+    if (rDot) rDot.style.background = d.color;
+    if (rTitle) rTitle.textContent = d.title;
+    if (rShare) rShare.textContent = shares[idx] + " Share";
+    if (rTalent) rTalent.textContent = d.talent;
+    if (rGrowth) rGrowth.textContent = d.growth;
 
     const chipsEl = document.getElementById('dossierChips');
     if (chipsEl) {{
